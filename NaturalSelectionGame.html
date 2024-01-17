@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natural Selection of Zylarians</title>
+    <link rel="stylesheet" type="text/css" href="NaturalSelectionGame.css">
+</head>
+<body>
+    <!--
+        PAGE
+        INITIAL ZYLARION CREATION FORM
+        div id = zylarianCreationForm
+    -->
+    <div id="zylarianCreationFormPage">
+    <h2>Zylarian Creation Form</h2>
+    <form id="zylarianForm">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+
+        <label for="skinColor">Skin Color:</label><br>
+        <select id="skinColor" name="skinColor">
+            <!--
+            <option value="Green">Green</option>
+            <option value="Sandy Brown">Sandy Brown</option>
+            <option value="Beige">Beige</option>
+            <option value="White">White</option>
+            <option value="Light Blue">Light Blue</option>
+            <option value="Dark Brown">Dark Brown</option>
+            <option value="Black">Black</option>
+            <option value="Red">Red</option>
+            <option value="Yellow">Yellow</option>
+            <option value="Blue">Blue</option>
+            <option value="Gray">Gray</option>
+            <option value="Aquatic Blue">Aquatic Blue</option>
+            <option value="Aquatic Green">Aquatic Green</option>
+            -->
+        </select><br>
+
+        <label for="skinTexture">Skin Texture:</label><br>
+        <select id="skinTexture" name="skinTexture">
+            <!--
+            <option value="Scaly">Scaly</option>
+            <option value="Smooth">Smooth</option>
+            <option value="Furry">Furry</option>
+            <option value="Leathery">Leathery</option>
+            <option value="Feathered">Feathered</option>
+            <option value="Slimy">Slimy</option>
+            -->
+        </select><br>
+
+        <label for="skinPattern">Skin Pattern:</label><br>
+        <select id="skinPattern" name="skinPattern">
+            <!--
+            <option value="Striped">Striped</option>
+            <option value="Spotted">Spotted</option>
+            <option value="Solid">Solid</option>
+            <option value="Iridescent">Iridescent</option>
+            -->
+        </select><br>
+
+        <label for="height">Height (cm):</label><br>
+        <input type="number" id="height" name="height" max="500" min="50" value="100"><br>
+
+        <label for="weight">Weight (g):</label><br>
+        <input type="number" id="weight" name="weight" max="10000" min="75" value="150"><br>
+
+        <label for="limbType">Limb Type:</label><br>
+        <select id="limbType" name="limbType">
+            <!--
+            <option value="Four-legged">Four-legged</option>
+            <option value="Two-legged">Two-legged</option>
+            <option value="Webbed Feet">Webbed Feet</option>
+            <option value="Winged">Winged</option>
+            <option value="Winged">Claws</option>
+            -->
+        </select><br>
+
+        <label for="specialFeatures">Special Feature:</label><br>
+        <select id="specialFeatures" name="specialFeatures">
+            <!--
+            <option value="Night Vision">Night Vision</option>
+            <option value="Amphibious">Amphibious</option>
+            <option value="Enhanced Hearing">Enhanced Hearing</option>
+            -->
+        </select><br>
+
+        <label for="dietType">Diet Type:</label><br>
+        <select id="dietType" name="dietType">
+            <!--
+            <option value="Herbivore">Herbivore</option>
+            <option value="Carnivore">Carnivore</option>
+            <option value="Omnivore">Omnivore</option>
+            -->
+        </select><br><br>
+
+        <input type="button" value="Create Zylarian" onclick="createZylarian()">
+    </form>
+    <script src="NaturalSelectionGame.js"></script>
+    </div>
+    <!--END PAGE-->
+
+    <!--
+        PAGE
+        ARRAY OF ZYLARIONS CONTROLLED BY PLAYER
+        div id = zylariansControlledByPlayer
+    -->
+    <div id="zylariansControlledByPlayerPage">
+        <h2>Your Zylarians</h2>
+        <!-- Zylarion list container 
+            div id = zylarianList--> 
+        <div>
+            <h3>Player's Zylarians:</h3>
+            <ul id="zylariansControlledByPlayerListContainer">
+                <!-- Zylarians will be listed here -->
+            </ul>
+        </div>
+    </div>
+    <!--END PAGE-->
+</body>
+</html>
