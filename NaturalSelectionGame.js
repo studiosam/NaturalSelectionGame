@@ -7,6 +7,7 @@ Initializing global variables
     let initialZylarian = {}; //Object to hold the initial zylarian for the entire game
     let currentMate = {}; // Object to hold the current mating partner
     let generation = 0; // Keeping track of generations
+    let month = 0;
 
 /* 
 Arrays of trait objects
@@ -319,7 +320,7 @@ Arrays of traits with multiple type options. -- Used for populating dropdown men
         "dietType" 
     ];
     const mateVariablesWithOptions = [
-        "mateSkinColor", 
+         
         "mateSkinTexture", 
         "mateSkinPattern", 
         "mateLimbType", 
@@ -330,7 +331,10 @@ Arrays of traits with multiple type options. -- Used for populating dropdown men
 /* 
 Data Model and constructor for each zylarian 
 */
-
+    /*
+    Creating new zylarians
+    */
+   
     class Zylarian {
         constructor(name, height, weight, skinColor, skinTexture, skinPattern, limbType, specialFeatures, dietType, isInitial = false) {
             this.name = name || generateRandomName();
@@ -376,14 +380,11 @@ Data Model and constructor for each zylarian
         Creating a Zylarian through mating (genotypes will be handled in the mating logic)
         let childZylarian = new Zylarian("Zylina", "Green", "Scaly", "Striped", 140, 450, "Quadripedal", "Night Vision", "Carnivore");
         */
-        
-    }
        
-/*
-Creating new zylarians
-*/
+    }
+    
 
-    // Create initial zylarian from user form and add it to the array of zylarians that the player controls
+    // Create initial zylarian from user form and return the zylarian
     function createInitialZylarian() {
         const MIN_HEIGHT = 50;
         const MAX_HEIGHT = 300;
@@ -398,7 +399,7 @@ Creating new zylarians
         // Check if values are within the allowed range
         if (height < MIN_HEIGHT || height > MAX_HEIGHT || weight < MIN_WEIGHT || weight > MAX_WEIGHT) {
             alert("Please select a valid height and weight for the Zylarian.");
-            return null;
+            return;
         }
     
         // Create the initial Zylarian with correct argument order
@@ -428,9 +429,13 @@ Creating new zylarians
 
     }
 
-    /*
-    Utility Functions
-    */
+/*
+Utility Functions
+*/
+    // Returns zylarian object from a name
+    function getZylarianByName(name) {
+        return population.find(zylarian => zylarian.name === name);
+    }
    
    // Returns a random name
    function generateRandomName() {
@@ -514,12 +519,25 @@ Mating Logic
 */
 
     // Sets the attributes of the current mate and returns a mating pair of objects as an array
-    function setCurrentMate(playerZylarianName) {
-        let playerZylarian = playerZylarianName
+    function setCurrentMatingPair() {
+        // Set player zylarian object
+        let playerZylarian = getZylarianByName(form.nameChoice.value);
+
         const form = document.getElementById('mateForm');
-        currentMate = {
-            skinColor: form.mateSkinColor.value,
-            skinTexture: form.mateSkinTexture.value,
+        currentMateFormValues = {
+            name: form.mateName.value || generateRandomName(),
+            skinColorGenotypes: {
+                redGenotype: form.mateRedGenotype.value,
+                greenGenotype: form.mateGreenGenotype.value,
+                blueGenotype: form.mateBlueGenotype.value,
+                brownGenotype: form.mateBrownGenotype.value
+            },
+            skinTextureGenotypes: {
+                skinMoistureGenotype: form.mateSkinMoistureGenotype.value,
+                scaleGenotype: form.mateScaleGenotype.value,
+                feathered: form.mateFeathered.value,
+                furry: form.mateFurry.value
+            },
             skinPattern: form.mateSkinPattern.value,
             height: parseInt(form.mateHeight.value, 10), // Assuming height is a number
             weight: parseInt(form.mateWeight.value, 10), // Assuming weight is a number
@@ -527,12 +545,8 @@ Mating Logic
             specialFeatures: form.mateSpecialFeatures.value,
             dietType: form.mateDietType.value
         };
-        if(form.mateName.value) {
-            currentMate.name = form.mateName.value;
-        }
-        else {
-            currentMate.name = generateRandomName();
-        }
+
+        // Set current mate to a new constructor that hasn't been made yet
 
         // Optional: Add validation here
         if(!areAllValuesNonEmpty(currentMate)) {
@@ -611,6 +625,18 @@ Handling button submit forms
 */
    
    // Handling initial zylarian form submit
+    function handleInitialZylarian() {
+       const newZylarian = createInitialZylarian();
+       if (newZylarian) {
+            population.push(newZylarian);
+            updateZylarianList();
+            updateScreen(); // Update the screen only if a new Zylarian is successfully created
+        } else {
+            // Handle the case where no Zylarian is created (e.g., show an error message)
+            console.error("Failed to create a new Zylarian.");
+        }
+    }
+    
    // Handling mating form submit
    // Handling next month form submit
    
@@ -620,12 +646,16 @@ UI Manipulation
   
     // Update screen on clicks
     function updateScreen() {
-        // Hide the creation form and show the Zylarians list
-        document.getElementById('zylarianCreationFormPage').style.display = 'none';
-        document.getElementById('zylariansControlledByPlayerPage').style.display = 'block';
-        
-        // Populate the mate form dropdowns
-        initializeZylarianMenu(mateVariablesWithOptions);
+        switch(month) {
+            case 0:
+                // Hide the creation form and show the Zylarians list
+                document.getElementById('initialZylarianCreationFormPage').style.display = 'none';
+                document.getElementById('zylariansControlledByPlayerPage').style.display = 'block';
+                // Populate the mate form dropdowns
+                initializeZylarianMenu(mateVariablesWithOptions);
+        }
+    
+
     }
 
     // Clears the existing zylarian list to start fresh each time and creates a list item for each player zylarian
