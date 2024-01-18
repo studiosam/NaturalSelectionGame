@@ -314,7 +314,6 @@ Arrays of traits with multiple type options. -- Used for populating dropdown men
     const variablesWithOptions = [
         "skinColor", 
         "skinTexture", 
-        "skinPattern", 
         "limbType", 
         "specialFeatures", 
         "dietType" 
@@ -335,33 +334,37 @@ Data Model and constructor for each zylarian
     Creating new zylarians
     */
    
-    class Zylarian {
-        constructor(name, height, weight, skinColor, skinTexture, skinPattern, limbType, specialFeatures, dietType, isInitial = false) {
+    class InitialZylarian {
+        constructor(name, height, weight, activity, skinColor, skinTexture, limbType, specialFeatures, dietType) {
+            console.log("Generating initial zylarian");
             this.name = name || generateRandomName();
             this.height = height;
             this.weight = weight;
+            this.activity = activity;
             this.skinColor = skinColor;
             this.skinTexture = skinTexture;
-            this.skinPattern = skinPattern;
             this.limbType = limbType;
             this.specialFeatures = specialFeatures;
             this.dietType = dietType;
+            console.log(this)
             
-            // Generate genotypes only for the initial Zylarian
-            if (isInitial) {
-                this.colorGenotypes = assignGenotypesForColor(skinColor);
-                this.skinTextureGenotypes = assignGenotypesForSkinTexture(skinTexture);
-                this.extractAndStoreAlleles();
-            }
+            // Generate genotypes for the initial Zylarian
+            console.log("Generating genotypes for the initial Zylarian.");
+            this.colorGenotypes = assignGenotypesForColor(skinColor);
+            this.skinTextureGenotypes = assignGenotypesForSkinTexture(skinTexture);
+            this.extractAndStoreAlleles();
+            console.log(this);
         }
-
+    
         extractAndStoreAlleles() {
+            console.log("Extracting alleles for the initial zylarian");
             // Function to split a genotype into alleles
             const splitGenotype = (genotype) => {
                 return genotype.split('');
             };
-
+    
             // Store alleles
+            console.log("Storing alleles for the initial zylarian");
             this.alleles = {
                 redAlleles: splitGenotype(this.colorGenotypes.redGenotype),
                 greenAlleles: splitGenotype(this.colorGenotypes.greenGenotype),
@@ -369,69 +372,68 @@ Data Model and constructor for each zylarian
                 brownAlleles: splitGenotype(this.colorGenotypes.brownGenotype),
                 skinMoistureAlleles: splitGenotype(this.skinTextureGenotypes.skinMoistureGenotype),
                 scaleAlleles: splitGenotype(this.skinTextureGenotypes.scaleGenotype)
-            }
-        };
-    
-        
-        /* DOCUMENTATION *
-        Example usage:
-        Creating the initial Zylarian with genotypes
-        let initialZylarian = new Zylarian("Zylo", "Green", "Scaly", "Striped", 150, 500, "Quadripedal", "Night Vision", "Carnivore", true);
-        Creating a Zylarian through mating (genotypes will be handled in the mating logic)
-        let childZylarian = new Zylarian("Zylina", "Green", "Scaly", "Striped", 140, 450, "Quadripedal", "Night Vision", "Carnivore");
-        */
-       
+            };
+            console.log(this);
+        }
+        /* Example usage:
+        const initialZylarian = new InitialZylarian("Zylo", 150, 500, "Green", "Scaly", "Quadripedal", "Night Vision", "Carnivore");*/
     }
     
 
     // Create initial zylarian from user form and return the zylarian
     function createInitialZylarian() {
+        console.log("Getting form values")
+        // Set limits of initial zylarian size
         const MIN_HEIGHT = 50;
         const MAX_HEIGHT = 300;
         const MIN_WEIGHT = 75;
         const MAX_WEIGHT = 10000;
         const form = document.getElementById('zylarianForm');
-    
+        console.log(form);
+
         // Extract values with correct types
         const height = parseInt(form.height.value, 10);
         const weight = parseInt(form.weight.value, 10);
-    
-        // Check if values are within the allowed range
-        if (height < MIN_HEIGHT || height > MAX_HEIGHT || weight < MIN_WEIGHT || weight > MAX_WEIGHT) {
-            alert("Please select a valid height and weight for the Zylarian.");
-            return;
-        }
-    
-        // Create the initial Zylarian with correct argument order
-        const initialZylarian = new Zylarian(
-            form.name.value,
-            height, // Correct position for height
-            weight, // Correct position for weight
-            form.skinColor.value,
-            form.skinTexture.value,
-            form.skinPattern.value,
-            form.limbType.value,
-            form.specialFeatures.value,
-            form.dietType.value,
-            true // isInitial is set to true
-        );
 
-        // Make sure each variable has a valid value
-        if(!areAllValuesNonEmpty(initialZylarian) || height < MIN_HEIGHT || height > MAX_HEIGHT || weight < MIN_WEIGHT || weight > MAX_WEIGHT) {
-            alert("Please select a valid value for each option");
+        // Check if values are within the allowed range
+        if (!areAllValuesNonEmpty(initialZylarian) ||height < MIN_HEIGHT || height > MAX_HEIGHT || weight < MIN_WEIGHT || weight > MAX_WEIGHT) {
+            alert("Please select a valid value for each choice.");
             return;
         }
-        return initialZylarian;
+        else {
+        
+            // Create the initial Zylarian with correct argument order
+            const initialZylarian = new InitialZylarian(
+                form.name.value,
+                height, // Correct position for height
+                weight, // Correct position for weight
+                form.activity.value,
+                form.skinColor.value,
+                form.skinTexture.value,
+                form.limbType.value,
+                form.specialFeatures.value,
+                form.dietType.value,
+            );
+    
+            if(initialZylarian){
+                console.log("Zylarian created successfully")
+            }
+            else {
+                console.log("Error creating zylarian")
+            }
+            return initialZylarian;
+        }
     }
 
     // Create a zylarian using mating logic -- EMPTY
     function createZylarianByMating(zylarian1, zylarian2) {
-
+        console.log("A Zylarian was born!")
     }
 
 /*
 Utility Functions
 */
+
     // Returns zylarian object from a name
     function getZylarianByName(name) {
         return population.find(zylarian => zylarian.name === name);
@@ -572,7 +574,8 @@ Mating Logic
 
     // Mating function
     function mateAttempt(zylarian1, zylarian2) {
-        let successfulMate = activityMating(zylarian1.activity, zylarian2.activity);
+        let mateActivityCheck = activityMating(zylarian1.activity, zylarian2.activity);
+        let mateSizeCheck = sizeMating()
         let newHeight = heightWeightMating(zylarian1.height, zylarian2.height);
         let newWeight = heightWeightMating(zylarian1.weight, zylarian2.weight);
         let newSkinTexture = skinTextureMating(zylarian1.skinTexture, zylarian2.skinTexture);
@@ -616,7 +619,7 @@ Mating Logic
             return Math.random > 0.2;
         }
         else {
-            return Math.random > 0.7;
+            return Math.random > 0.9;
         }
     }
     
@@ -662,11 +665,14 @@ UI Manipulation
     function updateZylarianList() {
         const listContainer = document.getElementById('zylariansControlledByPlayerListContainer');
         listContainer.innerHTML = ''; // Clear existing list
+        console.log(population);
         
         // Creates a list item for each zylarian in the array
         population.forEach((zylarian, index) => {
-            const genotypes = zylarian.colorGenotypes;
-            const genotypeString = `Red: ${genotypes.redGenotype}, Green: ${genotypes.greenGenotype}, Blue: ${genotypes.blueGenotype}, Brown: ${genotypes.brownGenotype}`;
+            const colorGenotypes = zylarian.colorGenotypes;
+            const textureGenotypes = zylarian.skinTextureGenotypes;
+            const skinColorGenotypeString = `Red: ${colorGenotypes.redGenotype}, Green: ${colorGenotypes.greenGenotype}, Blue: ${colorGenotypes.blueGenotype}, Brown: ${colorGenotypes.brownGenotype}`;
+            const skinTextureGenotypeString = `Scales: ${textureGenotypes.scaleGenotype}, Skin Moisture: ${textureGenotypes.skinMoistureGenotype}, Feathered: ${textureGenotypes.feathered}, Furry: ${textureGenotypes.furry}`;
             
             const listItem = document.createElement('li');
             listItem.innerHTML = `
@@ -674,7 +680,8 @@ UI Manipulation
             Color: ${zylarian.skinColor}, Texture: ${zylarian.skinTexture}, Pattern: ${zylarian.skinPattern}<br>
             Height: ${zylarian.height} cm, Weight: ${zylarian.weight} g<br>
             Limb Type: ${zylarian.limbType}, Special Feature: ${zylarian.specialFeatures}, Diet: ${zylarian.dietType}<br>
-            Color Genotypes: ${genotypeString}
+            Color Genotypes: ${skinColorGenotypeString}<br>
+            Skin Texture Genotypes: ${skinTextureGenotypeString}
             `;
             listContainer.appendChild(listItem);
         });

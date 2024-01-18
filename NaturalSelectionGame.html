@@ -71,17 +71,7 @@
                     <option value="Feathered">Feathered</option>
                     <option value="Slimy">Slimy</option>
                     -->
-                </select><br>
-        
-                <label for="skinPattern">Skin Pattern:</label><br>
-                <select id="skinPattern" name="skinPattern" required>
-                    <!--
-                    <option value="Striped">Striped</option>
-                    <option value="Spotted">Spotted</option>
-                    <option value="Solid">Solid</option>
-                    <option value="Iridescent">Iridescent</option>
-                    -->
-                </select><br>
+                </select><br> 
         </fieldset>
 
         <fieldset>
@@ -137,16 +127,19 @@
             <div id="mateFormContainer">
                 <h3>Enter Mating Traits</h3>
                 <form id="mateForm">
-                    <!--Your Zylarian's Name-->
-                    <label for="nameChoice">Your Zylarian's Name:</label><br>
-                    <input type="text" id="nameChoice" name="nameChoice"><br>
-                    
-                    <!-- Mate Name -->
-                    <label for="mateName">Mate Name:</label><br>
-                    <input type="text" id="mateName" name="mateName"><br>
+                    <fieldset>
+                        <legend>Names of Zylarians</legend>
+                            <!--Your Zylarian's Name-->
+                            <label for="nameChoice">Your Zylarian's Name:</label><br>
+                            <input type="text" id="nameChoice" name="nameChoice"><br>
+                            
+                            <!-- Mate Name -->
+                            <label for="mateName">Mate Zylarian's Name:</label><br>
+                            <input type="text" id="mateName" name="mateName"><br>
+                    </fieldset>
 
                     <fieldset>
-                        <legend>Physical Traits</legend>
+                        <legend>Mate's Physical Traits</legend>
                             <!-- Height -->
                             <label for="mateHeight">Height (cm):</label><br>
                             <input type="number" id="mateHeight" name="mateHeight" max="300" min="50" placeholder="50-300"><br>
