@@ -345,7 +345,7 @@ Creating new zylarians
             this.skinColor = skinColor;
             this.skinTexture = skinTexture;
             this.limbType = limbType;
-            this.specialFeatures = specialFeatures;
+            this.specialFeatures = [specialFeatures];
             this.dietType = dietType;
             console.log(this)
             
@@ -517,6 +517,11 @@ Utility Functions
         }
     }
 
+    // Returns true or false based on a given probability
+    function getRandomBoolean(probability) {
+        return Math.random() < probability;
+    }
+
 /*
 Mating Logic
 */
@@ -530,7 +535,7 @@ Mating Logic
 
         const form = document.getElementById('mateForm');
         currentMateFormValues = {
-            name: form.mateName.value || generateRandomName(),
+            name: form.mateName.value,
             skinColorGenotypes: {
                 redGenotype: form.mateRedGenotype.value,
                 greenGenotype: form.mateGreenGenotype.value,
@@ -547,7 +552,7 @@ Mating Logic
             height: parseInt(form.mateHeight.value, 10), // Assuming height is a number
             weight: parseInt(form.mateWeight.value, 10), // Assuming weight is a number
             limbType: form.mateLimbType.value,
-            specialFeatures: form.mateSpecialFeatures.value,
+            specialFeatures: [form.mateSpecialFeatures.value],
             dietType: form.mateDietType.value
         };
 
@@ -579,20 +584,32 @@ Mating Logic
     function mateAttempt(zylarian1, zylarian2) {
         let mateActivityCheck = activityMating(zylarian1.activity, zylarian2.activity);
         let mateSizeCheck = reproductiveSuccessBySize(zylarian1.height, zylarian2.height, zylarian1.weight, zylarian2.weight, alphaH, alphaW);    
+        let newActivity = trueFalseMating(zylarian1.activity, zylarian2.activity);
         let newHeight = heightWeightMating(zylarian1.height, zylarian2.height);
         let newWeight = heightWeightMating(zylarian1.weight, zylarian2.weight);
         let newSkinTexture = skinTextureMating(zylarian1.skinTexture, zylarian2.skinTexture);
         let newLimbType = limbTypeMating(zylarian1.limbType, zylarian2.limbType);
-
+        let newFeathered = trueFalseMating(zylarian1.feathered, zylarian2.feathered);
+        let newFurry = trueFalseMating(zylarian1.furry, zylarian2.furry);
+        let newDietType = trueFalseMating(zylarian1.dietType, zylarian2.dietType);
     }
 
-    // Height mating algorithm returns a random number between the max and min height of the parents
+    // Height and weight mating algorithm returns a random number between the max and min height of the parents
     function heightWeightMating(measurement1, measurement2) {
         let max = Math.max(measurement1, measurement2) + measurement1*.1;
             let min = Math.min(measurement1, measurement2) - measurement2*.1;
             return Math.floor(Math.random() * (max - min + 1)) + min; // The maximum is inclusive and the minimum is inclusive
     }
-    
+
+    // Feather and fur mating algorithm returns an array of two booleans for whether the new zylarian is fethered or furry
+    function trueFalseMating(trait1, trait2) {
+        if (trait1 == trait2) {
+            return trait1;
+        } else {
+            return getRandomBoolean(0.5);
+        }
+    }
+
     // Sets the skin color, texture, and pattern based on the skin alleles
     function skinGeneProcessor(zylarian) {
 
