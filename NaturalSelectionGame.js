@@ -522,6 +522,27 @@ Utility Functions
         return Math.random() < probability;
     }
 
+    // Returns the full genotype when two genes are linked
+    function linkGenes(gene1Genotype, gene2Genotype) {
+        return gene1Genotype + gene2Genotype;
+    }
+
+    // Returns an array of two sets of alleles for two traits that are linked
+    function simulateLinkage(genotype1, genotype2, linkChance) {
+        // Randomly determine if alleles for the two genes will be linked
+        const crossingOver = Math.random() < linkChance; // 50% chance of linkage, adjust as needed
+    
+        if (!crossingOver) {
+            console.log("Crossing over did not occer.")
+            // If linked, return the alleles as they are
+            return [genotype1.charAt(0) + genotype2.charAt(0), genotype1.charAt(1), genotype2.charAt(1)];
+        } else {
+            console.log("Crossing over has occurred between two linked traits.")
+            // If not linked, swap alleles of the second gene
+            return [genotype1.charAt(0) + genotype2.charAt(1), genotype1.charAt(1) + genotype2.charAt(0)];
+        }
+    }
+
 /*
 Mating Logic
 */
@@ -612,10 +633,6 @@ Mating Logic
 
     // Sets the skin color, texture, and pattern based on the skin alleles
     function skinGeneProcessor(zylarian1, zylarian2) {
-        yuh
-        \]54
-
-        //woah shit
     }
 
     // Limb type mating algorithm returns an array of limb types. Meant to introduce centaur like body types as a mutation when types differ
@@ -659,7 +676,6 @@ Mating Logic
     
         return Math.exp(-(ALPHA_H * heightDifference + ALPHA_W * weightDifference));
     }
-    
     
 /*
 Handling button submit forms
