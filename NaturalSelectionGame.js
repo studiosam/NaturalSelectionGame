@@ -611,8 +611,11 @@ Mating Logic
     }
 
     // Sets the skin color, texture, and pattern based on the skin alleles
-    function skinGeneProcessor(zylarian) {
+    function skinGeneProcessor(zylarian1, zylarian2) {
+        yuh
+        \]54
 
+        //woah shit
     }
 
     // Limb type mating algorithm returns an array of limb types. Meant to introduce centaur like body types as a mutation when types differ
