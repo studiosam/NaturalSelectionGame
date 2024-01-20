@@ -3,6 +3,7 @@
 /*
 Initializing global variables
 */
+
     let population = []; // Array of zylarians controlled by the player
     let initialZylarian = {}; //Object to hold the initial zylarian for the entire game
     let currentMate = {}; // Object to hold the current mating partner
@@ -327,11 +328,11 @@ Arrays of traits with multiple type options. -- Used for populating dropdown men
         "mateDietType" 
     ];
 
-/* 
-Data Model and constructor for each zylarian 
+/*
+Creating new zylarians
 */
-    /*
-    Creating new zylarians
+    /* 
+    Data Model and constructor for each zylarian 
     */
    
     class InitialZylarian {
@@ -522,6 +523,8 @@ Mating Logic
 
     // Sets the attributes of the current mate and returns a mating pair of objects as an array
     function setCurrentMatingPair() {
+        console.log("Mating button pressed")
+
         // Set player zylarian object
         let playerZylarian = getZylarianByName(form.nameChoice.value);
 
@@ -575,7 +578,7 @@ Mating Logic
     // Mating function
     function mateAttempt(zylarian1, zylarian2) {
         let mateActivityCheck = activityMating(zylarian1.activity, zylarian2.activity);
-        let mateSizeCheck = sizeMating()
+        let mateSizeCheck = reproductiveSuccessBySize(zylarian1.height, zylarian2.height, zylarian1.weight, zylarian2.weight, alphaH, alphaW);    
         let newHeight = heightWeightMating(zylarian1.height, zylarian2.height);
         let newWeight = heightWeightMating(zylarian1.weight, zylarian2.weight);
         let newSkinTexture = skinTextureMating(zylarian1.skinTexture, zylarian2.skinTexture);
@@ -590,9 +593,10 @@ Mating Logic
             return Math.floor(Math.random() * (max - min + 1)) + min; // The maximum is inclusive and the minimum is inclusive
     }
     
-    // Skin Texture mating algorithm returns a skin texture as a string. Meant to represent linked genes, as each initial zylarian's color genetics and skin texture genetics will be linked together.
-    
-    //Skin Pattern mating algorithm returns a skin pattern as a string. Meant to represent co-dominance when more than 1 dominant allele is present.
+    // Sets the skin color, texture, and pattern based on the skin alleles
+    function skinGeneProcessor(zylarian) {
+
+    }
 
     // Limb type mating algorithm returns an array of limb types. Meant to introduce centaur like body types as a mutation when types differ
     function limbTypeMating(type1, type2,) {
@@ -622,6 +626,20 @@ Mating Logic
             return Math.random > 0.9;
         }
     }
+
+    // Returns a number for reproductive success probability based on height and weight. 
+    function reproductiveSuccessBySize(height1, height2, weight1, weight2) {
+        const ALPHA_H = 1;
+        const ALPHA_W = 1;
+        let avgHeight = (height1 + height2) / 2;
+        let avgWeight = (weight1 + weight2) / 2; 
+
+        let heightDifference = Math.abs(height1 - height2) / avgHeight;
+        let weightDifference = Math.abs(weight1 - weight2) / avgWeight;
+    
+        return Math.exp(-(ALPHA_H * heightDifference + ALPHA_W * weightDifference));
+    }
+    
     
 /*
 Handling button submit forms
