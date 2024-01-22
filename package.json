@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "dotenv": "^16.3.2",
+    "express": "^4.18.2",
+    "socket.io": "^4.7.4"
+  },
+  "name": "naturalselectiongame",
+  "version": "1.0.0",
+  "description": "Natural Selection Game",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "studiosam & chrisdogtn",
+  "license": "ISC"
+}
