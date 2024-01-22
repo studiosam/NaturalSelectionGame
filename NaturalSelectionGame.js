@@ -403,6 +403,8 @@ class InitialZylarian {
       scaleAlleles: splitGenotype(this.skinTextureGenotypes.scaleGenotype),
     };
     console.log(this);
+    logToServer(`Zylarian ${this.name} created successfully!`);
+    sendZylarianData(initialZylarian);
   }
   /* Example usage:
         const initialZylarian = new InitialZylarian("Zylo", 150, 500, "Green", "Scaly", "Quadripedal", "Night Vision", "Carnivore");*/
@@ -449,8 +451,6 @@ function createInitialZylarian() {
 
     if (initialZylarian) {
       console.log("Zylarian created successfully");
-      logToServer(`Zylarian ${form.name.value} created successfully!`);
-      sendZylarianData(initialZylarian);
     } else {
       console.log("Error creating zylarian");
     }
