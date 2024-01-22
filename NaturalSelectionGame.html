@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Natural Selection of Zylarians</title>
     <link rel="stylesheet" type="text/css" href="NaturalSelectionGame.css">
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js" integrity="sha384-Gr6Lu2Ajx28mzwyVR8CFkULdCU7kMlZ9UthllibdOSo6qAiN+yXNHqtgdTvFXMT4" crossorigin="anonymous"></script>
+<script src="/socket.js"></script>
+
+
 </head>
 <body>
     <!--
@@ -13,6 +17,7 @@
         INITIAL ZYLARION CREATION FORM
         div id = zylarianCreationForm
     -->
+    <h1 id="socketTest"></h1>
     <div id="initialZylarianCreationFormPage">
     <h2>Zylarian Creation Form</h2>
     <form id="zylarianForm">
@@ -107,6 +112,7 @@
         </fieldset>
         <input type="button" value="Create Zylarian" onclick="handleInitialZylarian()">
     </form>
+
     </div>
     <!--END PAGE-->
 
@@ -221,6 +227,7 @@
                 <p id="mateText"></p>
         </div>
     </div>
+
     <!--END PAGE-->
 <script src="NaturalSelectionGame.js"></script>
 </body>
