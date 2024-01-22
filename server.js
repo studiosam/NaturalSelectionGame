@@ -37,12 +37,8 @@ io.on("connection", async (socket) => {
 
   // Receive Zylarian Data From Client To Send To Back To All //
   socket.on("zylarianData", (data) => {
-    sendZylrianData(data);
+    sendZylarianData(data);
   });
-});
-
-io.on("disconnect", async (socket) => {
-  console.log(`User disconnected! ID : ${socket.id} `); // false
 });
 
 // Send Data to Client //
@@ -51,6 +47,6 @@ async function logToClient(msg) {
   await io.emit("log", msg);
 }
 
-async function sendZylrianData(data) {
+async function sendZylarianData(data) {
   await io.emit("ZylarianData", data);
 }

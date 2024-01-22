@@ -18,13 +18,13 @@ socket.on("log", async function (msg) {
 
 // Receive Zylarian Data Back From Server //
 socket.on("ZylarianData", async function (data) {
-  console.log("SUCCESS!!!!!", data.name);
+  console.log("SUCCESS!!!!!", data);
 });
 // Send Messages To Server //
 async function logToServer(msg) {
   socket.emit("logToServer", msg);
 }
 
-async function sendZylrianData(data) {
+async function sendZylarianData(data) {
   socket.emit("zylarianData", data);
 }

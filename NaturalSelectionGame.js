@@ -450,7 +450,7 @@ function createInitialZylarian() {
     if (initialZylarian) {
       console.log("Zylarian created successfully");
       logToServer(`Zylarian ${form.name.value} created successfully!`);
-      sendZylrianData(initialZylarian);
+      sendZylarianData(initialZylarian);
     } else {
       console.log("Error creating zylarian");
     }
