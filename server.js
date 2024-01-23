@@ -23,9 +23,14 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-app.post("/", function (req, res) {
+app.post("/", async function (req, res) {
   console.log(req.body);
-  createUser(req.body.username, req.body.password);
+  const createCheck = await createUser(req.body.username, req.body.password);
+  if (createCheck === "success") {
+    res.send("success");
+  } else if (createCheck === "error") {
+    res.send("error");
+  }
 });
 
 server.listen(process.env.PORT || 3000, () => {

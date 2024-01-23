@@ -66,7 +66,14 @@ async function createUser(username, password) {
     username: username,
     password: password,
   };
-  await addDoc(usersCollection, userData);
+  const newUserRef = await addDoc(usersCollection, userData);
+  if (newUserRef.id) {
+    console.log(`New User ${username} created with ID : ${newUserRef.id}`);
+    return "success";
+  } else {
+    console.log(`ERROR CREATING USER`);
+    return "error";
+  }
 }
 
 // async function createUser(username, password) {

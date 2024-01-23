@@ -40,5 +40,9 @@ async function sendLoginData(formData) {
     },
     body: data,
   });
-  console.log(formData);
+  if (response.status === 200) {
+    console.log("User Created!");
+  } else {
+    console.log("Error");
+  }
 }
