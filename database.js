@@ -36,9 +36,33 @@ async function getUsers() {
   collection.docs.forEach((user) => {
     users.push({ ...user.data(), id: user.id });
   });
-  console.log(users);
+
+  return users;
 }
 
+async function checkUsers(user) {
+  const currentUsers = [];
+  const allUsers = await getUsers();
+  allUsers.forEach((username, index) => {
+    currentUsers.push({
+      username: username.username,
+      password: username.password,
+    });
+  });
+  const findUser = currentUsers.find(
+    (usersearch) => usersearch.username === user
+  );
+  if (findUser) {
+    console.log(
+      `User ${findUser.username} exists with the password hash ${findUser.password}`
+    );
+    return { exists: true, passwordHash: findUser.password };
+  } else {
+    return "create";
+  }
+
+  // console.log(allUsers);
+}
 // List all Zylarians //
 async function getZylarians() {
   let zylarians = [];
@@ -97,6 +121,7 @@ async function updateUsers() {}
 //getUsers();
 //createZylarian();
 //getZylarians();
+checkUsers("asd");
 //getMyZylarians("bitch");
 
 module.exports = {
@@ -105,4 +130,5 @@ module.exports = {
   getUsers,
   getZylarians,
   getMyZylarians,
+  checkUsers,
 };

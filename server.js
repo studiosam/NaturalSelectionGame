@@ -11,6 +11,7 @@ const {
   getUsers,
   getZylarians,
   getMyZylarians,
+  checkUsers,
 } = require("./database.js");
 
 global.io = require("socket.io")(server, {
@@ -26,12 +27,30 @@ app.use(express.urlencoded({ extended: true }));
 
 app.post("/", async function (req, res) {
   console.log(req.body);
-
-  const createCheck = await hashPassword(req.body.username, req.body.password);
-  if (createCheck === "success") {
-    res.send("success");
-  } else if (createCheck === "error") {
-    res.send("error");
+  const checkForUser = await checkUsers(req.body.username);
+  console.log("Check for User = " + checkForUser);
+  if (checkForUser.exists === true) {
+    const isValid = await verifyPassword(
+      req.body.password,
+      checkForUser.passwordHash
+    );
+    console.log(isValid);
+    if (isValid) {
+      res.send({ body: "success", user: req.body.username });
+    } else {
+      res.send({ body: "error", type: "invalid_password" });
+    }
+  } else if (checkForUser === "create") {
+    res.send({ body: "newUser" });
+    const createCheck = await hashPassword(
+      req.body.username,
+      req.body.password
+    );
+    if (createCheck === "success") {
+      res.send({ body: "success", user: req.body.username });
+    } else {
+      res.send({ body: "error" });
+    }
   }
 });
 

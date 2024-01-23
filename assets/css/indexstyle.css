@@ -1,0 +1,29 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Poppins';
+  color: floralwhite;
+  background-color: #121b29;
+}
+
+#loginContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+#currentUser {
+  color: #ffb800;
+  font-weight: bold;
+}
+
+button {
+  padding: 10px 30px !important;
+}
+
+#loginError {
+  color: red;
+}
+
