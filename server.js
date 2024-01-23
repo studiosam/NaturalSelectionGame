@@ -1,6 +1,8 @@
 const express = require("express");
 var app = express();
 var server = require("http").Server(app);
+var cors = require("cors");
+
 require("dotenv").config();
 const {
   createZylarian,
@@ -15,10 +17,16 @@ global.io = require("socket.io")(server, {
     origin: "*",
   },
 });
+app.use(cors());
 
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
+
+app.post("/", function (req, res) {
+  console.log(req.body);
+  res.send("Hello World");
+});
 
 server.listen(process.env.PORT || 3000, () => {
   console.log(`Server running on port ${process.env.PORT}`);
@@ -43,10 +51,9 @@ io.on("connection", async (socket) => {
   });
 
   // Receive Zylarian Data From Client To Send To Back To All //
-  socket.on("zylarianData", (data) => {
-    createZylarian(data);
-    console.log("log " + data);
-    sendZylarianData(data);
+  socket.on("zylarianData", async (data) => {
+    await createZylarian(data);
+    await sendZylarianData(data);
   });
 });
 
