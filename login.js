@@ -3,12 +3,10 @@ const loginError = document.querySelector("#loginError");
 const currentUser = document.querySelector("#currentUser");
 const currentUserData = localStorage.getItem("username");
 const logoutBtn = document.querySelector("#logout");
-// loginBtn.addEventListener("click", login);
 logoutBtn.addEventListener("click", logout);
 const form = document.querySelector("#loginForm");
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-
   login();
 });
 currentUser.innerHTML = currentUserData;
@@ -16,6 +14,7 @@ async function logout() {
   localStorage.removeItem("username");
   currentUser.innerHTML = localStorage.getItem("username");
 }
+
 async function login() {
   const username = document.querySelector("#username").value;
   const password = document.querySelector("#password").value;
@@ -33,12 +32,13 @@ async function login() {
 }
 
 async function sendLoginData(formData) {
-  const response = fetch("http://127.0.0.1:3000", {
+  const data = new URLSearchParams(formData);
+  const response = await fetch("http://127.0.0.1:3000", {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
-    body: formData,
+    body: data,
   });
   console.log(formData);
 }
