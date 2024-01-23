@@ -2,6 +2,7 @@ const express = require("express");
 var app = express();
 var server = require("http").Server(app);
 var cors = require("cors");
+const bcrypt = require("bcrypt");
 
 require("dotenv").config();
 const {
@@ -25,7 +26,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.post("/", async function (req, res) {
   console.log(req.body);
-  const createCheck = await createUser(req.body.username, req.body.password);
+  hashPassword(req.body.username, req.body.password);
+  const createCheck = await hashPassword(req.body.username, req.body.password);
   if (createCheck === "success") {
     res.send("success");
   } else if (createCheck === "error") {
@@ -70,4 +72,14 @@ async function logToClient(msg) {
 
 async function sendZylarianData(data) {
   await io.emit("ZylarianData", data);
+}
+
+async function hashPassword(username, plaintextPassword) {
+  const saltRounds = 10;
+  const hash = await bcrypt.hash(plaintextPassword, saltRounds);
+  createUser(username, hash);
+}
+
+async function verifyPassword(plaintextPassword, storedHash) {
+  return await bcrypt.compare(plaintextPassword, storedHash);
 }
