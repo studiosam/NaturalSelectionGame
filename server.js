@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.post("/", async function (req, res) {
   console.log(req.body);
-  hashPassword(req.body.username, req.body.password);
+
   const createCheck = await hashPassword(req.body.username, req.body.password);
   if (createCheck === "success") {
     res.send("success");
@@ -77,7 +77,7 @@ async function sendZylarianData(data) {
 async function hashPassword(username, plaintextPassword) {
   const saltRounds = 10;
   const hash = await bcrypt.hash(plaintextPassword, saltRounds);
-  createUser(username, hash);
+  return createUser(username, hash);
 }
 
 async function verifyPassword(plaintextPassword, storedHash) {
