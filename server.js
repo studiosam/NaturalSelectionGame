@@ -1,68 +1,74 @@
+// server.js
 const express = require("express");
-var app = express();
-var server = require("http").Server(app);
-var cors = require("cors");
-
+const http = require("http");
+const socketIo = require("socket.io");
+const cors = require("cors");
 require("dotenv").config();
-const {
-  createZylarian,
-  createUser,
-  getUsers,
-  getZylarians,
-  getMyZylarians,
-} = require("./database.js");
 
-global.io = require("socket.io")(server, {
+const database = require("./database.js");
+
+const app = express();
+const server = http.Server(app);
+const io = socketIo(server, {
   cors: {
     origin: "*",
   },
 });
+
+// Middleware
 app.use(cors());
-
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: true }));
 
-app.post("/", function (req, res) {
+// Routes
+app.post("/", (req, res) => {
   console.log(req.body);
-  res.send("Hello World");
+  res.send("Received data");
 });
 
-server.listen(process.env.PORT || 3000, () => {
-  console.log(`Server running on port ${process.env.PORT}`);
+// Start server
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
 
-// Websocket Server Connection Handlers //
+// Websocket connection handlers
 io.on("connection", async (socket) => {
   const sockets = await io.fetchSockets();
-  console.log(
-    `User Connected! ID : ${socket.id} | Total Connected Users ${sockets.length}`
-  );
-  // Handle Client Messages //
-  socket.on("logToServer", (msg) => {
-    switch (msg) {
-      case "Test":
-        console.log("Test Message");
-        break;
+  console.log(`User connected: ${socket.id} | Total: ${sockets.length}`);
 
-      default:
-        console.log(msg);
-    }
+  socket.on("logToServer", (msg) => {
+    handleClientMessage(msg);
   });
 
-  // Receive Zylarian Data From Client To Send To Back To All //
   socket.on("zylarianData", async (data) => {
-    await createZylarian(data);
-    await sendZylarianData(data);
+    await handleZylarianData(data);
   });
 });
 
-// Send Data to Client //
+async function handleClientMessage(msg) {
+  switch (msg) {
+    case "Test":
+      console.log("Test Message received");
+      break;
+    default:
+      console.log(`Message received: ${msg}`);
+  }
+}
 
-async function logToClient(msg) {
-  await io.emit("log", msg);
+async function handleZylarianData(data) {
+  try {
+    await database.createZylarian(data);
+    await sendZylarianData(data);
+  } catch (error) {
+    console.error("Error handling Zylarian data:", error);
+  }
 }
 
 async function sendZylarianData(data) {
-  await io.emit("ZylarianData", data);
+  try {
+    await io.emit("ZylarianData", data);
+  } catch (error) {
+    console.error("Error sending Zylarian data:", error);
+  }
 }
