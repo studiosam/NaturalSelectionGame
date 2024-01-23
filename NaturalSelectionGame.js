@@ -820,25 +820,6 @@ function areAllValuesNonEmpty(obj) {
   return Object.values(obj).every((value) => value !== "");
 }
 
-// Add zylarian to population and update zylarian list
-function handleZylarianCreation() {
-  console.log("Handling zylarian creation");
-  let zylarianObj;
-  if (Object.keys(initialZylarian).length == 0) {
-    INITIAL_ZYLARIAN = createInitialZylarian();
-    zylarianObj = initialZylarian;
-  } else {
-    console.log("Don't forget to figure this out");
-  }
-  // Add zylarian to player's population
-  population.push(zylarianObj);
-  // Update the list to include the new Zylarian
-  updateZylarianList();
-  // Send stuff to server
-  logToServer(`Zylarian ${zylarianObj.name} created successfully!`);
-  sendZylarianData(zylarianObj);
-}
-
 // Function to assign genotypes for a selected skin color
 function assignGenotypesForColor(selectedColorId) {
   console.log("Assigning color genotypes");
@@ -1208,7 +1189,7 @@ Handling button submit forms
 // Handling initial zylarian form submit
 function handleInitialZylarian() {
   console.log("Handling initial zylarian");
-  initialZylarianarian = createInitialZylarian();
+  initialZylarian = createInitialZylarian();
   if (initialZylarian) {
     population.push(initialZylarian);
     updateZylarianList();
@@ -1217,6 +1198,9 @@ function handleInitialZylarian() {
     // Handle the case where no Zylarian is created (e.g., show an error message)
     console.error("Failed to create a new Zylarian.");
   }
+  // Send stuff to server
+  logToServer(`Zylarian ${initialZylarian.name} created successfully!`);
+  sendZylarianData(initialZylarian);
 }
 
 // Handling mating form submit

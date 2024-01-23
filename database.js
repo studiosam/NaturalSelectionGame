@@ -79,40 +79,7 @@ async function createUser(username, password) {
 
 // Create New Zylarian //
 async function createZylarian(zylarianData) {
-  zylarianParams = {
-    owner: "bitch",
-    name: "Ween Boy",
-    height: 100,
-    weight: 500,
-    activity: "Diurnal",
-    skinColor: "Beige",
-    skinTexture: "Scaly",
-    limbType: "Quadripedal",
-    specialFeatures: ["Amphibious"],
-    dietType: "Herbivore",
-    colorGenotypes: {
-      redGenotype: "rr",
-      greenGenotype: "gg",
-      blueGenotype: "bb",
-      brownGenotype: "Pp",
-    },
-    skinTextureGenotypes: {
-      skinMoistureGenotype: "ww",
-      scaleGenotype: "Ss",
-      feathered: false,
-      furry: false,
-    },
-    alleles: {
-      redAlleles: ["r", "r"],
-      greenAlleles: ["g", "g"],
-      blueAlleles: ["b", "b"],
-      brownAlleles: ["P", "p"],
-      skinMoistureAlleles: ["w", "w"],
-      scaleAlleles: ["S", "s"],
-    },
-  };
-
-  await addDoc(zylariansCollection, zylarianParams);
+  await addDoc(zylariansCollection, zylarianData);
 }
 
 // Update User //
@@ -123,7 +90,7 @@ async function updateUsers() {}
 //getUsers();
 //createZylarian();
 //getZylarians();
-getMyZylarians("bitch");
+//getMyZylarians("bitch");
 
 module.exports = {
   createZylarian,
