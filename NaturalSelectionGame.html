@@ -40,7 +40,7 @@
             </fieldset>
             <fieldset>
                 <legend>Accessory Traits:</legend><label class="form-label" for="limbType">Limb Type:</label><select class="form-select" id="limbType" name="limbType" required=""></select><label class="form-label" for="specialFeatures">Special Feature:</label><select class="form-select" id="specialFeatures" name="specialFeatures" required=""></select><label class="form-label" for="dietType">Diet Type:</label><select class="form-select" id="dietType" name="dietType" required=""></select>
-            </fieldset><button class="btn btn-primary" type="button" onclick="handleInitialZylarian()">Create Zylarian</button>
+            </fieldset><button class="btn btn-primary" id="createZylarian" type="button" onclick="handleInitialZylarian()">Create Zylarian</button>
         </form>
     </div>
     <div id="zylariansControlledByPlayerPage">
@@ -83,9 +83,9 @@
     </div>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
-    <script src="assets/js/NaturalSelectionGame.js"></script>
     <script src="assets/js/socket.js"></script>
     <script src="assets/js/getUserData.js"></script>
+    <script src="assets/js/NaturalSelectionGame.js"></script>
 </body>
 
 </html>

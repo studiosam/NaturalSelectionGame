@@ -29,6 +29,21 @@ const usersCollection = collection(db, "users");
 const zylariansCollection = collection(db, "zylarians");
 // Database functions //
 
+async function getUserZylarians(player) {
+  const userZylarians = [];
+  const userRef = collection(db, `users/${player}/zylarians`);
+  const zys = await getDocs(userRef);
+  zys.docs.forEach((zylarian) => {
+    userZylarians.push({ ...zylarian.data() });
+  });
+  return userZylarians;
+}
+
+async function createZylarian(player, zylarianData) {
+  const userRef = collection(db, `users/${player}/zylarians`);
+  await addDoc(userRef, { zylarianData });
+}
+
 // List all Users //
 async function getUsers() {
   let users = [];
@@ -47,6 +62,7 @@ async function checkUsers(user) {
     currentUsers.push({
       username: username.username,
       password: username.password,
+      id: username.id,
     });
   });
   const findUser = currentUsers.find(
@@ -56,7 +72,7 @@ async function checkUsers(user) {
     console.log(
       `User ${findUser.username} exists with the password hash ${findUser.password}`
     );
-    return { exists: true, passwordHash: findUser.password };
+    return { exists: true, passwordHash: findUser.password, id: findUser.id };
   } else {
     return "create";
   }
@@ -109,9 +125,6 @@ async function createUser(username, password) {
 // }
 
 // Create New Zylarian //
-async function createZylarian(zylarianData) {
-  await addDoc(zylariansCollection, zylarianData);
-}
 
 // Update User //
 async function updateUsers() {}
@@ -121,7 +134,7 @@ async function updateUsers() {}
 //getUsers();
 //createZylarian();
 //getZylarians();
-checkUsers("asd");
+//checkUsers("asd");
 //getMyZylarians("bitch");
 
 module.exports = {
@@ -131,4 +144,5 @@ module.exports = {
   getZylarians,
   getMyZylarians,
   checkUsers,
+  getUserZylarians,
 };

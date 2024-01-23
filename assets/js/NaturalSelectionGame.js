@@ -450,6 +450,8 @@ function createInitialZylarian() {
     );
 
     initialZylarian.skinPattern = "Solid";
+    initialZylarian.ownerId = localStorage.getItem("id");
+    initialZylarian.owner = localStorage.getItem("username");
 
     if (initialZylarian) {
       console.log("Zylarian created successfully");
@@ -1218,7 +1220,7 @@ function handleInitialZylarian() {
     console.error("Failed to create a new Zylarian.");
   }
   // Send stuff to server
-  logToServer(`Zylarian ${initialZylarian.name} created successfully!`);
+  //logToServer(`Zylarian ${initialZylarian.name} created successfully!`);
   sendZylarianData(initialZylarian);
 }
 

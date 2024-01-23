@@ -26,5 +26,25 @@ async function logToServer(msg) {
 }
 
 async function sendZylarianData(data) {
-  socket.emit("zylarianData", data);
+  const searchParam = getParam(data);
+  //const zylarianData = new URLSearchParams(data);
+  console.log(searchParam);
+  const create = fetch("http://127.0.0.1:3000/createZylarian", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: searchParam,
+  });
+  //socket.emit("zylarianData", data);
+}
+
+function getParam(o, searchParam = new URLSearchParams()) {
+  Object.entries(o).forEach(([k, v]) => {
+    if (v !== null && typeof v === "object") getParam(v, searchParam);
+    else searchParam.append(k, v);
+  });
+
+  return searchParam;
 }

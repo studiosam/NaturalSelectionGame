@@ -23,6 +23,7 @@ if (currentUserData !== null) {
 
 async function logout() {
   localStorage.removeItem("username");
+  localStorage.removeItem("id");
   loginInfo.innerHTML = `Currently Not Logged In`;
   loginBtn.style.display = "inline-block";
   logoutBtn.style.display = "none";
@@ -57,6 +58,7 @@ async function sendLoginData(formData) {
 
   if (responseStatus.body === "success") {
     localStorage.setItem("username", responseStatus.user);
+    localStorage.setItem("id", responseStatus.id);
     logoutBtn.style.display = "inline-block";
     loginInfo.innerHTML = `Currently Logged in as: <span class="currentUser">${localStorage.getItem(
       "username"

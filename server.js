@@ -12,6 +12,7 @@ const {
   getZylarians,
   getMyZylarians,
   checkUsers,
+  getUserZylarians,
 } = require("./database.js");
 
 global.io = require("socket.io")(server, {
@@ -36,7 +37,11 @@ app.post("/", async function (req, res) {
     );
     console.log(isValid);
     if (isValid) {
-      res.send({ body: "success", user: req.body.username });
+      res.send({
+        body: "success",
+        user: req.body.username,
+        id: checkForUser.id,
+      });
     } else {
       res.send({ body: "error", type: "invalid_password" });
     }
@@ -65,6 +70,19 @@ app.post("/create", async function (req, res) {
       res.send({ body: "error" });
     }
   }
+});
+
+app.get("/userData", async function (req, res) {
+  const userId = req.query.userId;
+  const currentUserZylarians = await getUserZylarians(userId);
+  res.send({ body: currentUserZylarians });
+});
+
+app.post("/createZylarian", async function (req, res) {
+  const zylarianData = await req.body;
+  console.log(zylarianData);
+
+  await createZylarian(zylarianData.ownerId, zylarianData);
 });
 
 server.listen(process.env.PORT || 3000, () => {
