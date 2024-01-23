@@ -41,14 +41,27 @@ app.post("/", async function (req, res) {
       res.send({ body: "error", type: "invalid_password" });
     }
   } else if (checkForUser === "create") {
-    res.send({ body: "newUser" });
+    res.send({ body: "new", user: req.body.username });
+  }
+});
+
+app.post("/create", async function (req, res) {
+  const checkForUser = await checkUsers(req.body.username);
+  console.log("Check for User = " + checkForUser);
+  if (checkForUser.exists === true) {
+    console.log("User Already Exists");
+    res.send({ body: "userexists", user: req.body.username });
+    return;
+  } else {
+    console.log(`Creating New User ${req.body.username}`);
     const createCheck = await hashPassword(
       req.body.username,
       req.body.password
     );
     if (createCheck === "success") {
+      console.log(`New User Created!`);
       res.send({ body: "success", user: req.body.username });
-    } else {
+    } else if (createCheck === "error") {
       res.send({ body: "error" });
     }
   }

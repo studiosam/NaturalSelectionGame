@@ -1,0 +1,97 @@
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+#zylariansControlledByPlayerPage {
+  display: none;
+}
+
+#mateZylarian {
+  display: none;
+}
+
+body {
+  font-family: "Poppins";
+  background-color: #121b29;
+}
+
+input {
+  font-family: "Poppins";
+}
+
+fieldset {
+  padding: 25px 0;
+  text-align: center;
+}
+
+legend {
+  padding: 0 5px;
+  color: rgb(46,178,220);
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+button {
+  background-color: rgb(0,99,154) !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  margin-top: 15px !important;
+  border-radius: 5px !important;
+  font-weight: bold !important;
+}
+
+label[for="mateRedGenotype"], .red {
+  color: red;
+}
+
+label[for="mateGreenGenotype"], .green {
+  color: green;
+}
+
+label[for="mateBlueGenotype"], .blue {
+  color: blue;
+}
+
+label[for="mateBrownGenotype"], .brown {
+  color: brown;
+}
+
+h2 {
+  font-size: 3rem;
+  text-align: center;
+}
+
+h3 {
+  font-size: 2rem;
+  text-align: center;
+}
+
+#zylarianForm, #mateForm {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#initialZylarianCreationFormPage, #playersZylarians {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 35px;
+}
+
+.form-label {
+  margin-right: 10px;
+  color: #fffaf0;
+  margin-top: 10px;
+}
+
+h2 {
+  color: #ffb800;
+}
+
+#namediv {
+  margin: 15px 0;
+}
+

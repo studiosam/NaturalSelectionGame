@@ -13,15 +13,18 @@
 
 <body>
     <div id="loginContainer">
-        <h1 class="text-center">Login</h1>
+        <h1 class="text-center">Sign Up</h1>
         <form id="loginForm">
             <div>
                 <div class="mb-3"><input class="form-control" type="text" id="username" name="username" placeholder="Username" required=""></div>
                 <div class="mb-3"><input class="form-control" type="password" id="password" placeholder="Password" name="password" required=""></div>
-                <div class="text-center"><button class="btn btn-primary" id="login" type="submit">Login</button></div>
+                <div class="mb-3"><input class="form-control" type="password" id="confirmpassword" placeholder="Confirm Password" name="confirmpassword" required=""></div>
+                <div>
+                    <p id="passwordvalid" class="text-center">Passwords do not match!</p>
+                </div>
+                <div class="text-center"><button class="btn btn-primary" id="create" type="submit">Create User</button></div>
             </div>
         </form>
-        <div class="text-center"><button class="btn btn-primary" id="logout" type="button">Logout</button></div>
         <div class="text-center">
             <div>
                 <p id="loginError"></p>
@@ -31,12 +34,12 @@
             </div>
         </div>
         <div>
-            <p class="text-center signup"><a href="signup.html">Sign Up</a></p>
+            <p class="text-center signup"><a href="index.html">Back to Login</a></p>
         </div>
     </div>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
-    <script src="assets/js/login.js"></script>
+    <script src="assets/js/signup.js"></script>
     <script src="assets/js/socket.js"></script>
 </body>
 

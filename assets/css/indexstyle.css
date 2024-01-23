@@ -12,9 +12,12 @@ body {
 #loginContainer {
   display: flex;
   flex-direction: column;
+  width: 300px;
+  max-width: 300px;
+  padding: 15px;
 }
 
-#currentUser {
+.currentUser {
   color: #ffb800;
   font-weight: bold;
 }
@@ -24,6 +27,23 @@ button {
 }
 
 #loginError {
+  margin-top: 15px;
   color: red;
+}
+
+#create {
+}
+
+.signup {
+  color: #85bc71;
+}
+
+.signup a {
+  color: #85bc71;
+}
+
+#passwordvalid {
+  color: #e42323;
+  display: none;
 }
 

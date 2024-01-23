@@ -4,6 +4,7 @@ const currentUserData = localStorage.getItem("username");
 const logoutBtn = document.querySelector("#logout");
 const loginInfo = document.querySelector("#loggedIn");
 logoutBtn.addEventListener("click", logout);
+
 const form = document.querySelector("#loginForm");
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -11,7 +12,7 @@ form.addEventListener("submit", (event) => {
 });
 
 if (currentUserData !== null) {
-  loginInfo.innerHTML = `Currently Logged in as: <span id="currentUser">${currentUserData}</span>`;
+  loginInfo.innerHTML = `Currently Logged in as: <span class="currentUser">${currentUserData}</span>`;
   loginBtn.style.display = "none";
   logoutBtn.style.display = "inline-block";
 } else {
@@ -30,14 +31,13 @@ async function login() {
   loginError.innerHTML = "";
   const username = document.querySelector("#username").value;
   const password = document.querySelector("#password").value;
-  if (username == "" || password == "") {
-    loginError.innerHTML = "PLEASE FUCKING LOGIN";
-  } else {
-    const formData = new FormData(form);
-    form.reset();
 
-    sendLoginData(formData);
-  }
+  const formData = new FormData(form);
+
+  formData.set("username", username.toLowerCase());
+
+  form.reset();
+  sendLoginData(formData);
 }
 
 async function sendLoginData(formData) {
@@ -53,16 +53,23 @@ async function sendLoginData(formData) {
   const responseStatus = await response.json();
 
   loginBtn.style.display = "none";
+
   if (responseStatus.body === "success") {
     localStorage.setItem("username", responseStatus.user);
     logoutBtn.style.display = "inline-block";
-    loginInfo.innerHTML = `Currently Logged in as: <span id="currentUser">${localStorage.getItem(
+    loginInfo.innerHTML = `Currently Logged in as: <span class="currentUser">${localStorage.getItem(
       "username"
     )}</span>`;
+    window.location.href = "http://127.0.0.1:5500/NaturalSelectionGame.html";
   } else if (responseStatus.body === "error") {
     console.log(responseStatus.type);
     loginError.innerHTML = "Invalid Password";
     loginBtn.style.display = "inline-block";
+  } else if (responseStatus.body === "new") {
+    console.log("User Not Found" + responseStatus.user);
+    loginBtn.style.display = "inline-block";
+    loginError.innerHTML = `User <span class = "currentUser">${responseStatus.user}</span> Not Found.`;
+    loginError.style.display = "inline-block";
   }
   console.log(responseStatus.body);
 }
