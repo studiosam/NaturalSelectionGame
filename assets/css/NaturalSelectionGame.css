@@ -14,6 +14,7 @@
 body {
   font-family: "Poppins";
   background-color: #121b29;
+  color: #ffffff;
 }
 
 input {
@@ -114,5 +115,14 @@ h2 {
   padding: 4px 18px;
   border-radius: 25px;
   cursor: pointer;
+}
+
+#numOfZylariansContainer {
+  display: none;
+}
+
+#numOfZylarians {
+  font-weight: bold;
+  color: #85bc71;
 }
 
