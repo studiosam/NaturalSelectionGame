@@ -950,15 +950,34 @@ function setCurrentMatingPair() {
     limbType: form.mateLimbType.value,
     specialFeatures: [form.mateSpecialFeatures.value],
     dietType: form.mateDietType.value,
+    activity: form.mateActivity.value,
   };
 
-  // Set current mate to a new constructor that hasn't been made yet
-
-  // Optional: Add validation here
   if (!areAllValuesNonEmpty(currentMate)) {
     alert("Please select a valid value for each option");
     return;
   }
+
+  // Set current mate
+  currentMate = new Zylarian(
+    currentMateFormValues.name,
+    currentMateFormValues.height,
+    currentMateFormValues.weight,
+    currentMateFormValues.activity,
+    skinMatching(
+      currentMateFormValues.skinColorGenotypes,
+      zylarianSkinColors,
+      "color"
+    ),
+    skinMatching(
+      currentMateFormValues.skinTextureGenotypes,
+      zylarianSkinTextures,
+      "texture"
+    ),
+    currentMateFormValues.limbType,
+    currentMateFormValues.specialFeatures,
+    currentMateFormValues.dietType
+  );
 
   console.log(currentMate); // For debugging
   alert("Current mate set!"); // Inform the user
