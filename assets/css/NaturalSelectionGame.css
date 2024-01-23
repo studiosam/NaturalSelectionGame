@@ -3,6 +3,7 @@
 }
 
 #zylariansControlledByPlayerPage {
+  color: #fffaf0;
   display: none;
 }
 
@@ -22,17 +23,18 @@ input {
 fieldset {
   padding: 25px 0;
   text-align: center;
+  max-width: 305px;
 }
 
 legend {
   padding: 0 5px;
-  color: rgb(46,178,220);
+  color: rgb(46, 178, 220);
   font-weight: bold;
   font-size: 1.5rem;
 }
 
 button {
-  background-color: rgb(0,99,154) !important;
+  background-color: rgb(0, 99, 154) !important;
   color: white !important;
   padding: 10px 20px !important;
   margin-top: 15px !important;
@@ -66,7 +68,7 @@ h3 {
   text-align: center;
 }
 
-#zylarianForm, #mateForm {
+#zylarianForm, #mateFormContainer {
   max-width: 500px;
   display: flex;
   flex-direction: column;
@@ -93,5 +95,24 @@ h2 {
 
 #namediv {
   margin: 15px 0;
+}
+
+.currentUser {
+  color: #ffb800;
+  font-weight: bold;
+}
+
+#currentLoggedUser {
+  margin-right: 10px;
+  padding-right: 10px;
+  border-right: 1px white solid;
+}
+
+#logoutLink {
+  color: #ffffff;
+  background-color: #024593;
+  padding: 4px 18px;
+  border-radius: 25px;
+  cursor: pointer;
 }
 
