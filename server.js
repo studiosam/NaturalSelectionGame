@@ -44,6 +44,8 @@ io.on("connection", async (socket) => {
 
   // Receive Zylarian Data From Client To Send To Back To All //
   socket.on("zylarianData", (data) => {
+    createZylarian(data);
+    console.log("log " + data);
     sendZylarianData(data);
   });
 });
