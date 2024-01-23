@@ -2,6 +2,13 @@ const express = require("express");
 var app = express();
 var server = require("http").Server(app);
 require("dotenv").config();
+const {
+  createZylarian,
+  createUser,
+  getUsers,
+  getZylarians,
+  getMyZylarians,
+} = require("./database.js");
 
 global.io = require("socket.io")(server, {
   cors: {
