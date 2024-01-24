@@ -118,11 +118,48 @@ h2 {
 }
 
 #numOfZylariansContainer {
-  display: none;
+  /*display: none;*/
+  margin-bottom: 0;
 }
 
 #numOfZylarians {
   font-weight: bold;
   color: #85bc71;
+}
+
+#viewZylarians {
+}
+
+#zylarianModal {
+  color: #0949ad;
+}
+
+.userZylariansCol {
+  min-width: 304px;
+  max-width: 376.672px;
+}
+
+.zylarianName {
+  text-align: center;
+  font-weight: 700;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  border-radius: 5px;
+  color: #4f5e66;
+}
+
+.modal-body, .modal-header, .modal-footer {
+  color: white;
+  background-color: rgb(31,30,51);
+}
+
+.zylarianCard {
+  background-color: rgb(61,60,57);
+  border: 1px solid white;
+}
+
+.selected {
+  background-color: #c23fff !important;
+  border-color: #ffe500;
 }
 

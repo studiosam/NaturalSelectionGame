@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Natural Selection Game</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins&amp;display=swap">
+    <link rel="stylesheet" href="assets/css/NaturalSelectionGame.css">
+</head>
+
+<body>
+    <section>
+        <div class="d-flex justify-content-end mt-3 me-3 align-items-center">
+            <div>
+                <p class="text-white">Logged in as :&nbsp;<span id="currentLoggedUser" class="currentUser">NOT LOGGED IN</span></p>
+            </div>
+            <div>
+                <p id="logoutLink">Logout</p>
+            </div>
+        </div>
+        <div id="numOfZylariansContainer" class="text-end me-4">
+            <p>Number of Zylarians :&nbsp;<span id="numOfZylarians">0</span></p>
+        </div>
+        <div class="text-end me-4 mt-0"><button class="btn btn-primary" id="viewZylarians" type="button" data-bs-target="#zylarianModal" data-bs-toggle="modal">View Zylarians</button></div>
+    </section>
+    <section></section>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+    <script src="assets/js/socket.js"></script>
+    <script src="assets/js/getUserData.js"></script>
+</body>
+
+</html>

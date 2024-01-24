@@ -13,7 +13,7 @@ const {
   getMyZylarians,
   checkUsers,
   getUserZylarians,
-} = require("./database.js");
+} = require("./database.js").default;
 
 global.io = require("socket.io")(server, {
   cors: {

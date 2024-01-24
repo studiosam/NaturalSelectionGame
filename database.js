@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
-const { initializeApp } = require("firebase/app");
-const {
+import { initializeApp } from "firebase/app";
+import {
   initializeFirestore,
   CACHE_SIZE_UNLIMITED,
   getFirestore,
@@ -10,7 +10,8 @@ const {
   addDoc,
   collection,
   getDocs,
-} = require("firebase/firestore");
+  onSnapshot,
+} from "firebase/firestore";
 
 const firebaseApp = initializeApp({
   apiKey: "AIzaSyBWnEdVuXkK0yq6hS7mXMFriJjpCtz8bTQ",
@@ -107,7 +108,7 @@ async function createUser(username, password) {
     username: username,
     password: password,
   };
-  const newUserRef = await addDoc(usersCollection, userData);
+  const newUserRef = await setDoc(usersCollection, userData);
   if (newUserRef.id) {
     console.log(`New User ${username} created with ID : ${newUserRef.id}`);
     return "success";
@@ -138,7 +139,7 @@ async function updateUsers() {}
 //checkUsers("asd");
 //getMyZylarians("bitch");
 
-module.exports = {
+export default {
   createZylarian,
   createUser,
   getUsers,

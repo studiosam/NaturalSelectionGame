@@ -44,7 +44,7 @@ async function login() {
 
 async function sendLoginData(formData) {
   const data = new URLSearchParams(formData);
-  const response = await fetch("http://127.0.0.1:3000", {
+  const response = await fetch("http://127.0.0.1:3000/", {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -65,7 +65,6 @@ async function sendLoginData(formData) {
     )}</span>`;
     window.location.href = "/NaturalSelectionGame.html";
   } else if (responseStatus.body === "error") {
-    console.log(responseStatus.type);
     loginError.innerHTML = "Invalid Password";
     loginBtn.style.display = "inline-block";
   } else if (responseStatus.body === "new") {

@@ -23,6 +23,82 @@
         <div id="numOfZylariansContainer" class="text-end me-4">
             <p>Number of Zylarians :&nbsp;<span id="numOfZylarians">0</span></p>
         </div>
+        <div class="text-end me-4 mt-0"><button class="btn btn-primary" id="viewZylarians" type="button" data-bs-target="#zylarianModal" data-bs-toggle="modal">View Zylarians</button></div>
+    </section>
+    <section>
+        <div class="modal fade" role="dialog" tabindex="-1" id="zylarianModal">
+            <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Zylarians</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center">It's Ya Bois!</p>
+                        <div class="row gx-2 gy-2 justify-content-center" id="userZylariansContainer">
+                            <div class="col userZylariansCol">
+                                <div class="card"><img class="card-img-top w-100 d-block">
+                                    <div class="card-body zylarianCard">
+                                        <h4 class="card-title zylarianName">Title</h4>
+                                        <div class="table-responsive">
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center" colspan="2">Stats</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="statItem text-center">Color</td>
+                                                        <td class="statValue text-center"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="statItem text-center">Texture</td>
+                                                        <td class="statValue text-center"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="statItem text-center">Pattern</td>
+                                                        <td class="statValue text-center"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="statItem text-center">Height</td>
+                                                        <td class="statValue text-center"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="statItem text-center">Weight</td>
+                                                        <td class="statValue text-center"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="statItem text-center">Limb Type</td>
+                                                        <td class="statValue text-center"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="statItem text-center">Special Feature</td>
+                                                        <td class="statValue text-center"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="statItem text-center">Diet</td>
+                                                        <td class="statValue text-center"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="statItem text-center">Color Genotypes</td>
+                                                        <td class="statValue text-center"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="statItem text-center">Skin Texture Genotypes</td>
+                                                        <td class="statValue text-center"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div><button class="btn btn-primary" type="button">Button</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
+                </div>
+            </div>
+        </div>
     </section>
     <div id="initialZylarianCreationFormPage">
         <h2>Zylarian Creation Form</h2>
