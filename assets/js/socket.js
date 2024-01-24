@@ -27,9 +27,8 @@ async function logToServer(msg) {
 
 async function sendZylarianData(data) {
   const searchParam = getParam(data);
-  //const zylarianData = new URLSearchParams(data);
-  console.log(searchParam);
-  const create = fetch("http://127.0.0.1:3000/createZylarian", {
+
+  const create = await fetch("http://127.0.0.1:3000/createZylarian", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -37,6 +36,11 @@ async function sendZylarianData(data) {
     },
     body: searchParam,
   });
+  const response = await create.json();
+  const newCurrentZylarians = response.body;
+
+  const numOfZylarians = document.querySelector("#numOfZylarians");
+  numOfZylarians.innerHTML = newCurrentZylarians;
   //socket.emit("zylarianData", data);
 }
 
