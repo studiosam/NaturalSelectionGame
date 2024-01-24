@@ -41,6 +41,7 @@ async function getUserZylarians(player) {
 
 async function createZylarian(player, zylarianData) {
   const userRef = collection(db, `users/${player}/zylarians`);
+
   await addDoc(userRef, { zylarianData });
 }
 

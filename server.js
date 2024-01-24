@@ -83,6 +83,9 @@ app.post("/createZylarian", async function (req, res) {
   console.log(zylarianData);
 
   await createZylarian(zylarianData.ownerId, zylarianData);
+  const currentUserZylarians = await getUserZylarians(zylarianData.ownerId);
+
+  res.send({ body: currentUserZylarians.length });
 });
 
 server.listen(process.env.PORT || 3000, () => {
