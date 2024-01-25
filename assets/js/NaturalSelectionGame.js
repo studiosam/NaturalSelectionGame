@@ -983,6 +983,7 @@ function setCurrentMatingPair() {
 
   console.log(currentMate); // For debugging
   alert("Current mate set!"); // Inform the user
+
   document.getElementById("mateFormContainer").style.display = "none";
   document.getElementById("mateZylarian").style.display = "block";
 
@@ -1208,20 +1209,18 @@ Handling button submit forms
 */
 
 // Handling initial zylarian form submit
-function handleInitialZylarian() {
+async function handleInitialZylarian() {
   console.log("Handling initial zylarian");
   initialZylarian = createInitialZylarian();
   if (initialZylarian) {
     population.push(initialZylarian);
-    updateZylarianList();
-    updateScreen(); // Update the screen only if a new Zylarian is successfully created
+    sendZylarianData(initialZylarian);
+    return "success";
   } else {
     // Handle the case where no Zylarian is created (e.g., show an error message)
     console.error("Failed to create a new Zylarian.");
+    return "error";
   }
-  // Send stuff to server
-  //logToServer(`Zylarian ${initialZylarian.name} created successfully!`);
-  sendZylarianData(initialZylarian);
 }
 
 // Handling mating form submit
@@ -1232,52 +1231,52 @@ UI Manipulation
 */
 
 // Update screen on clicks
-function updateScreen() {
-  console.log("Updating screen");
-  switch (month) {
-    case 0:
-      // Hide the creation form and show the Zylarians list
-      document.getElementById("initialZylarianCreationFormPage").style.display =
-        "none";
-      document.getElementById("zylariansControlledByPlayerPage").style.display =
-        "block";
-      // Populate the mate form dropdowns
-      initializeZylarianMenu(mateVariablesWithOptions);
-  }
-}
+// function updateScreen() {
+//   console.log("Updating screen");
+//   switch (month) {
+//     case 0:
+//       // Hide the creation form and show the Zylarians list
+//       // document.getElementById("initialZylarianCreationFormPage").style.display =
+//       //   "none";
+//       // document.getElementById("zylariansControlledByPlayerPage").style.display =
+//       //   "block";
+//       // Populate the mate form dropdowns
+//       // initializeZylarianMenu(mateVariablesWithOptions);
+//   }
+// }
 
 // Clears the existing zylarian list to start fresh each time and creates a list item for each player zylarian
-function updateZylarianList() {
-  console.log("Updating zylarian list");
-  const listContainer = document.getElementById(
-    "zylariansControlledByPlayerListContainer"
-  );
-  listContainer.innerHTML = ""; // Clear existing list
-  console.log(population);
+// function updateZylarianList() {
+//   console.log("Updating zylarian list");
+//   const listContainer = document.getElementById(
+//     "zylariansControlledByPlayerListContainer"
+//   );
+//   //listContainer.innerHTML = ""; // Clear existing list
+//   console.log(population);
 
-  // Creates a list item for each zylarian in the array
-  population.forEach((zylarian, index) => {
-    const colorGenotypes = zylarian.colorGenotypes;
-    const textureGenotypes = zylarian.skinTextureGenotypes;
-    const skinColorGenotypeString = `Red: ${colorGenotypes.redGenotype}, Green: ${colorGenotypes.greenGenotype}, Blue: ${colorGenotypes.blueGenotype}, Brown: ${colorGenotypes.brownGenotype}`;
-    const skinTextureGenotypeString = `Scales: ${textureGenotypes.scaleGenotype}, Skin Moisture: ${textureGenotypes.skinMoistureGenotype}, Feathered: ${textureGenotypes.feathered}, Furry: ${textureGenotypes.furry}`;
+//   // Creates a list item for each zylarian in the array
+//   population.forEach((zylarian, index) => {
+//     const colorGenotypes = zylarian.colorGenotypes;
+//     const textureGenotypes = zylarian.skinTextureGenotypes;
+//     const skinColorGenotypeString = `Red: ${colorGenotypes.redGenotype}, Green: ${colorGenotypes.greenGenotype}, Blue: ${colorGenotypes.blueGenotype}, Brown: ${colorGenotypes.brownGenotype}`;
+//     const skinTextureGenotypeString = `Scales: ${textureGenotypes.scaleGenotype}, Skin Moisture: ${textureGenotypes.skinMoistureGenotype}, Feathered: ${textureGenotypes.feathered}, Furry: ${textureGenotypes.furry}`;
 
-    const listItem = document.createElement("li");
-    listItem.innerHTML = `
-            <li><strong>Zylarian ${index + 1}:</strong> ${zylarian.name}</li>
-            <li>Color: ${zylarian.skinColor}, Texture: ${
-      zylarian.skinTexture
-    }, Pattern: ${zylarian.skinPattern}</li><li>
-            Height: ${zylarian.height} cm, Weight: ${zylarian.weight} g</li><li>
-            Limb Type: ${zylarian.limbType}, Special Feature: ${
-      zylarian.specialFeatures
-    }, Diet: ${zylarian.dietType}</li><li>
-            Color Genotypes: ${skinColorGenotypeString}</li><li>
-            Skin Texture Genotypes: ${skinTextureGenotypeString}
-            `;
-    listContainer.appendChild(listItem);
-  });
-}
+//     const listItem = document.createElement("li");
+//     listItem.innerHTML = `
+//             <li><strong>Zylarian ${index + 1}:</strong> ${zylarian.name}</li>
+//             <li>Color: ${zylarian.skinColor}, Texture: ${
+//       zylarian.skinTexture
+//     }, Pattern: ${zylarian.skinPattern}</li><li>
+//             Height: ${zylarian.height} cm, Weight: ${zylarian.weight} g</li><li>
+//             Limb Type: ${zylarian.limbType}, Special Feature: ${
+//       zylarian.specialFeatures
+//     }, Diet: ${zylarian.dietType}</li><li>
+//             Color Genotypes: ${skinColorGenotypeString}</li><li>
+//             Skin Texture Genotypes: ${skinTextureGenotypeString}
+//             `;
+//     //listContainer.appendChild(listItem);
+//   });
+// }
 
 // Populates all option menus
 function initializeZylarianMenu(selectIds) {

@@ -15,7 +15,7 @@ if (currentUserData !== null) {
   loginInfo.innerHTML = `Currently Logged in as: <span class="currentUser">${currentUserData}</span>`;
   loginBtn.style.display = "none";
   logoutBtn.style.display = "inline-block";
-  window.location.href = "/NaturalSelectionGame.html";
+  window.location.href = "/create.html";
 } else {
   loginInfo.innerHTML = `Currently Not Logged In`;
   logoutBtn.style.display = "none";
@@ -63,7 +63,7 @@ async function sendLoginData(formData) {
     loginInfo.innerHTML = `Currently Logged in as: <span class="currentUser">${localStorage.getItem(
       "username"
     )}</span>`;
-    window.location.href = "/NaturalSelectionGame.html";
+    window.location.href = "/create.html";
   } else if (responseStatus.body === "error") {
     loginError.innerHTML = "Invalid Password";
     loginBtn.style.display = "inline-block";

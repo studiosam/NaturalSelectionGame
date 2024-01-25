@@ -4,7 +4,6 @@
 
 #zylariansControlledByPlayerPage {
   color: #fffaf0;
-  display: none;
 }
 
 #mateZylarian {
@@ -156,6 +155,7 @@ h2 {
 .zylarianCard {
   background-color: rgb(61,60,57);
   border: 1px solid white;
+  cursor: pointer;
 }
 
 .selected {
@@ -207,5 +207,29 @@ svg {
 
 .btn-close {
   background-color: white !important;
+}
+
+#alert {
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex !important;
+  justify-content: center !important;
+  z-index: 999999;
+  align-items: center !important;
+  position: fixed;
+}
+
+.alert-body {
+  background-color: rgba(0,0,0,0.84);
+  height: 114px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.alert-header {
+  background-color: rgba(50,8,5,0.76);
+  font-size: 19px;
 }
 

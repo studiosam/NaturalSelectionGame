@@ -15,13 +15,19 @@ const nocturnal = document.querySelector("#nocturnal");
 const mateLimbType = document.querySelector("#mateLimbType");
 const mateSpecialFeatures = document.querySelector("#mateSpecialFeatures");
 const mateDietType = document.querySelector("#mateDietType");
-
+const alert = document.querySelector("#toast-1");
 chooseZylarian.addEventListener("click", zylarianSelected);
 
 async function zylarianSelected() {
   const zylarianSelection = localStorage.getItem("currentSelectedIndex");
-  const yourZylarianData = currentUserStats[zylarianSelection];
+  const yourZylarianData = currentUserStats[zylarianSelection].zylarianData;
+  alert.querySelector("span").innerHTML = yourZylarianData.name;
+  const closemodal = document.querySelector("#zylarianModalClose");
+  closemodal.click();
   console.log(yourZylarianData);
+  yourNameChoice.value = yourZylarianData.name;
+
+  //toast.show();
   //   ${activity}
   //   ${blueGenotype}
   //   ${brownGenotype}
@@ -43,3 +49,5 @@ async function zylarianSelected() {
   //   Do special featured
   //
 }
+
+initializeZylarianMenu(mateVariablesWithOptions);

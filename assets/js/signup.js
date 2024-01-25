@@ -14,7 +14,7 @@ form.addEventListener("change", passwordCheck);
 if (currentUserData !== null) {
   loginInfo.innerHTML = `Currently Logged in as: <span class="currentUser">${currentUserData}</span>`;
 
-  window.location.href = "/NaturalSelectionGame.html";
+  window.location.href = "/create.html";
 } else {
   loginInfo.innerHTML = `Currently Not Logged In`;
 }

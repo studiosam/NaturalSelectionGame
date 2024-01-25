@@ -169,6 +169,7 @@ async function onLoad() {
           card.querySelector("h4").innerHTML
         }</span> Selected`;
         selectedForDelete.innerHTML = `${card.querySelector("h4").innerHTML}`;
+        zyName = card.querySelector("h4").innerHTML;
       });
     });
   } else {
@@ -209,6 +210,8 @@ async function handleDelete() {
   );
   const userData = await response.json();
   if (userData.body === "RIP") {
+    let createAlert = document.querySelector(".toast-alert");
+    createAlert.innerHTML = `Zylarian <span class="currentUser">${zyName}</span> has been deleted!`;
     onLoad();
     closemodal.click();
   }
