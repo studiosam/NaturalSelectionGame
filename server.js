@@ -28,6 +28,12 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
+server.listen(process.env.PORT || 3000, () => {
+  console.log(`Server running on port ${process.env.PORT}`);
+});
+
+// Check For Existing User Endpoint //
+
 app.post("/", async function (req, res) {
   console.log(req.body);
   const checkForUser = await checkUsers(req.body.username);
@@ -52,6 +58,8 @@ app.post("/", async function (req, res) {
   }
 });
 
+// Create User Endpoint //
+
 app.post("/create", async function (req, res) {
   const checkForUser = await checkUsers(req.body.username);
   console.log("Check for User = " + checkForUser);
@@ -74,11 +82,15 @@ app.post("/create", async function (req, res) {
   }
 });
 
+// Get User Data Endpoint //
+
 app.get("/userData", async function (req, res) {
   const userId = req.query.userId;
   const currentUserZylarians = await getUserZylarians(userId);
   res.send({ body: currentUserZylarians });
 });
+
+// Delete Zylarian Endpoint //
 
 app.get("/deleteZylarian", async function (req, res) {
   console.log(req.query.userId, req.query.Id);
@@ -89,6 +101,8 @@ app.get("/deleteZylarian", async function (req, res) {
   res.send({ body: "RIP" });
 });
 
+// Create Zylarian Endpoint //
+
 app.post("/createZylarian", async function (req, res) {
   const zylarianData = await req.body;
   console.log(zylarianData);
@@ -97,10 +111,6 @@ app.post("/createZylarian", async function (req, res) {
   const currentUserZylarians = await getUserZylarians(zylarianData.ownerId);
 
   res.send({ body: currentUserZylarians.length });
-});
-
-server.listen(process.env.PORT || 3000, () => {
-  console.log(`Server running on port ${process.env.PORT}`);
 });
 
 // Websocket Server Connection Handlers //
@@ -134,9 +144,7 @@ async function logToClient(msg) {
   await io.emit("log", msg);
 }
 
-async function sendZylarianData(data) {
-  await io.emit("ZylarianData", data);
-}
+// Password Hashing Functions //
 
 async function hashPassword(username, plaintextPassword) {
   const saltRounds = 10;

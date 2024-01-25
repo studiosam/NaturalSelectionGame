@@ -25,6 +25,7 @@ mainLogoutBtn.addEventListener("click", handleLog);
 viewZylariansBtn.addEventListener("click", onLoad);
 finalDeleteBtn.addEventListener("click", handleDelete);
 
+// HTML for Creating Users Zylarian Population //
 const zylarianMenu = (
   zylariandata,
   zyID,
@@ -68,7 +69,7 @@ const zylarianMenu = (
                 </tr>
                 <tr>
                     <td class="statItem text-center">Special Feature</td>
-                    <td class="statValue text-center">${zylariandata[0][0]}</td>
+                    <td class="statValue text-center">${zylariandata.specialFeatures[0]}</td>
                 </tr>
                 <tr>
                     <td class="statItem text-center">Diet</td>
@@ -76,17 +77,18 @@ const zylarianMenu = (
                 </tr>
                 <tr>
                     <td class="statItem text-center">Color Genotypes</td>
-                    <td class="statValue text-center">Red: ${zylariandata.redGenotype}, Green: ${zylariandata.greenGenotype}, Blue: ${zylariandata.blueGenotype}, Brown: ${zylariandata.brownGenotype}</td>
+                    <td class="statValue text-center">Red: ${zylariandata.colorGenotypes.redGenotype}, Green: ${zylariandata.colorGenotypes.greenGenotype}, Blue: ${zylariandata.colorGenotypes.blueGenotype}, Brown: ${zylariandata.colorGenotypes.brownGenotype}</td>
                 </tr>
                 <tr>
                     <td class="statItem text-center">Skin Texture Genotypes</td>
-                    <td class="statValue text-center">Scales: ${zylariandata.scaleGenotype}, Skin Moisture: ${zylariandata.skinMoistureGenotype}, Featherd: ${zylariandata.feathered}, Furry: ${zylariandata.furry}</td>
+                    <td class="statValue text-center">Scales: ${zylariandata.skinTextureGenotypes.scaleGenotype}, Skin Moisture: ${zylariandata.skinTextureGenotypes.skinMoistureGenotype}, Featherd: ${zylariandata.skinTextureGenotypes.feathered}, Furry: ${zylariandata.skinTextureGenotypes.furry}</td>
                 </tr>
             </tbody>
         </table>
         <span class='zyID' style="display:none">${zyID}</span>
     </div><div class="cardIndex hidden">${cardIndex}</div><div class="text-center text-white">${zylarian}</div></div></div></div>`;
 
+// Gets Users Data from the database and creates their Zylarian Population on page Load //
 async function onLoad() {
   if (currentUser !== null) {
     currentUserText.innerHTML = currentUser;
@@ -133,6 +135,7 @@ async function onLoad() {
         zylarian.cardIndex
       );
     });
+    // Card Selection Shit //
     const userZylariansCol = document.querySelectorAll(".zylarianCard");
     userZylariansCol.forEach((card) => {
       card.addEventListener("click", () => {
@@ -177,6 +180,8 @@ async function onLoad() {
   }
 }
 
+// Clears any selections automatically when Zylarian window is closed //
+
 function clearSelections(mutationList) {
   for (const mutation of mutationList) {
     if (mutation.type === "attributes" && mutation.attributeName) {
@@ -187,11 +192,15 @@ function clearSelections(mutationList) {
   }
 }
 
+// Removes user Data from local storage on logout //
+
 async function handleLog() {
   localStorage.removeItem("username");
   localStorage.removeItem("id");
   window.location.href = "/index.html";
 }
+
+// Server request to retrieve user data from the database //
 
 async function getUserData(currentUser) {
   const currentUserId = localStorage.getItem("id");
@@ -201,6 +210,8 @@ async function getUserData(currentUser) {
   userData = await response.json();
   return userData.body;
 }
+
+// Server request to RIP a Zylarian //
 
 async function handleDelete() {
   const currentUserId = localStorage.getItem("id");
@@ -217,4 +228,5 @@ async function handleDelete() {
   }
 }
 
+// Autoruns on load function when the page loads.... Imagine that //
 onLoad();

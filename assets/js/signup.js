@@ -9,7 +9,9 @@ form.addEventListener("submit", (event) => {
   createNewUser();
 });
 
-form.addEventListener("change", passwordCheck);
+form.addEventListener("keyup", passwordCheck);
+
+// Checks to see if already logged in //
 
 if (currentUserData !== null) {
   loginInfo.innerHTML = `Currently Logged in as: <span class="currentUser">${currentUserData}</span>`;
@@ -19,10 +21,11 @@ if (currentUserData !== null) {
   loginInfo.innerHTML = `Currently Not Logged In`;
 }
 
+// Server request to Create a new user account //
 async function createNewUser() {
   loginError.innerHTML = "";
   const formData = new FormData(form);
-  const username = formData.get("username");
+  const username = formData.get("username").trim();
   formData.set("username", username.toLowerCase());
   const data = new URLSearchParams(formData);
   const response = await fetch("http://127.0.0.1:3000/create", {
@@ -47,6 +50,7 @@ async function createNewUser() {
   form.reset();
 }
 
+// Checks if signup passwords match. Runs after every keypress//
 function passwordCheck() {
   const password1 = document.querySelector("#password").value;
   const password2 = document.querySelector("#confirmpassword").value;

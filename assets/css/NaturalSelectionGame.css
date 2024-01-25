@@ -233,3 +233,27 @@ svg {
   font-size: 19px;
 }
 
+.red {
+  color: #e42323;
+}
+
+.green {
+  color: #85bc71;
+}
+
+.blue {
+  color: #1953c5;
+}
+
+.brown {
+  color: #564926;
+}
+
+.true {
+  color: #00ffff;
+}
+
+.false {
+  color: #ff0000;
+}
+

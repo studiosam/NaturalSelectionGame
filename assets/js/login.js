@@ -36,7 +36,7 @@ async function login() {
 
   const formData = new FormData(form);
 
-  formData.set("username", username.toLowerCase());
+  formData.set("username", username.toLowerCase().trim());
 
   form.reset();
   sendLoginData(formData);

@@ -18,16 +18,18 @@ const mateDietType = document.querySelector("#mateDietType");
 const alert = document.querySelector("#toast-1");
 chooseZylarian.addEventListener("click", zylarianSelected);
 
+// Retrieves Selected Zylarian Data and outputs to page //
 async function zylarianSelected() {
   const zylarianSelection = localStorage.getItem("currentSelectedIndex");
   const yourZylarianData = currentUserStats[zylarianSelection].zylarianData;
   alert.querySelector("span").innerHTML = yourZylarianData.name;
   const closemodal = document.querySelector("#zylarianModalClose");
   closemodal.click();
-  console.log(yourZylarianData);
+  updateZylarianList([yourZylarianData]);
   yourNameChoice.value = yourZylarianData.name;
 
-  //toast.show();
+  // TO DO, RETRIEVE SELECTED MATE DATA //
+
   //   ${activity}
   //   ${blueGenotype}
   //   ${brownGenotype}

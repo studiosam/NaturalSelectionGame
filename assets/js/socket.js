@@ -26,15 +26,16 @@ async function logToServer(msg) {
 }
 
 async function sendZylarianData(data) {
-  const searchParam = getParam(data);
+  // const searchParam = getParam(data);
+  console.log("Send Zy data=", data);
 
   const create = await fetch("http://127.0.0.1:3000/createZylarian", {
     method: "POST",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Type": "application/json",
     },
-    body: searchParam,
+    body: JSON.stringify(data),
   });
   const response = await create.json();
   const newCurrentZylarians = response.body;

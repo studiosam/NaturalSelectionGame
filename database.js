@@ -25,13 +25,15 @@ const firebaseApp = initializeApp({
   measurementId: "G-N00C9PVNLP",
 });
 
+// Define Database Variables //
 const db = getFirestore();
-
 const user = doc(db, "users/mainusers");
 const usersCollection = collection(db, "users");
 const zylariansCollection = collection(db, "zylarians");
+
 // Database functions //
 
+// Gets All Zylarians from Selected User (player arg) //
 async function getUserZylarians(player) {
   const userZylarians = [];
   const userRef = collection(db, `users/${player}/zylarians`);
@@ -42,19 +44,22 @@ async function getUserZylarians(player) {
   return userZylarians;
 }
 
+// Creates a Zylarian (zylarianData arg) for Selected User (player arg) //
+
 async function createZylarian(player, zylarianData) {
   const userRef = collection(db, `users/${player}/zylarians`);
   zylarianData.bornOn = new Date();
   await addDoc(userRef, { zylarianData });
 }
 
+// RIPs selected Zylarian (zylarian arg) from Selected User (player arg) //
 async function deleteUserZylarian(player, zylarian) {
   const userRef = doc(db, `users/${player}/zylarians/${zylarian}`);
   const status = await deleteDoc(userRef);
   return status;
 }
 
-// List all Users //
+// List all Users in ZyVille (<--- Stupid Name)//
 async function getUsers() {
   let users = [];
   const collection = await getDocs(usersCollection);
@@ -65,6 +70,7 @@ async function getUsers() {
   return users;
 }
 
+// Checks if a user exists on login or signup and if so handles accordingly //
 async function checkUsers(user) {
   const currentUsers = [];
   const allUsers = await getUsers();
@@ -86,10 +92,8 @@ async function checkUsers(user) {
   } else {
     return "create";
   }
-
-  // console.log(allUsers);
 }
-// List all Zylarians //
+// Debug Function - List all Zylarians //
 async function getZylarians() {
   let zylarians = [];
   const collection = await getDocs(zylariansCollection);
@@ -99,6 +103,7 @@ async function getZylarians() {
   console.log(zylarians);
 }
 
+// Debug Function - Retrieves all Zylarians for specific user (owner arg)//
 async function getMyZylarians(owner) {
   let myZylarians = [];
   const collection = await getDocs(zylariansCollection);
@@ -126,26 +131,8 @@ async function createUser(username, password) {
   }
 }
 
-// async function createUser(username, password) {
-//   userData = {
-//     username: username,
-//     password: password,
-//   };
-//   await setDoc(user, userData).doc("ass");
-// }
-
-// Create New Zylarian //
-
-// Update User //
+// To do - Update User Function MAYBE? //
 async function updateUsers() {}
-
-//debug//
-//createDoc("ass", "Boy");
-//getUsers();
-//createZylarian();
-//getZylarians();
-//checkUsers("asd");
-//getMyZylarians("bitch");
 
 module.exports = {
   createZylarian,
