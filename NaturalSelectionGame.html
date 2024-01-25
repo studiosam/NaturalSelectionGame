@@ -7,6 +7,7 @@
     <title>Natural Selection of Zylarians</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins&amp;display=swap">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
     <link rel="stylesheet" href="assets/css/NaturalSelectionGame.css">
 </head>
 
@@ -30,7 +31,7 @@
             <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Zylarians</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+                        <h4 class="modal-title">Zylarians</h4><button class="btn-close" id="zylarianModalClose" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
                         <p class="text-center">It's Ya Bois!</p>
@@ -41,11 +42,6 @@
                                         <h4 class="card-title zylarianName">Title</h4>
                                         <div class="table-responsive">
                                             <table class="table table-sm">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-center" colspan="2">Stats</th>
-                                                    </tr>
-                                                </thead>
                                                 <tbody>
                                                     <tr>
                                                         <td class="statItem text-center">Color</td>
@@ -89,13 +85,35 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                        </div><button class="btn btn-primary" type="button">Button</button>
+                                        </div>
+                                        <div class="text-center text-white"><span></span></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
+                    <div class="modal-footer">
+                        <div class="delete"><button class="btn btn-primary trashbtn hidden" data-bss-hover-animate="pulse" type="button" data-bs-target="#deleteModal" data-bs-toggle="modal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor" class="fs-2">
+                                    <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
+                                    <path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"></path>
+                                </svg></button></div>
+                        <h4 id="selectedZylarian" class="mt-2">&nbsp;</h4><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" id="chooseZylarian" type="button">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="modal fade" role="dialog" tabindex="-1" id="deleteModal">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Are you sure?</h4><button class="btn-close" id="deleteClose" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>This will permanently delete&nbsp;<span id="selectedForDelete" class="hidden">&nbsp;</span><span id="deleteDisplay" class="currentUser">&nbsp;</span></p>
+                    </div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" id="finalDeleteBtn" type="button">Delete</button></div>
                 </div>
             </div>
         </div>
@@ -161,10 +179,12 @@
         </div>
     </div>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
     <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
     <script src="assets/js/socket.js"></script>
     <script src="assets/js/getUserData.js"></script>
     <script src="assets/js/NaturalSelectionGame.js"></script>
+    <script src="assets/js/matingData.js"></script>
 </body>
 
 </html>

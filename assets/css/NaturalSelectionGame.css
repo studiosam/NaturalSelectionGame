@@ -118,7 +118,7 @@ h2 {
 }
 
 #numOfZylariansContainer {
-  /*display: none;*/
+  display: none;
   margin-bottom: 0;
 }
 
@@ -159,7 +159,53 @@ h2 {
 }
 
 .selected {
-  background-color: #c23fff !important;
+  background-color: #ab86b8 !important;
   border-color: #ffe500;
+}
+
+.delete {
+  position: absolute;
+  left: 0;
+  padding: 6px;
+}
+
+.hidden {
+  display: none;
+}
+
+.deleteP {
+  color: #fffaf0;
+  font-size: 12px;
+}
+
+#trashCan {
+  font-size: 30px;
+}
+
+.trashbtn {
+  background-color: #e42323 !important;
+  border-color: #ff0000;
+}
+
+svg {
+}
+
+#selectedForDelete {
+  color: #ffb800;
+}
+
+#finalDeleteBtn {
+  background: #bc3434 !important;
+  border-color: #121b29 !important;
+  transition: 300ms;
+}
+
+#finalDeleteBtn:hover {
+  background: #741515 !important;
+  transition: 300ms !important;
+}
+
+.btn-close {
+  background-color: white !important;
 }
 

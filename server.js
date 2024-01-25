@@ -5,6 +5,7 @@ var cors = require("cors");
 const bcrypt = require("bcrypt");
 
 require("dotenv").config();
+
 const {
   createZylarian,
   createUser,
@@ -13,7 +14,8 @@ const {
   getMyZylarians,
   checkUsers,
   getUserZylarians,
-} = require("./database.js").default;
+  deleteUserZylarian,
+} = require("./database.js");
 
 global.io = require("socket.io")(server, {
   cors: {
@@ -76,6 +78,15 @@ app.get("/userData", async function (req, res) {
   const userId = req.query.userId;
   const currentUserZylarians = await getUserZylarians(userId);
   res.send({ body: currentUserZylarians });
+});
+
+app.get("/deleteZylarian", async function (req, res) {
+  console.log(req.query.userId, req.query.Id);
+  const userId = req.query.userId;
+  const zyForDeletion = req.query.Id;
+  const deleteThatBoi = await deleteUserZylarian(userId, zyForDeletion);
+
+  res.send({ body: "RIP" });
 });
 
 app.post("/createZylarian", async function (req, res) {

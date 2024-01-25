@@ -6,15 +6,31 @@ const numOfZylariansContainer = document.querySelector(
 const userZylariansContainer = document.querySelector(
   "#userZylariansContainer"
 );
-
+const selectedZylarian = document.querySelector("#selectedZylarian");
 const zylarianNameColor = document.querySelector(".zylarianName");
 const viewZylariansBtn = document.querySelector("#viewZylarians");
 const numOfZylarians = document.querySelector("#numOfZylarians");
 const mainLogoutBtn = document.querySelector("#logoutLink");
+const trashCan = document.querySelector(".trashbtn");
+const selectedForDelete = document.querySelector("#selectedForDelete");
+const deleteDisplay = document.querySelector("#deleteDisplay");
+const finalDeleteBtn = document.querySelector("#finalDeleteBtn");
+const closemodal = document.querySelector("#deleteClose");
+const zylarianModal = document.querySelector("#zylarianModal");
+const config = { attributes: true, attributeOldValue: true };
+const observer = new MutationObserver(clearSelections);
+observer.observe(zylarianModal, config);
+
 mainLogoutBtn.addEventListener("click", handleLog);
 viewZylariansBtn.addEventListener("click", onLoad);
+finalDeleteBtn.addEventListener("click", handleDelete);
 
-const zylarianMenu = (zylariandata) => `<div class="col userZylariansCol">
+const zylarianMenu = (
+  zylariandata,
+  zyID,
+  zylarian,
+  cardIndex
+) => `<div class="col userZylariansCol">
 <div class="card zylarianCard" pointer-events="auto"><img class="card-img-top w-100 d-block" />
     <div class="card-body">
         <h4 class="card-title zylarianName" style="background-color:${zylariandata.skinColor}">${zylariandata.name}</h4>
@@ -68,24 +84,56 @@ const zylarianMenu = (zylariandata) => `<div class="col userZylariansCol">
                 </tr>
             </tbody>
         </table>
-    </div>`;
+        <span class='zyID' style="display:none">${zyID}</span>
+    </div><div class="cardIndex hidden">${cardIndex}</div><div class="text-center text-white">${zylarian}</div></div></div></div>`;
 
 async function onLoad() {
   if (currentUser !== null) {
     currentUserText.innerHTML = currentUser;
-    const currentUserStats = await getUserData(currentUser);
+    currentUserStats = await getUserData(currentUser);
     console.log(currentUserStats);
     numOfZylariansContainer.style.display = "block";
     numOfZylarians.innerHTML = currentUserStats.length;
     document.querySelector(
       ".modal-title"
-    ).innerHTML = `${currentUser}'s Zylarians`;
+    ).innerHTML = `<span class ="currentUser">${currentUser}'s</span> Zylarians`;
     userZylariansContainer.innerHTML = "";
+    let cardIndex = 0;
     currentUserStats.forEach((zylarian) => {
-      userZylariansContainer.innerHTML += zylarianMenu(zylarian.zylarianData);
+      zylarian.cardIndex = cardIndex;
+      console.log(zylarian.cardIndex);
+      const dateBorn = zylarian.zylarianData.bornOn;
+      const milliseconds =
+        dateBorn.seconds * 1000 + Math.floor(dateBorn.nanoseconds / 1e6);
+      const providedDate = new Date(milliseconds);
+      const currentDate = new Date();
+      const date = new Date(milliseconds);
+      const timeDifference = currentDate - providedDate;
+      const secondsDifference = Math.floor(timeDifference / 1000);
+      const minutesDifference = Math.floor(secondsDifference / 60);
+      const hoursDifference = Math.floor(minutesDifference / 60);
+      const daysDifference = Math.floor(hoursDifference / 24);
+      if (daysDifference > 0) {
+        zylarian.age = `<span class="currentUser">${daysDifference}</span> days old`;
+      } else if (hoursDifference > 0 && hoursDifference < 2) {
+        zylarian.age = `<span class="currentUser">${hoursDifference}</span> hour old`;
+      } else if (hoursDifference > 0 && hoursDifference > 1) {
+        zylarian.age = `<span class="currentUser">${hoursDifference}</span> hours old`;
+      } else if (minutesDifference > 0) {
+        zylarian.age = `<span class="currentUser">${minutesDifference}</span> minutes old`;
+      } else {
+        zylarian.age = `<span class="currentUser">${secondsDifference}</span> seconds old`;
+      }
+      cardIndex++;
+
+      userZylariansContainer.innerHTML += zylarianMenu(
+        zylarian.zylarianData,
+        zylarian.id,
+        zylarian.age,
+        zylarian.cardIndex
+      );
     });
     const userZylariansCol = document.querySelectorAll(".zylarianCard");
-
     userZylariansCol.forEach((card) => {
       card.addEventListener("click", () => {
         // Remove "selected" class from all cards
@@ -97,11 +145,44 @@ async function onLoad() {
 
         // Toggle "selected" class for the clicked card
         card.classList.toggle("selected");
-        console.log(card);
+
+        // Toggle visibility of delete icon based on selected card
+        trashCan.classList.toggle(
+          "hidden",
+          !card.classList.contains("selected")
+        );
+        selectedZylarian.classList.toggle(
+          "hidden",
+          !card.classList.contains("selected")
+        );
+
+        const currentZyID = card.querySelector("span").innerHTML;
+        localStorage.setItem("currentSelected", currentZyID);
+        localStorage.setItem(
+          "currentSelectedIndex",
+          card.querySelector(".cardIndex").innerHTML
+        );
+        console.log(localStorage.getItem("currentSelected"));
+
+        deleteDisplay.innerHTML = `${card.querySelector("h4").innerHTML}`;
+        selectedZylarian.innerHTML = `<span class="currentUser">${
+          card.querySelector("h4").innerHTML
+        }</span> Selected`;
+        selectedForDelete.innerHTML = `${card.querySelector("h4").innerHTML}`;
       });
     });
   } else {
     window.location.href = "/index.html";
+  }
+}
+
+function clearSelections(mutationList) {
+  for (const mutation of mutationList) {
+    if (mutation.type === "attributes" && mutation.attributeName) {
+      //localStorage.removeItem("currentSelected");
+      trashCan.classList.add("hidden");
+      selectedZylarian.innerHTML = "";
+    }
   }
 }
 
@@ -119,4 +200,18 @@ async function getUserData(currentUser) {
   userData = await response.json();
   return userData.body;
 }
+
+async function handleDelete() {
+  const currentUserId = localStorage.getItem("id");
+  const zyForDeletion = localStorage.getItem("currentSelected");
+  const response = await fetch(
+    `http://127.0.0.1:3000/deleteZylarian?userId=${currentUserId}&Id=${zyForDeletion}`
+  );
+  const userData = await response.json();
+  if (userData.body === "RIP") {
+    onLoad();
+    closemodal.click();
+  }
+}
+
 onLoad();

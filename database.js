@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import {
+const { initializeApp } = require("firebase/app");
+const {
   initializeFirestore,
   CACHE_SIZE_UNLIMITED,
   getFirestore,
@@ -11,7 +11,9 @@ import {
   collection,
   getDocs,
   onSnapshot,
-} from "firebase/firestore";
+  deleteDoc,
+  Timestamp,
+} = require("firebase/firestore");
 
 const firebaseApp = initializeApp({
   apiKey: "AIzaSyBWnEdVuXkK0yq6hS7mXMFriJjpCtz8bTQ",
@@ -35,15 +37,21 @@ async function getUserZylarians(player) {
   const userRef = collection(db, `users/${player}/zylarians`);
   const zys = await getDocs(userRef);
   zys.docs.forEach((zylarian) => {
-    userZylarians.push({ ...zylarian.data() });
+    userZylarians.push({ ...zylarian.data(), id: zylarian.id });
   });
   return userZylarians;
 }
 
 async function createZylarian(player, zylarianData) {
   const userRef = collection(db, `users/${player}/zylarians`);
-
+  zylarianData.bornOn = new Date();
   await addDoc(userRef, { zylarianData });
+}
+
+async function deleteUserZylarian(player, zylarian) {
+  const userRef = doc(db, `users/${player}/zylarians/${zylarian}`);
+  const status = await deleteDoc(userRef);
+  return status;
 }
 
 // List all Users //
@@ -139,7 +147,7 @@ async function updateUsers() {}
 //checkUsers("asd");
 //getMyZylarians("bitch");
 
-export default {
+module.exports = {
   createZylarian,
   createUser,
   getUsers,
@@ -147,4 +155,5 @@ export default {
   getMyZylarians,
   checkUsers,
   getUserZylarians,
+  deleteUserZylarian,
 };
