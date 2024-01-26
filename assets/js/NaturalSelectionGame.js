@@ -462,6 +462,13 @@ async function createInitialZylarian() {
   }
 }
 
+// Get data from local storage
+function getZylariansAndMateThem() {
+  const zylarian1FromStorage = JSON.parse(localStorage.getItem("zylarian1"));
+  const zylarian2FromStorage = JSON.parse(localStorage.getItem("zylarian2"));
+  createZylarianByMating(zylarian1FromStorage, zylarian2FromStorage);
+}
+
 // Create a zylarian using mating logic -- EMPTY
 function createZylarianByMating(zylarian1, zylarian2) {
   let mateActivityCheck = activityMating(
