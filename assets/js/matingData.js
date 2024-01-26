@@ -31,6 +31,7 @@ async function zylarianSelected() {
   const closemodal = document.querySelector("#zylarianModalClose");
   closemodal.click();
   updateZylarianList([yourZylarianData]);
+  localStorage.setItem("zylarian1", JSON.stringify(yourZylarianData));
   yourNameChoice.value = yourZylarianData.name;
 }
 
@@ -40,6 +41,7 @@ async function fillMateData() {
     Object.entries(item).forEach(([key, value]) => {
       if (value === currentMate) {
         mate = item;
+        localStorage.setItem("zylarian2", JSON.stringify(mate));
         console.log(mate);
       }
     });
@@ -61,9 +63,11 @@ async function fillMateData() {
   mateDietType.value = mate.dietType || "";
 
   // if bois//
-
-  //   mate.diurnal ? (diurnal.checked = true) : (diurnal.checked = false);
-  //   nocturnal.checked = mate.nocturnal ? "Yes" : "No";
+  if (mate.activity === "Diurnal") {
+    diurnal.checked = true;
+  } else if (mate.activity === "Nocturnal") {
+    nocturnal.checked = true;
+  }
   mate.skinTextureGenotypes.feathered
     ? (mateFeathered.checked = true)
     : (mateFeathered.checked = false);
