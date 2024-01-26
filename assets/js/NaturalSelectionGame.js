@@ -494,7 +494,7 @@ function createZylarianByMating(zylarian1, zylarian2) {
     let newActivity = trueFalseMating(zylarian1.activity, zylarian2.activity);
     let newHeight = heightWeightMating(zylarian1.height, zylarian2.height);
     let newWeight = heightWeightMating(zylarian1.weight, zylarian2.weight);
-    let newSkinTexture = skinTextureMating(
+    let newSkinTexture = skinMatching(
       zylarian1.skinTexture,
       zylarian2.skinTexture
     );
@@ -506,11 +506,7 @@ function createZylarianByMating(zylarian1, zylarian2) {
     let newFurry = trueFalseMating(zylarian1.furry, zylarian2.furry);
     let newDietType = trueFalseMating(zylarian1.dietType, zylarian2.dietType);
     let newGenotypes = mendellianCombination(zylarian1, zylarian2);
-    let newSkinColor = skinMatching(
-      colorGenotypes,
-      zylarianSkinColors,
-      "color"
-    );
+    let newSkinColor = skinMatching(newGenotypes, zylarianSkinColors, "color");
     let newSkinPattern = skinMatching(
       textureGenotypes,
       zylarianSkinTextures,
@@ -1134,28 +1130,21 @@ function skinMatching(genotypes, skinData, type) {
 function mendellianCombination(zylarian1, zylarian2) {
   console.log("Doing Punnett Squares");
   const offspringGenotypes = {};
-
   // Loop through each allele pair in the alleles object
   for (const alleleKey in zylarian1.alleles) {
-    if (
-      zylarian1.alleles.hasOwnProperty(alleleKey) &&
-      zylarian2.alleles.hasOwnProperty(alleleKey) &&
-      !Boolean(zylarian1.alleles[alleleKey]) && // Check if alleleKey is not a boolean
-      !Boolean(zylarian2.alleles[alleleKey]) // Check if alleleKey is not a boolean
-    ) {
-      const zylarian1Alleles = zylarian1.alleles[alleleKey];
-      const zylarian2Alleles = zylarian2.alleles[alleleKey];
-
-      // Generate genotype for each allele pair
-      offspringGenotypes[alleleKey] = generateOffspringGenotype(
-        zylarian1Alleles[0],
-        zylarian1Alleles[1],
-        zylarian2Alleles[0],
-        zylarian2Alleles[1]
-      );
-    }
+    const zylarian1Alleles = zylarian1.alleles[alleleKey];
+    const zylarian2Alleles = zylarian2.alleles[alleleKey];
+    console.log("Zylarian 1 =" + zylarian1Alleles);
+    console.log("Zylarian 2 =" + zylarian2Alleles);
+    // Generate genotype for each allele pair
+    offspringGenotypes[alleleKey] = generateOffspringGenotype(
+      zylarian1Alleles[0],
+      zylarian1Alleles[1],
+      zylarian2Alleles[0],
+      zylarian2Alleles[1]
+    );
   }
-
+  console.log(offspringGenotypes);
   return offspringGenotypes;
 }
 
