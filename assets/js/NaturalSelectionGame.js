@@ -1292,10 +1292,9 @@ function populateOptions(elementId, optionsArray) {
     placeholderOption.selected = true; // This option is selected by default
     placeholderOption.value = "";
     selectElement.appendChild(placeholderOption);
-    console.log(optionsArray);
+
     optionsArray.forEach((obj) => {
       if (obj.selectable != false) {
-        console.log(obj);
         const option = document.createElement("option");
         option.value = obj.id;
         option.textContent = obj.id;

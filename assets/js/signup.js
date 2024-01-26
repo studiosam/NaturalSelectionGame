@@ -25,7 +25,7 @@ if (currentUserData !== null) {
 async function createNewUser() {
   loginError.innerHTML = "";
   const formData = new FormData(form);
-  const username = formData.get("username").trim();
+  const username = formData.get("username");
   formData.set("username", username.toLowerCase());
   const data = new URLSearchParams(formData);
   const response = await fetch("http://127.0.0.1:3000/create", {

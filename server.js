@@ -15,6 +15,7 @@ const {
   checkUsers,
   getUserZylarians,
   deleteUserZylarian,
+  getAllZylarians,
 } = require("./database.js");
 
 global.io = require("socket.io")(server, {
@@ -90,6 +91,14 @@ app.get("/userData", async function (req, res) {
   res.send({ body: currentUserZylarians });
 });
 
+// Get All Zylarians in Existence Endpoint //
+
+app.get("/allZylarians", async function (req, res) {
+  const allZylarians = await getAllZylarians();
+
+  res.send({ body: allZylarians });
+});
+
 // Delete Zylarian Endpoint //
 
 app.get("/deleteZylarian", async function (req, res) {
@@ -149,6 +158,7 @@ async function logToClient(msg) {
 async function hashPassword(username, plaintextPassword) {
   const saltRounds = 10;
   const hash = await bcrypt.hash(plaintextPassword, saltRounds);
+  console.log("password hashing");
   return createUser(username, hash);
 }
 

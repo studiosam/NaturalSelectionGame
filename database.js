@@ -38,10 +38,43 @@ async function getUserZylarians(player) {
   const userZylarians = [];
   const userRef = collection(db, `users/${player}/zylarians`);
   const zys = await getDocs(userRef);
-  zys.docs.forEach((zylarian) => {
+  zys.docs.forEach((zylarian, index) => {
     userZylarians.push({ ...zylarian.data(), id: zylarian.id });
+    userZylarians[index].zylarianData.id = zylarian.id;
   });
   return userZylarians;
+}
+
+// Get ALL Zylarians //
+
+async function getAllZylarians() {
+  try {
+    const allUsers = await getUsers();
+
+    // Use map to create an array of promises for user ids
+    const userPromises = allUsers.map(async (user) => user.id);
+
+    // Wait for all userPromises to complete and get user ids
+    const userIds = await Promise.all(userPromises);
+
+    // Use map to create an array of promises for zylarians
+    const zylarianPromises = userIds.map(async (userId) => {
+      let zylarians = await getUserZylarians(userId);
+      return zylarians;
+    });
+
+    // Wait for all zylarianPromises to complete and get zylarians
+    const allZylarians = await Promise.all(zylarianPromises);
+    console.log(allZylarians[0][0]);
+    // Flatten the nested array and get an array of zylarianData objects
+    const flattenedZylarians = allZylarians
+      .flat()
+      .map((zylarian) => zylarian.zylarianData);
+    console.log(flattenedZylarians[0]);
+    return flattenedZylarians;
+  } catch (error) {
+    console.error("Error in getAllZylarians:", error);
+  }
 }
 
 // Creates a Zylarian (zylarianData arg) for Selected User (player arg) //
@@ -121,7 +154,7 @@ async function createUser(username, password) {
     username: username,
     password: password,
   };
-  const newUserRef = await setDoc(usersCollection, userData);
+  const newUserRef = await addDoc(usersCollection, userData);
   if (newUserRef.id) {
     console.log(`New User ${username} created with ID : ${newUserRef.id}`);
     return "success";
@@ -143,4 +176,5 @@ module.exports = {
   checkUsers,
   getUserZylarians,
   deleteUserZylarian,
+  getAllZylarians,
 };
