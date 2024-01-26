@@ -1240,7 +1240,7 @@ function updateZylarianList(population) {
   const listContainer = document.getElementById(
     "zylariansControlledByPlayerListContainer"
   );
-  //listContainer.innerHTML = ""; // Clear existing list
+  listContainer.innerHTML = ""; // Clear existing list
   console.log(population);
 
   // Creates a list item for each zylarian in the array
