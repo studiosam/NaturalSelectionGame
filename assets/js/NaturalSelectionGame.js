@@ -1143,7 +1143,6 @@ function mendellianCombination(zylarian1, zylarian2) {
       zylarian2Alleles[1]
     );
   }
-
   return offspringGenotypes;
 }
 
@@ -1161,7 +1160,7 @@ function generateOffspringGenotype(
   const offspringAllele2 =
     Math.random() < 0.5 ? zylarian2Allele1 : zylarian2Allele2;
 
-  let newGenotypeArray = sort([offspringAllele1, offspringAllele2]);
+  let newGenotypeArray = [offspringAllele1, offspringAllele2].sort();
   return newGenotypeArray.join("");
 }
 
