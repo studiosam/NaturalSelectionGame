@@ -1011,9 +1011,10 @@ function setCurrentMatingPair() {
 // Height and weight mating algorithm returns a random number between the max and min height of the zylarians
 function heightWeightMating(measurement1, measurement2) {
   console.log("Generating height and weight");
+  let r = Math.random();
   let max = Math.max(measurement1, measurement2) + measurement1 * 0.1;
   let min = Math.min(measurement1, measurement2) - measurement2 * 0.1;
-  return Math.floor(Math.random() * (max - min + 1)) + min; // The maximum is inclusive and the minimum is inclusive
+  return Math.floor(r * (max - min + 1)) + min; // The maximum is inclusive and the minimum is inclusive
 }
 
 // Feather and fur mating algorithm returns an array of two booleans for whether the new zylarian is feathered or furry
@@ -1047,10 +1048,15 @@ function limbTypeMating(type1, type2) {
 // Returns whether or not mating is successful as true or false. Meant to simulate whether or not the organisms were able to come in contact with each other due to activity cycles
 function activityMating(activity1, activity2) {
   console.log("Checking activity period");
+  let r = Math.random();
   if (activity1 == activity2) {
-    return Math.random > 0.2;
+    console.log("Not awake at the same time");
+    console.log(r);
+    return r > 0.2;
   } else {
-    return Math.random > 0.9;
+    console.log("Awake at the same time");
+    console.log(r);
+    return r > 0.9;
   }
 }
 
