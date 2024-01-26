@@ -489,7 +489,7 @@ function createZylarianByMating(zylarian1, zylarian2) {
   console.log("Mating conditions check");
   let offspring = {};
   if (mateActivityCheck && mateSizeCheck) {
-    console.log("Generating new zylarian traits");
+    console.log("Generating new zylarian traits!");
 
     let newActivity = trueFalseMating(zylarian1.activity, zylarian2.activity);
     let newHeight = heightWeightMating(zylarian1.height, zylarian2.height);
