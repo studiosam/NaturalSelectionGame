@@ -9,6 +9,8 @@ let INITIAL_ZYLARIAN = {}; //Object to hold the initial zylarian for the entire 
 let currentMate = {}; // Object to hold the current mating partner
 let generation = 0; // Keeping track of generations
 let month = 0;
+const ALPHA_H = 1;
+const ALPHA_W = 1;
 
 /* 
 Arrays of trait objects
@@ -480,14 +482,14 @@ function createZylarianByMating(zylarian1, zylarian2) {
     zylarian2.height,
     zylarian1.weight,
     zylarian2.weight,
-    alphaH,
-    alphaW
+    ALPHA_H,
+    ALPHA_W
   );
 
   console.log("Mating conditions check");
+  let offspring = {};
   if (mateActivityCheck && mateSizeCheck) {
     console.log("Generating new zylarian traits");
-    let offspring = {};
 
     let newActivity = trueFalseMating(zylarian1.activity, zylarian2.activity);
     let newHeight = heightWeightMating(zylarian1.height, zylarian2.height);
@@ -532,6 +534,7 @@ function createZylarianByMating(zylarian1, zylarian2) {
     );
   }
   if (offspring) {
+    console.log(offspring);
     return offspring;
   } else {
     console.log("No offspring");
@@ -1170,8 +1173,7 @@ function generateOffspringGenotype(
 // Returns a bool for reproductive success probability based on height and weight.
 function reproductiveSuccessBySize(height1, height2, weight1, weight2) {
   console.log("Checking size compatibility");
-  const ALPHA_H = 1;
-  const ALPHA_W = 1;
+
   let avgHeight = (height1 + height2) / 2;
   let avgWeight = (weight1 + weight2) / 2;
 
