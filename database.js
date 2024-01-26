@@ -160,7 +160,6 @@ module.exports = {
   createZylarian,
   createUser,
   getUsers,
-  getZylarians,
   getMyZylarians,
   checkUsers,
   getUserZylarians,
