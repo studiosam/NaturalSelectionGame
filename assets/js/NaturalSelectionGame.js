@@ -507,7 +507,11 @@ function createZylarianByMating(zylarian1, zylarian2) {
     let newDietType = trueFalseMating(zylarian1.dietType, zylarian2.dietType);
     let newGenotypes = mendellianCombination(zylarian1, zylarian2);
     let newSkinColor = skinMatching(newGenotypes, zylarianSkinColors, "color");
-    let newSkinPattern = "solid";
+    let newSkinPattern = skinMatching(
+      textureGenotypes,
+      zylarianSkinTextures,
+      "texture"
+    );
     let newSpecialFeatures = inheritSpecialFeatures(
       zylarian1.specialFeatures,
       zylarian2.specialFeatures
