@@ -1050,12 +1050,12 @@ function activityMating(activity1, activity2) {
   console.log("Checking activity period");
   let r = Math.random();
   if (activity1 == activity2) {
-    console.log("Not awake at the same time");
-    console.log(r);
+    console.log("Awake at the same time");
+    console.log(r > 0.2);
     return r > 0.2;
   } else {
-    console.log("Awake at the same time");
-    console.log(r);
+    console.log("Not awake at the same time");
+    console.log(r > 0.9);
     return r > 0.9;
   }
 }
