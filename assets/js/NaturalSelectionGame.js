@@ -1167,7 +1167,7 @@ function generateOffspringGenotype(
     Math.random() < 0.5 ? zylarian2Allele1 : zylarian2Allele2;
 
   let newGenotypeArray = sort([offspringAllele1, offspringAllele2]);
-  return offspringAllele1 + offspringAllele2;
+  return newGenotypeArray.join("");
 }
 
 // Returns a bool for reproductive success probability based on height and weight.
