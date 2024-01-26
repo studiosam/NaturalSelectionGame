@@ -6,6 +6,7 @@ const numOfZylariansContainer = document.querySelector(
 const userZylariansContainer = document.querySelector(
   "#userZylariansContainer"
 );
+const zylarianModalStatus = document.querySelector("#zylarianModalStatus");
 const selectedZylarian = document.querySelector("#selectedZylarian");
 const zylarianNameColor = document.querySelector(".zylarianName");
 const viewZylariansBtn = document.querySelector("#viewZylarians");
@@ -91,6 +92,7 @@ const zylarianMenu = (
 // Gets Users Data from the database and creates their Zylarian Population on page Load //
 async function onLoad() {
   if (currentUser !== null) {
+    zylarianModalStatus.innerHTML = "Your Zylarians";
     currentUserText.innerHTML = currentUser;
     currentUserStats = await getUserData(currentUser);
     console.log(currentUserStats);
@@ -101,6 +103,10 @@ async function onLoad() {
     ).innerHTML = `<span class ="currentUser">${currentUser}'s</span> Zylarians`;
     userZylariansContainer.innerHTML = "";
     let cardIndex = 0;
+    if (currentUserStats.length <= 0) {
+      zylarianModalStatus.innerHTML =
+        "You Do Not Currently Have Any Zylarians :(";
+    }
     currentUserStats.forEach((zylarian) => {
       zylarian.cardIndex = cardIndex;
       const dateBorn = zylarian.zylarianData.bornOn;

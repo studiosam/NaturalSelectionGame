@@ -20,8 +20,14 @@ const mateLimbType = document.querySelector("#mateLimbType");
 const mateSpecialFeatures = document.querySelector("#mateSpecialFeatures");
 const mateDietType = document.querySelector("#mateDietType");
 const alert = document.querySelector("#toast-1");
+const mateForm = document.querySelector("#mateForm");
+mateForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  getZylariansAndMateThem();
+});
 chooseZylarian.addEventListener("click", zylarianSelected);
 getPopulationOnLoad();
+mateSelect.innerHTML;
 mateSelect.addEventListener("change", fillMateData);
 // Retrieves Selected Zylarian Data and outputs to page //
 async function zylarianSelected() {
@@ -97,4 +103,61 @@ async function createMateMenu(mate) {
   mateSelect.innerHTML += `<option value = "${mate.id}">${mate.name}</option>`;
 }
 
-initializeZylarianMenu(mateVariablesWithOptions);
+const zylarianNewChild = (
+  zylariandata
+) => `<div class="col userZylariansCol"><div><p class="text-center offspringSuccess">Success!<br/>New Offspring:</p></div>
+<div class="card zylarianCard" pointer-events="auto"><img class="card-img-top w-100 d-block" />
+    <div class="card-body">
+        <h4 class="card-title zylarianName" style="background-color:${zylariandata.skinColor}">${zylariandata.name}</h4>
+        <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th class="text-center" colspan="2">Stats</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="statItem text-center">Color</td>
+                    <td class="statValue text-center">${zylariandata.skinColor}</td>
+                </tr>
+                <tr>
+                    <td class="statItem text-center">Texture</td>
+                    <td class="statValue text-center">${zylariandata.skinTexture}</td>
+                </tr>
+                <tr>
+                    <td class="statItem text-center">Pattern</td>
+                    <td class="statValue text-center">${zylariandata.skinPattern}</td>
+                </tr>
+                <tr>
+                    <td class="statItem text-center">Height</td>
+                    <td class="statValue text-center">${zylariandata.height}</td>
+                </tr>
+                <tr>
+                    <td class="statItem text-center">Weight</td>
+                    <td class="statValue text-center">${zylariandata.weight}</td>
+                </tr>
+                <tr>
+                    <td class="statItem text-center">Limb Type</td>
+                    <td class="statValue text-center">${zylariandata.limbType}</td>
+                </tr>
+                <tr>
+                    <td class="statItem text-center">Special Feature</td>
+                    <td class="statValue text-center">${zylariandata.specialFeatures[0]}</td>
+                </tr>
+                <tr>
+                    <td class="statItem text-center">Diet</td>
+                    <td class="statValue text-center">${zylariandata.dietType}</td>
+                </tr>
+                <tr>
+                    <td class="statItem text-center">Color Genotypes</td>
+                    <td class="statValue text-center">Red: ${zylariandata.colorGenotypes.redGenotype}, Green: ${zylariandata.colorGenotypes.greenGenotype}, Blue: ${zylariandata.colorGenotypes.blueGenotype}, Brown: ${zylariandata.colorGenotypes.brownGenotype}</td>
+                </tr>
+                <tr>
+                    <td class="statItem text-center">Skin Texture Genotypes</td>
+                    <td class="statValue text-center">Scales: ${zylariandata.skinTextureGenotypes.scaleGenotype}, Skin Moisture: ${zylariandata.skinTextureGenotypes.skinMoistureGenotype}, Featherd: ${zylariandata.skinTextureGenotypes.feathered}, Furry: ${zylariandata.skinTextureGenotypes.furry}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div></div></div></div>`;

@@ -38,14 +38,6 @@
             </div>
         </nav>
     </header>
-    <div class="toast-container" id="alert">
-        <div class="toast fade hide" role="alert" data-bs-delay="2000" id="toast-1">
-            <div class="toast-header alert-header text-white"><strong class="me-auto">Zylarian Selected</strong><button class="btn-close ms-2 mb-1 close" type="button" aria-label="Close" data-bs-dismiss="toast"></button></div>
-            <div class="toast-body alert-body" role="alert">
-                <p><span class="currentUser"></span>&nbsp;is Selected for Mating!</p>
-            </div>
-        </div>
-    </div>
     <section>
         <div class="modal fade" role="dialog" tabindex="-1" id="zylarianModal">
             <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
@@ -54,7 +46,7 @@
                         <h4 class="modal-title">Zylarians</h4><button class="btn-close" id="zylarianModalClose" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <p class="text-center">It's Ya Bois!</p>
+                        <p id="zylarianModalStatus" class="text-center">It's Ya Bois!</p>
                         <div class="row gx-2 gy-2 justify-content-center" id="userZylariansContainer">
                             <div class="col userZylariansCol">
                                 <div class="card"><img class="card-img-top w-100 d-block">
@@ -141,22 +133,27 @@
     <div id="zylariansControlledByPlayerPage">
         <h2>Your Zylarians</h2>
         <div id="playersZylarians">
-            <h3>Player's Zylarian:</h3>
+            <h3>Choose Zylarian To Mate:</h3>
+            <div>
+                <div class="text-end me-4 mt-0"><button class="btn btn-primary" id="viewZylarians-1" type="button" data-bs-target="#zylarianModal" data-bs-toggle="modal">Choose Zylarian</button></div>
+            </div>
             <ul id="zylariansControlledByPlayerListContainer"></ul>
             <div id="mateFormContainer">
-                <h3>Select Your Mate</h3><select id="mateSelect" class="form-select" name="mateSelect"></select>
+                <h3>Select Your Mate</h3><select class="form-select" id="mateSelect" name="mateSelect" required="">
+                    <option value="">Select Your Mate</option>
+                </select>
                 <form id="mateForm">
                     <fieldset>
-                        <legend>Names of Zylarians</legend><label class="form-label" for="nameChoice">Your Zylarian's Name:</label><br><input class="form-control" type="text" id="nameChoice" name="nameChoice"><br><label class="form-label" for="mateName">Mate Zylarian's Name:</label><br><input class="form-control" type="text" id="mateName" name="mateName"><br>
+                        <legend>Names of Zylarians</legend><label class="form-label" for="nameChoice">Your Zylarian's Name:</label><input class="form-control" type="text" id="nameChoice" name="nameChoice" required=""><label class="form-label" for="mateName">Mate Zylarian's Name:</label><input class="form-control" type="text" id="mateName" name="mateName" required="">
                     </fieldset>
                     <fieldset>
-                        <legend>Mate's Physical Traits</legend><label class="form-label" for="mateHeight">Height (cm):</label><br><input class="form-control" type="number" id="mateHeight" max="300" min="50" name="mateHeight" placeholder="50-300"><br><label class="form-label" for="mateWeight">Weight (g):</label><br><input class="form-control" type="number" id="mateWeight" max="1000" min="75" name="mateWeight" placeholder="75-10000"><br>
+                        <legend>Mate's Physical Traits</legend><label class="form-label" for="mateHeight">Height (cm):</label><input class="form-control" type="number" id="mateHeight" max="300" min="50" name="mateHeight" placeholder="50-300" readonly=""><label class="form-label" for="mateWeight">Weight (g):</label><input class="form-control" type="number" id="mateWeight" max="1000" min="75" name="mateWeight" placeholder="75-10000" readonly="">
                     </fieldset>
                     <fieldset>
-                        <legend>Mate's Pigment Genotypes:</legend><label class="form-label" for="mateRedGenotype">Red Genotype:</label><br><input class="form-control" type="text" id="mateRedGenotype" name="mateRedGenotype"><br><label class="form-label" for="mateGreenGenotype">Green Genotype:</label><br><input class="form-control" type="text" id="mateGreenGenotype" name="mateGreenGenotype"><br><label class="form-label" for="mateBlueGenotype">Blue Genotype:</label><br><input class="form-control" type="text" id="mateBlueGenotype" name="mateBlueGenotype"><br><label class="form-label" for="mateBrownGenotype">Brown Genotype:</label><br><input class="form-control" type="text" id="mateBrownGenotype" name="mateBrownGenotype"><br>
+                        <legend>Mate's Pigment Genotypes:</legend><label class="form-label" for="mateRedGenotype">Red Genotype:</label><input class="form-control" type="text" id="mateRedGenotype" name="mateRedGenotype" required=""><label class="form-label" for="mateGreenGenotype">Green Genotype:</label><input class="form-control" type="text" id="mateGreenGenotype" name="mateGreenGenotype" required=""><label class="form-label" for="mateBlueGenotype">Blue Genotype:</label><input class="form-control" type="text" id="mateBlueGenotype" name="mateBlueGenotype" required=""><label class="form-label" for="mateBrownGenotype">Brown Genotype:</label><input class="form-control" type="text" id="mateBrownGenotype" name="mateBrownGenotype" required="">
                     </fieldset>
                     <fieldset>
-                        <legend>Mate's Skin Texture Genotypes:</legend><label class="form-label" for="mateSkinMoistureGenotype">Skin Moisture Genotype:</label><input class="form-control" type="text" id="mateSkinMoistureGenotype" name="mateSkinMoistureGenotype"><label class="form-label" for="mateScaleGenotype">Scale Genotype:</label><input class="form-control" type="text" id="mateScaleGenotype" name="mateScaleGenotype">
+                        <legend>Mate's Skin Texture Genotypes:</legend><label class="form-label" for="mateSkinMoistureGenotype">Skin Moisture Genotype:</label><input class="form-control" type="text" id="mateSkinMoistureGenotype" name="mateSkinMoistureGenotype" required=""><label class="form-label" for="mateScaleGenotype">Scale Genotype:</label><input class="form-control" type="text" id="mateScaleGenotype" name="mateScaleGenotype" required="">
                         <div><label class="form-label" for="mateFeathered">Feathered:</label><input type="checkbox" id="mateFeathered" name="mateFeathered">
                             <div><label class="form-label" for="mateFurry">Furry:</label><input type="checkbox" id="mateFurry" name="mateFurry"></div>
                         </div>
@@ -165,9 +162,9 @@
                         <legend>Accessory Traits:</legend>
                         <p>Activity Period:</p>
                         <div><label class="form-label" for="diurnal"><input type="radio" id="diurnal" name="mateActivity" value="Diurnal"> Diurnal </label></div>
-                        <div><label class="form-label" for="nocturnal"><input type="radio" id="nocturnal" name="mateActivity" value="Nocturnal"> Nocturnal </label></div><label class="form-label" for="mateLimbType">Limb Type:</label><select class="form-select" id="mateLimbType" name="mateLimbType"></select><label class="form-label" for="mateSpecialFeatures">Special Feature:</label><select class="form-select" id="mateSpecialFeatures" name="mateSpecialFeatures"></select><label class="form-label" for="mateDietType">Diet Type:</label><select class="form-select" id="mateDietType" name="mateDietType"></select>
+                        <div><label class="form-label" for="nocturnal"><input type="radio" id="nocturnal" name="mateActivity" value="Nocturnal"> Nocturnal </label></div><label class="form-label" for="mateLimbType">Limb Type:</label><select class="form-select" id="mateLimbType" name="mateLimbType" required=""></select><label class="form-label" for="mateSpecialFeatures">Special Feature:</label><select class="form-select" id="mateSpecialFeatures" name="mateSpecialFeatures" required=""></select><label class="form-label" for="mateDietType">Diet Type:</label><select class="form-select" id="mateDietType" name="mateDietType" required=""></select>
                     </fieldset>
-                    <div class="text-center"><button class="btn" type="button" value="Set Current Mating Pair" onclick="getZylariansAndMateThem()">Set Current Mating Pair</button></div>
+                    <div class="text-center"><button class="btn btn-primary" id="setMatingPair" type="submit" value="Set Current Mating Pair">Set Current Mating Pair</button></div>
                 </form>
             </div>
             <div id="mateZylarian">
@@ -176,14 +173,14 @@
             </div>
         </div>
     </div>
+    <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-init.js"></script>
     <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
     <script src="assets/js/matingData.js"></script>
-    <script src="assets/js/getUserData.js"></script>
-    <script src="assets/js/createPage.js"></script>
-    <script src="assets/js/socket.js"></script>
     <script src="assets/js/NaturalSelectionGame.js"></script>
+    <script src="assets/js/getUserData.js"></script>
+    <script src="assets/js/socket.js"></script>
 </body>
 
 </html>

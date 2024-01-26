@@ -1,5 +1,4 @@
 // Show Zylarian Creation Alert //
-
 const createZylarianForm = document.querySelector("#zylarianForm");
 createZylarianForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -7,15 +6,18 @@ createZylarianForm.addEventListener("submit", async (event) => {
 
   if (isCreated) {
     let createAlert = document.querySelector(".create-alert");
+    $("#alertBox").fadeIn();
     createAlert.innerHTML = `Zylarian <span class="currentUser">${initialZylarian.name}</span> has been created!`;
     await createZylarianForm.reset();
     setTimeout(() => {
       createAlert.innerHTML = "";
-    }, 3000);
+
+      $("#alertBox").fadeOut();
+    }, 1500);
   } else {
     createAlert.innerHTML = "Error Creating Zylarian";
     setTimeout(() => {
       createAlert.innerHTML = "";
-    }, 3000);
+    }, 1500);
   }
 });

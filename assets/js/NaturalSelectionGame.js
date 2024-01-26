@@ -465,15 +465,35 @@ async function createInitialZylarian() {
 }
 
 // Get data from local storage
-function getZylariansAndMateThem() {
-  const checkMateStatus = mateStatus();
+async function getZylariansAndMateThem() {
+  const checkMateStatus = await mateStatus();
+
   if (checkMateStatus === "Failed") {
     console.log("failed");
     // Output to Page //
+    document.querySelector(
+      "#childAlertContainer"
+    ).innerHTML = `<div class="text-center alertBG"><p">Mating Unsuccessful :(</p><br /><p>Please Try Again</p>`;
+    $("#childAlertBox").fadeIn();
+    setTimeout(() => {
+      $("#alertBox").fadeOut();
+      document.querySelector("#childAlertContainer").innerHTML = "";
+    }, 3000);
+  } else {
+    // Output to Page //
+
+    document.querySelector("#childAlertContainer").innerHTML =
+      zylarianNewChild(checkMateStatus);
+    $("#childAlertBox").fadeIn();
+    setTimeout(() => {
+      $("#alertBox").fadeOut();
+      document.querySelector("#childAlertContainer").innerHTML = "";
+    }, 3000);
+    document.querySelector("#mateForm").reset();
   }
 }
 
-function mateStatus() {
+async function mateStatus() {
   try {
     const zylarian1FromStorage = JSON.parse(localStorage.getItem("zylarian1"));
     const zylarian2FromStorage = JSON.parse(localStorage.getItem("zylarian2"));
@@ -481,9 +501,12 @@ function mateStatus() {
       zylarian1FromStorage,
       zylarian2FromStorage
     );
+
+    localStorage.removeItem("zylarian2");
     newZylarian.ownerId = localStorage.getItem("id");
     newZylarian.owner = localStorage.getItem("username");
     sendZylarianData(newZylarian);
+    return newZylarian;
   } catch (error) {
     return "Failed";
   }
@@ -1334,5 +1357,5 @@ function populateOptions(elementId, optionsArray) {
 /*
 GAME LOGIC
 */
-
+initializeZylarianMenu(mateVariablesWithOptions);
 initializeZylarianMenu(variablesWithOptions);
