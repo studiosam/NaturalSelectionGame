@@ -103,7 +103,6 @@ async function onLoad() {
     let cardIndex = 0;
     currentUserStats.forEach((zylarian) => {
       zylarian.cardIndex = cardIndex;
-      console.log(zylarian.cardIndex);
       const dateBorn = zylarian.zylarianData.bornOn;
       const milliseconds =
         dateBorn.seconds * 1000 + Math.floor(dateBorn.nanoseconds / 1e6);

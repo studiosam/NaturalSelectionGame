@@ -1328,8 +1328,6 @@ function populateOptions(elementId, optionsArray) {
       }
       obj.selectable = true;
     });
-  } else {
-    console.error("Element not found for ID:", elementId);
   }
 }
 

@@ -1,180 +1,453 @@
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
     <title>Natural Selection of Zylarians</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins&amp;display=swap">
-    <link rel="stylesheet" href="assets/css/animate.min.css">
-    <link rel="stylesheet" href="assets/css/NaturalSelectionGame.css">
-</head>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Poppins&amp;display=swap"
+    />
+    <link rel="stylesheet" href="assets/css/animate.min.css" />
+    <link rel="stylesheet" href="assets/css/NaturalSelectionGame.css" />
+  </head>
 
-<body>
+  <body>
     <header>
-        <nav class="navbar navbar-expand-md" data-bs-theme="dark">
-            <div class="container-fluid"><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navcol-1">
-                    <ul class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="create.html">Create</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="mating.html">Mating</a></li>
-                    </ul>
-                </div>
-                <section>
-                    <div class="d-flex justify-content-end mt-3 me-3 align-items-center">
-                        <div>
-                            <p class="text-white">Logged in as :&nbsp;<span id="currentLoggedUser" class="currentUser">NOT LOGGED IN</span></p>
-                        </div>
-                        <div>
-                            <p id="logoutLink">Logout</p>
-                        </div>
-                    </div>
-                    <div id="numOfZylariansContainer" class="text-end me-4">
-                        <p>Number of Zylarians :&nbsp;<span id="numOfZylarians">0</span></p>
-                    </div>
-                    <div class="text-end me-4 mt-0"><button class="btn btn-primary" id="viewZylarians" type="button" data-bs-target="#zylarianModal" data-bs-toggle="modal">My Zylarians</button></div>
-                </section>
+      <nav class="navbar navbar-expand-md" data-bs-theme="dark">
+        <div class="container-fluid">
+          <button
+            data-bs-toggle="collapse"
+            class="navbar-toggler"
+            data-bs-target="#navcol-1"
+          >
+            <span class="visually-hidden">Toggle navigation</span
+            ><span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="create.html">Create</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="mating.html">Mating</a>
+              </li>
+            </ul>
+          </div>
+          <section>
+            <div
+              class="d-flex justify-content-end mt-3 me-3 align-items-center"
+            >
+              <div>
+                <p class="text-white">
+                  Logged in as :&nbsp;<span
+                    id="currentLoggedUser"
+                    class="currentUser"
+                    >NOT LOGGED IN</span
+                  >
+                </p>
+              </div>
+              <div>
+                <p id="logoutLink">Logout</p>
+              </div>
             </div>
-        </nav>
+            <div id="numOfZylariansContainer" class="text-end me-4">
+              <p>
+                Number of Zylarians :&nbsp;<span id="numOfZylarians">0</span>
+              </p>
+            </div>
+            <div class="text-end me-4 mt-0">
+              <button
+                class="btn btn-primary"
+                id="viewZylarians"
+                type="button"
+                data-bs-target="#zylarianModal"
+                data-bs-toggle="modal"
+              >
+                My Zylarians
+              </button>
+            </div>
+          </section>
+        </div>
+      </nav>
     </header>
     <div class="toast-container" id="alert">
-        <div class="toast fade hide" role="alert" data-bs-delay="2000" id="toast-1">
-            <div class="toast-header alert-header text-white"><strong class="me-auto">Zylarian Selected</strong><button class="btn-close ms-2 mb-1 close" type="button" aria-label="Close" data-bs-dismiss="toast"></button></div>
-            <div class="toast-body alert-body" role="alert">
-                <p><span class="currentUser"></span>&nbsp;is Selected for Mating!</p>
-            </div>
+      <div
+        class="toast fade hide"
+        role="alert"
+        data-bs-delay="2000"
+        id="toast-1"
+      >
+        <div class="toast-header alert-header text-white">
+          <strong class="me-auto">Zylarian Selected</strong
+          ><button
+            class="btn-close ms-2 mb-1 close"
+            type="button"
+            aria-label="Close"
+            data-bs-dismiss="toast"
+          ></button>
         </div>
+        <div class="toast-body alert-body" role="alert">
+          <p><span class="currentUser"></span>&nbsp;is Selected for Mating!</p>
+        </div>
+      </div>
     </div>
     <section>
-        <div class="modal fade" role="dialog" tabindex="-1" id="zylarianModal">
-            <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Zylarians</h4><button class="btn-close" id="zylarianModalClose" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p class="text-center">It's Ya Bois!</p>
-                        <div class="row gx-2 gy-2 justify-content-center" id="userZylariansContainer">
-                            <div class="col userZylariansCol">
-                                <div class="card"><img class="card-img-top w-100 d-block">
-                                    <div class="card-body zylarianCard">
-                                        <h4 class="card-title zylarianName">Title</h4>
-                                        <div class="table-responsive">
-                                            <table class="table table-sm">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="statItem text-center">Color</td>
-                                                        <td class="statValue text-center"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="statItem text-center">Texture</td>
-                                                        <td class="statValue text-center"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="statItem text-center">Pattern</td>
-                                                        <td class="statValue text-center"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="statItem text-center">Height</td>
-                                                        <td class="statValue text-center"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="statItem text-center">Weight</td>
-                                                        <td class="statValue text-center"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="statItem text-center">Limb Type</td>
-                                                        <td class="statValue text-center"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="statItem text-center">Special Feature</td>
-                                                        <td class="statValue text-center"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="statItem text-center">Diet</td>
-                                                        <td class="statValue text-center"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="statItem text-center">Color Genotypes</td>
-                                                        <td class="statValue text-center"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="statItem text-center">Skin Texture Genotypes</td>
-                                                        <td class="statValue text-center"></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="text-center text-white"><span></span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="delete"><button class="btn btn-primary trashbtn hidden" data-bss-hover-animate="pulse" type="button" data-bs-target="#deleteModal" data-bs-toggle="modal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor" class="fs-2">
-                                    <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
-                                    <path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"></path>
-                                </svg></button></div>
-                        <h4 id="selectedZylarian" class="mt-2">&nbsp;</h4><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" id="chooseZylarian" type="button" data-bs-target="#toast-1" data-bs-toggle="toast">Choose</button>
-                    </div>
-                </div>
+      <div class="modal fade" role="dialog" tabindex="-1" id="zylarianModal">
+        <div
+          class="modal-dialog modal-xl modal-dialog-scrollable"
+          role="document"
+        >
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Zylarians</h4>
+              <button
+                class="btn-close"
+                id="zylarianModalClose"
+                type="button"
+                aria-label="Close"
+                data-bs-dismiss="modal"
+              ></button>
             </div>
+            <div class="modal-body">
+              <p class="text-center">It's Ya Bois!</p>
+              <div
+                class="row gx-2 gy-2 justify-content-center"
+                id="userZylariansContainer"
+              >
+                <div class="col userZylariansCol">
+                  <div class="card">
+                    <img class="card-img-top w-100 d-block" />
+                    <div class="card-body zylarianCard">
+                      <h4 class="card-title zylarianName">Title</h4>
+                      <div class="table-responsive">
+                        <table class="table table-sm">
+                          <tbody>
+                            <tr>
+                              <td class="statItem text-center">Color</td>
+                              <td class="statValue text-center"></td>
+                            </tr>
+                            <tr>
+                              <td class="statItem text-center">Texture</td>
+                              <td class="statValue text-center"></td>
+                            </tr>
+                            <tr>
+                              <td class="statItem text-center">Pattern</td>
+                              <td class="statValue text-center"></td>
+                            </tr>
+                            <tr>
+                              <td class="statItem text-center">Height</td>
+                              <td class="statValue text-center"></td>
+                            </tr>
+                            <tr>
+                              <td class="statItem text-center">Weight</td>
+                              <td class="statValue text-center"></td>
+                            </tr>
+                            <tr>
+                              <td class="statItem text-center">Limb Type</td>
+                              <td class="statValue text-center"></td>
+                            </tr>
+                            <tr>
+                              <td class="statItem text-center">
+                                Special Feature
+                              </td>
+                              <td class="statValue text-center"></td>
+                            </tr>
+                            <tr>
+                              <td class="statItem text-center">Diet</td>
+                              <td class="statValue text-center"></td>
+                            </tr>
+                            <tr>
+                              <td class="statItem text-center">
+                                Color Genotypes
+                              </td>
+                              <td class="statValue text-center"></td>
+                            </tr>
+                            <tr>
+                              <td class="statItem text-center">
+                                Skin Texture Genotypes
+                              </td>
+                              <td class="statValue text-center"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="text-center text-white"><span></span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="delete">
+                <button
+                  class="btn btn-primary trashbtn hidden"
+                  data-bss-hover-animate="pulse"
+                  type="button"
+                  data-bs-target="#deleteModal"
+                  data-bs-toggle="modal"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="-32 0 512 512"
+                    width="1em"
+                    height="1em"
+                    fill="currentColor"
+                    class="fs-2"
+                  >
+                    <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
+                    <path
+                      d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+              <h4 id="selectedZylarian" class="mt-2">&nbsp;</h4>
+              <button
+                class="btn btn-light"
+                type="button"
+                data-bs-dismiss="modal"
+              >
+                Close</button
+              ><button
+                class="btn btn-primary"
+                id="chooseZylarian"
+                type="button"
+                data-bs-target="#toast-1"
+                data-bs-toggle="toast"
+              >
+                Choose
+              </button>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
     <section>
-        <div class="modal fade" role="dialog" tabindex="-1" id="deleteModal">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Are you sure?</h4><button class="btn-close" id="deleteClose" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>This will permanently delete&nbsp;<span id="selectedForDelete" class="hidden">&nbsp;</span><span id="deleteDisplay" class="currentUser">&nbsp;</span></p>
-                    </div>
-                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" id="finalDeleteBtn" type="button">Delete</button></div>
-                </div>
+      <div class="modal fade" role="dialog" tabindex="-1" id="deleteModal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Are you sure?</h4>
+              <button
+                class="btn-close"
+                id="deleteClose"
+                type="button"
+                aria-label="Close"
+                data-bs-dismiss="modal"
+              ></button>
             </div>
+            <div class="modal-body">
+              <p>
+                This will permanently delete&nbsp;<span
+                  id="selectedForDelete"
+                  class="hidden"
+                  >&nbsp;</span
+                ><span id="deleteDisplay" class="currentUser">&nbsp;</span>
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button
+                class="btn btn-light"
+                type="button"
+                data-bs-dismiss="modal"
+              >
+                Cancel</button
+              ><button
+                class="btn btn-primary"
+                id="finalDeleteBtn"
+                type="button"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
     <div id="zylariansControlledByPlayerPage">
-        <h2>Your Zylarians</h2>
-        <div id="playersZylarians">
-            <h3>Player's Zylarian:</h3>
-            <ul id="zylariansControlledByPlayerListContainer"></ul>
-            <div id="mateFormContainer">
-                <h3>Select Your Mate</h3><select id="mateSelect" class="form-select" name="mateSelect"></select>
-                <form id="mateForm">
-                    <fieldset>
-                        <legend>Names of Zylarians</legend><label class="form-label" for="nameChoice">Your Zylarian's Name:</label><br><input class="form-control" type="text" id="nameChoice" name="nameChoice"><br><label class="form-label" for="mateName">Mate Zylarian's Name:</label><br><input class="form-control" type="text" id="mateName" name="mateName"><br>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Mate's Physical Traits</legend><label class="form-label" for="mateHeight">Height (cm):</label><br><input class="form-control" type="number" id="mateHeight" max="300" min="50" name="mateHeight" placeholder="50-300"><br><label class="form-label" for="mateWeight">Weight (g):</label><br><input class="form-control" type="number" id="mateWeight" max="1000" min="75" name="mateWeight" placeholder="75-10000"><br>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Mate's Pigment Genotypes:</legend><label class="form-label" for="mateRedGenotype">Red Genotype:</label><br><input class="form-control" type="text" id="mateRedGenotype" name="mateRedGenotype"><br><label class="form-label" for="mateGreenGenotype">Green Genotype:</label><br><input class="form-control" type="text" id="mateGreenGenotype" name="mateGreenGenotype"><br><label class="form-label" for="mateBlueGenotype">Blue Genotype:</label><br><input class="form-control" type="text" id="mateBlueGenotype" name="mateBlueGenotype"><br><label class="form-label" for="mateBrownGenotype">Brown Genotype:</label><br><input class="form-control" type="text" id="mateBrownGenotype" name="mateBrownGenotype"><br>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Mate's Skin Texture Genotypes:</legend><label class="form-label" for="mateSkinMoistureGenotype">Skin Moisture Genotype:</label><input class="form-control" type="text" id="mateSkinMoistureGenotype" name="mateSkinMoistureGenotype"><label class="form-label" for="mateScaleGenotype">Scale Genotype:</label><input class="form-control" type="text" id="mateScaleGenotype" name="mateScaleGenotype">
-                        <div><label class="form-label" for="mateFeathered">Feathered:</label><input type="checkbox" id="mateFeathered" name="mateFeathered">
-                            <div><label class="form-label" for="mateFurry">Furry:</label><input type="checkbox" id="mateFurry" name="mateFurry"></div>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Accessory Traits:</legend>
-                        <p>Activity Period:</p>
-                        <div><label class="form-label" for="diurnal"><input type="radio" id="diurnal" name="mateActivity" value="Diurnal"> Diurnal </label></div>
-                        <div><label class="form-label" for="nocturnal"><input type="radio" id="nocturnal" name="mateActivity" value="Nocturnal"> Nocturnal </label></div><label class="form-label" for="mateLimbType">Limb Type:</label><select class="form-select" id="mateLimbType" name="mateLimbType"></select><label class="form-label" for="mateSpecialFeatures">Special Feature:</label><select class="form-select" id="mateSpecialFeatures" name="mateSpecialFeatures"></select><label class="form-label" for="mateDietType">Diet Type:</label><select class="form-select" id="mateDietType" name="mateDietType"></select>
-                    </fieldset>
-                    <div class="text-center"><button id="setCurrentMatingPairBtn" class="btn" type="button" value="Set Current Mating Pair" onclick="getZylariansAndMateThem()">Set Current Mating Pair</button></div>
-                </form>
+      <h2>Your Zylarians</h2>
+      <div id="playersZylarians">
+        <h3>Player's Zylarian:</h3>
+        <ul id="zylariansControlledByPlayerListContainer"></ul>
+        <div id="mateFormContainer">
+          <h3>Select Your Mate</h3>
+          <select
+            id="mateSelect"
+            class="form-select"
+            name="mateSelect"
+          ></select>
+          <form id="mateForm">
+            <fieldset>
+              <legend>Names of Zylarians</legend>
+              <label class="form-label" for="nameChoice"
+                >Your Zylarian's Name:</label
+              ><br /><input
+                class="form-control"
+                type="text"
+                id="nameChoice"
+                name="nameChoice"
+              /><br /><label class="form-label" for="mateName"
+                >Mate Zylarian's Name:</label
+              ><br /><input
+                class="form-control"
+                type="text"
+                id="mateName"
+                name="mateName"
+              /><br />
+            </fieldset>
+            <fieldset>
+              <legend>Mate's Physical Traits</legend>
+              <label class="form-label" for="mateHeight">Height (cm):</label
+              ><br /><input
+                class="form-control"
+                type="number"
+                id="mateHeight"
+                max="300"
+                min="50"
+                name="mateHeight"
+                placeholder="50-300"
+              /><br /><label class="form-label" for="mateWeight"
+                >Weight (g):</label
+              ><br /><input
+                class="form-control"
+                type="number"
+                id="mateWeight"
+                max="1000"
+                min="75"
+                name="mateWeight"
+                placeholder="75-10000"
+              /><br />
+            </fieldset>
+            <fieldset>
+              <legend>Mate's Pigment Genotypes:</legend>
+              <label class="form-label" for="mateRedGenotype"
+                >Red Genotype:</label
+              ><br /><input
+                class="form-control"
+                type="text"
+                id="mateRedGenotype"
+                name="mateRedGenotype"
+              /><br /><label class="form-label" for="mateGreenGenotype"
+                >Green Genotype:</label
+              ><br /><input
+                class="form-control"
+                type="text"
+                id="mateGreenGenotype"
+                name="mateGreenGenotype"
+              /><br /><label class="form-label" for="mateBlueGenotype"
+                >Blue Genotype:</label
+              ><br /><input
+                class="form-control"
+                type="text"
+                id="mateBlueGenotype"
+                name="mateBlueGenotype"
+              /><br /><label class="form-label" for="mateBrownGenotype"
+                >Brown Genotype:</label
+              ><br /><input
+                class="form-control"
+                type="text"
+                id="mateBrownGenotype"
+                name="mateBrownGenotype"
+              /><br />
+            </fieldset>
+            <fieldset>
+              <legend>Mate's Skin Texture Genotypes:</legend>
+              <label class="form-label" for="mateSkinMoistureGenotype"
+                >Skin Moisture Genotype:</label
+              ><input
+                class="form-control"
+                type="text"
+                id="mateSkinMoistureGenotype"
+                name="mateSkinMoistureGenotype"
+              /><label class="form-label" for="mateScaleGenotype"
+                >Scale Genotype:</label
+              ><input
+                class="form-control"
+                type="text"
+                id="mateScaleGenotype"
+                name="mateScaleGenotype"
+              />
+              <div>
+                <label class="form-label" for="mateFeathered">Feathered:</label
+                ><input
+                  type="checkbox"
+                  id="mateFeathered"
+                  name="mateFeathered"
+                />
+                <div>
+                  <label class="form-label" for="mateFurry">Furry:</label
+                  ><input type="checkbox" id="mateFurry" name="mateFurry" />
+                </div>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Accessory Traits:</legend>
+              <p>Activity Period:</p>
+              <div>
+                <label class="form-label" for="diurnal"
+                  ><input
+                    type="radio"
+                    id="diurnal"
+                    name="mateActivity"
+                    value="Diurnal"
+                  />
+                  Diurnal
+                </label>
+              </div>
+              <div>
+                <label class="form-label" for="nocturnal"
+                  ><input
+                    type="radio"
+                    id="nocturnal"
+                    name="mateActivity"
+                    value="Nocturnal"
+                  />
+                  Nocturnal
+                </label>
+              </div>
+              <label class="form-label" for="mateLimbType">Limb Type:</label
+              ><select
+                class="form-select"
+                id="mateLimbType"
+                name="mateLimbType"
+              ></select
+              ><label class="form-label" for="mateSpecialFeatures"
+                >Special Feature:</label
+              ><select
+                class="form-select"
+                id="mateSpecialFeatures"
+                name="mateSpecialFeatures"
+              ></select
+              ><label class="form-label" for="mateDietType">Diet Type:</label
+              ><select
+                class="form-select"
+                id="mateDietType"
+                name="mateDietType"
+              ></select>
+            </fieldset>
+            <div class="text-center">
+              <button
+                id="setCurrentMatingPairBtn"
+                class="btn"
+                type="button"
+                value="Set Current Mating Pair"
+                onclick="getZylariansAndMateThem()"
+              >
+                Set Current Mating Pair
+              </button>
             </div>
-            <div id="mateZylarian">
-                <h3>Mate Zylarian:</h3>
-                <p id="mateText"></p>
-            </div>
+          </form>
         </div>
+        <div id="mateZylarian">
+          <h3>Mate Zylarian:</h3>
+          <p id="mateText"></p>
+        </div>
+      </div>
     </div>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-init.js"></script>
@@ -183,6 +456,5 @@
     <script src="assets/js/getUserData.js"></script>
     <script src="assets/js/NaturalSelectionGame.js"></script>
     <script src="assets/js/matingData.js"></script>
-</body>
-
+  </body>
 </html>

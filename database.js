@@ -27,7 +27,6 @@ const firebaseApp = initializeApp({
 
 // Define Database Variables //
 const db = getFirestore();
-const user = doc(db, "users/mainusers");
 const usersCollection = collection(db, "users");
 const zylariansCollection = collection(db, "zylarians");
 
@@ -125,15 +124,6 @@ async function checkUsers(user) {
   } else {
     return "create";
   }
-}
-// Debug Function - List all Zylarians //
-async function getZylarians() {
-  let zylarians = [];
-  const collection = await getDocs(zylariansCollection);
-  collection.docs.forEach((zylarian) => {
-    zylarians.push({ ...zylarian.data(), id: zylarian.id });
-  });
-  console.log(zylarians);
 }
 
 // Debug Function - Retrieves all Zylarians for specific user (owner arg)//
