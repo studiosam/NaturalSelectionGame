@@ -1132,23 +1132,16 @@ function mendellianCombination(zylarian1, zylarian2) {
   const offspringGenotypes = {};
   // Loop through each allele pair in the alleles object
   for (const alleleKey in zylarian1.alleles) {
-    if (
-      zylarian1.alleles.hasOwnProperty(alleleKey) &&
-      zylarian2.alleles.hasOwnProperty(alleleKey) &&
-      !Boolean(zylarian1.alleles[alleleKey]) && // Check if alleleKey is not a boolean
-      !Boolean(zylarian2.alleles[alleleKey]) // Check if alleleKey is not a boolean
-    ) {
-      const zylarian1Alleles = zylarian1.alleles[alleleKey];
-      const zylarian2Alleles = zylarian2.alleles[alleleKey];
+    const zylarian1Alleles = zylarian1.alleles[alleleKey];
+    const zylarian2Alleles = zylarian2.alleles[alleleKey];
 
-      // Generate genotype for each allele pair
-      offspringGenotypes[alleleKey] = generateOffspringGenotype(
-        zylarian1Alleles[0],
-        zylarian1Alleles[1],
-        zylarian2Alleles[0],
-        zylarian2Alleles[1]
-      );
-    }
+    // Generate genotype for each allele pair
+    offspringGenotypes[alleleKey] = generateOffspringGenotype(
+      zylarian1Alleles[0],
+      zylarian1Alleles[1],
+      zylarian2Alleles[0],
+      zylarian2Alleles[1]
+    );
   }
 
   return offspringGenotypes;
