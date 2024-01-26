@@ -533,7 +533,7 @@ function createZylarianByMating(zylarian1, zylarian2) {
       newDietType
     );
   }
-  if (offspring) {
+  if (Object.keys(offspring).length > 0) {
     console.log(offspring);
     return offspring;
   } else {
