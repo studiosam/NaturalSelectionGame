@@ -377,7 +377,7 @@ class Zylarian {
     this.limbType = limbType;
     this.specialFeatures = [specialFeatures];
     this.dietType = dietType;
-    console.log(this);
+    console.log("THIS", this);
 
     // Generate genotypes for the initial Zylarian
     console.log("Generating genotypes for the initial Zylarian.");
@@ -395,7 +395,7 @@ class Zylarian {
     };
 
     // Store alleles
-    console.log("Storing alleles for the initial zylarian");
+
     this.alleles = {
       redAlleles: splitGenotype(this.colorGenotypes.redGenotype),
       greenAlleles: splitGenotype(this.colorGenotypes.greenGenotype),
@@ -459,16 +459,34 @@ async function createInitialZylarian() {
     } else {
       console.log("Error creating zylarian");
     }
-    console.log("MFZB", initialZylarian);
+
     return initialZylarian;
   }
 }
 
 // Get data from local storage
 function getZylariansAndMateThem() {
-  const zylarian1FromStorage = JSON.parse(localStorage.getItem("zylarian1"));
-  const zylarian2FromStorage = JSON.parse(localStorage.getItem("zylarian2"));
-  createZylarianByMating(zylarian1FromStorage, zylarian2FromStorage);
+  const checkMateStatus = mateStatus();
+  if (checkMateStatus === "Failed") {
+    console.log("failed");
+    // Output to Page //
+  }
+}
+
+function mateStatus() {
+  try {
+    const zylarian1FromStorage = JSON.parse(localStorage.getItem("zylarian1"));
+    const zylarian2FromStorage = JSON.parse(localStorage.getItem("zylarian2"));
+    const newZylarian = createZylarianByMating(
+      zylarian1FromStorage,
+      zylarian2FromStorage
+    );
+    newZylarian.ownerId = localStorage.getItem("id");
+    newZylarian.owner = localStorage.getItem("username");
+    sendZylarianData(newZylarian);
+  } catch (error) {
+    return "Failed";
+  }
 }
 
 // Create a zylarian using mating logic -- EMPTY
@@ -494,9 +512,11 @@ function createZylarianByMating(zylarian1, zylarian2) {
     let newActivity = trueFalseMating(zylarian1.activity, zylarian2.activity);
     let newHeight = heightWeightMating(zylarian1.height, zylarian2.height);
     let newWeight = heightWeightMating(zylarian1.weight, zylarian2.weight);
+    let newTextureGenoTypes = mendellianCombination(zylarian1, zylarian2);
     let newSkinTexture = skinMatching(
-      zylarian1.skinTexture,
-      zylarian2.skinTexture
+      newTextureGenoTypes,
+      zylarianSkinTextures,
+      "texture"
     );
     let newLimbType = limbTypeMating(zylarian1.limbType, zylarian2.limbType);
     let newFeathered = trueFalseMating(
@@ -853,6 +873,7 @@ function assignGenotypesForColor(selectedColorId) {
 // Function to assign genotypes for a selected skin texture
 function assignGenotypesForSkinTexture(selectedTextureId) {
   console.log("Assigning texture genotypes");
+  console.log(selectedTextureId);
   const selectedTexture = zylarianSkinTextures.find(
     (texture) => texture.id === selectedTextureId
   );
@@ -1206,7 +1227,7 @@ function inheritSpecialFeatures(parent1Features, parent2Features) {
     }
   });
 
-  return offspringFeatures;
+  return offspringFeatures[0];
 }
 
 /*
