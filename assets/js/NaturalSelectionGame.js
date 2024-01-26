@@ -377,7 +377,7 @@ class Zylarian {
     this.limbType = limbType;
     this.specialFeatures = [specialFeatures];
     this.dietType = dietType;
-    //console.log(this);
+    console.log(this);
 
     // Generate genotypes for the initial Zylarian
     console.log("Generating genotypes for the initial Zylarian.");
@@ -507,11 +507,7 @@ function createZylarianByMating(zylarian1, zylarian2) {
     let newDietType = trueFalseMating(zylarian1.dietType, zylarian2.dietType);
     let newGenotypes = mendellianCombination(zylarian1, zylarian2);
     let newSkinColor = skinMatching(newGenotypes, zylarianSkinColors, "color");
-    let newSkinPattern = skinMatching(
-      textureGenotypes,
-      zylarianSkinTextures,
-      "texture"
-    );
+    let newSkinPattern = "solid";
     let newSpecialFeatures = inheritSpecialFeatures(
       zylarian1.specialFeatures,
       zylarian2.specialFeatures
@@ -831,6 +827,7 @@ function areAllValuesNonEmpty(obj) {
 // Function to assign genotypes for a selected skin color
 function assignGenotypesForColor(selectedColorId) {
   console.log("Assigning color genotypes");
+  console.log(selectedColorId);
   const selectedColor = zylarianSkinColors.find(
     (color) => color.id === selectedColorId
   );
@@ -1087,62 +1084,67 @@ function skinColorMating(genotypes) {
 
 function skinMatching(genotypes, skinData, type) {
   console.log("Matching genotypes to phenotypes");
+
+  let propertiesToMatch = [];
+
+  if (type === "color") {
+    propertiesToMatch = [
+      "redGenotype",
+      "greenGenotype",
+      "blueGenotype",
+      "brownGenotype",
+    ];
+  } else if (type === "texture") {
+    propertiesToMatch = [
+      "skinMoistureGenotype",
+      "scaleGenotype",
+      "feathered",
+      "furry",
+    ];
+  }
+
   for (const skinItem of skinData) {
-    let matched = true;
-    let propertiesToMatch = [];
-
-    if (type === "color") {
-      propertiesToMatch = [
-        "redGenotype",
-        "greenGenotype",
-        "blueGenotype",
-        "brownGenotype",
-      ];
-    } else if (type === "texture") {
-      propertiesToMatch = [
-        "skinMoistureGenotype",
-        "scaleGenotype",
-        "feathered",
-        "furry",
-      ];
-    }
-
     for (const key of propertiesToMatch) {
+      console.log("skinitem", skinItem[key]);
+      console.log("genotypes", genotypes[key]);
       if (Array.isArray(skinItem[key])) {
         if (!skinItem[key].includes(genotypes[key])) {
+          // console.log("genotypes", genotypes[key]);
           matched = false;
           break;
         }
+      } else if (skinItem[key] !== genotypes[key]) {
+        matched = false;
+        break;
       } else {
-        if (skinItem[key] !== genotypes[key]) {
-          matched = false;
-          break;
-        }
+        matched = true;
+      }
+      if (matched) {
+        return skinItem.id;
       }
     }
-    if (matched) {
-      return skinItem.id;
-    }
   }
-  return null; // Return null if no matching skin color or texture is found
 }
 
 function mendellianCombination(zylarian1, zylarian2) {
   console.log("Doing Punnett Squares");
   const offspringGenotypes = {};
+  const regEx = new RegExp("(.+?)(?=Alleles)");
   // Loop through each allele pair in the alleles object
   for (const alleleKey in zylarian1.alleles) {
     const zylarian1Alleles = zylarian1.alleles[alleleKey];
     const zylarian2Alleles = zylarian2.alleles[alleleKey];
 
     // Generate genotype for each allele pair
-    offspringGenotypes[alleleKey] = generateOffspringGenotype(
-      zylarian1Alleles[0],
-      zylarian1Alleles[1],
-      zylarian2Alleles[0],
-      zylarian2Alleles[1]
-    );
+    offspringGenotypes[`${alleleKey.match(regEx)[0]}Genotype`] =
+      generateOffspringGenotype(
+        zylarian1Alleles[0],
+        zylarian1Alleles[1],
+        zylarian2Alleles[0],
+        zylarian2Alleles[1]
+      );
   }
+
   return offspringGenotypes;
 }
 
