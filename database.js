@@ -12,7 +12,6 @@ const {
   getDocs,
   onSnapshot,
   deleteDoc,
-  Timestamp,
 } = require("firebase/firestore");
 
 const firebaseApp = initializeApp({
