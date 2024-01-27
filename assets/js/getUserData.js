@@ -219,7 +219,7 @@ async function handleLog() {
 async function getUserData(currentUser) {
   const currentUserId = localStorage.getItem("id");
   const response = await fetch(
-    `http://127.0.0.1:3000/userData?userId=${currentUserId}`
+    `${serverAddress}userData?userId=${currentUserId}`
   );
   userData = await response.json();
   return userData.body;
@@ -231,7 +231,7 @@ async function handleDelete() {
   const currentUserId = localStorage.getItem("id");
   const zyForDeletion = localStorage.getItem("currentSelected");
   const response = await fetch(
-    `http://127.0.0.1:3000/deleteZylarian?userId=${currentUserId}&Id=${zyForDeletion}`
+    `${serverAddress}deleteZylarian?userId=${currentUserId}&Id=${zyForDeletion}`
   );
   const userData = await response.json();
   if (userData.body === "RIP") {

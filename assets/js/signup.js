@@ -28,7 +28,7 @@ async function createNewUser() {
   const username = formData.get("username");
   formData.set("username", username.toLowerCase());
   const data = new URLSearchParams(formData);
-  const response = await fetch("http://127.0.0.1:3000/create", {
+  const response = await fetch(`${serverAddress}create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",

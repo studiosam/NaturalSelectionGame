@@ -91,7 +91,7 @@ async function getPopulationOnLoad() {
 }
 async function getEntirePopulation() {
   const currentUserId = localStorage.getItem("id");
-  const response = await fetch(`http://127.0.0.1:3000/allZylarians`);
+  const response = await fetch(`${serverAddress}allZylarians`);
   populationData = await response.json();
   const filteredZylarians = populationData.body.filter(
     (obj) => obj.ownerId !== currentUserId

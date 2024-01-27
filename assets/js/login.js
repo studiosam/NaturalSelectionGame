@@ -44,7 +44,7 @@ async function login() {
 
 async function sendLoginData(formData) {
   const data = new URLSearchParams(formData);
-  const response = await fetch("http://127.0.0.1:3000/", {
+  const response = await fetch(`${serverAddress}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",

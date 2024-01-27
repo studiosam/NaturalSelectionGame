@@ -1,6 +1,6 @@
 // Connect client to Server Websocket //
 
-const socket = io("http://127.0.0.1:3000"); // Connect to the server immediately when the page loads
+const socket = io(`${serverAddress}`); // Connect to the server immediately when the page loads
 
 // Log to console when connected //
 socket.on("connect", function () {
@@ -29,7 +29,7 @@ async function sendZylarianData(data) {
   // const searchParam = getParam(data);
   console.log("Send Zy data=", data);
 
-  const create = await fetch("http://127.0.0.1:3000/createZylarian", {
+  const create = await fetch(`${serverAddress}createZylarian`, {
     method: "POST",
     headers: {
       Accept: "application/json",
