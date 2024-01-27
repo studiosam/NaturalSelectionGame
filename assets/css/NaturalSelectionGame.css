@@ -146,6 +146,7 @@ h2 {
   padding-top: 20px;
   border-radius: 5px;
   color: #4f5e66;
+  z-index: 12;
 }
 
 .modal-body, .modal-header, .modal-footer {
@@ -337,6 +338,7 @@ svg {
 
 .logosmall {
   height: 150px;
+  margin-left: 10px;
 }
 
 .active {
@@ -355,5 +357,72 @@ svg {
 
 .logoVSmall {
   height: 50px;
+}
+
+.levelContainer {
+  height: 45px;
+  width: 45px;
+  position: absolute;
+  top: 36px;
+  right: 26px;
+  border-radius: 50px;
+  background-color: #101f56;
+  border: 1px solid lightgoldenrodyellow;
+}
+
+.levelCircle {
+  text-align: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 1px;
+}
+
+.level {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  color: #fffaf0;
+  justify-content: center;
+  align-items: center;
+  font-size: xx-large;
+}
+
+.cardP {
+  position: absolute;
+  top: -19px;
+  right: 6px;
+  font-size: small;
+  color: #3d3577;
+}
+
+.progress {
+  border: 1px solid white;
+  background-color: #222934;
+}
+
+.progress-bar {
+  background-color: #ae241b;
+}
+
+input:invalid {
+  background-color: #ff0000;
+}
+
+input:required {
+  background-color: #fffaf0;
+}
+
+input:valid, select:valid {
+  background-color: #121829;
+  color: #fffaf0;
+  transition: 1s;
+}
+
+#name {
+  background-color: #fffaf0;
+  color: #121b29;
+  font-weight: bold;
 }
 

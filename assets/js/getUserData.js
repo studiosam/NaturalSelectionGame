@@ -34,7 +34,14 @@ const zylarianMenu = (
   cardIndex
 ) => `<div class="col userZylariansCol">
 <div class="card zylarianCard" pointer-events="auto"><img class="card-img-top w-100 d-block" />
-    <div class="card-body">
+    <div class="card-body"><div class="levelContainer">
+    <div class="text-end">
+        <p class="cardP">Level</p>
+    </div>
+    <div class="levelCircle">
+        <p class="level">1</p>
+    </div>
+</div>
         <h4 class="card-title zylarianName" style="background-color:${zylariandata.skinColor}">${zylariandata.name}</h4>
         <div class="table-responsive">
         <table class="table table-striped table-sm">
@@ -87,7 +94,9 @@ const zylarianMenu = (
             </tbody>
         </table>
         <span class='zyID' style="display:none">${zyID}</span>
-    </div><div class="cardIndex hidden">${cardIndex}</div><div class="text-center text-white">${zylarian}</div></div></div></div>`;
+    </div><div class="cardIndex hidden">${cardIndex}</div><div class="text-center text-white mb-2">${zylarian}</div><div class="progress">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;">20 EXP</div>
+</div></div></div></div>`;
 
 // Gets Users Data from the database and creates their Zylarian Population on page Load //
 async function onLoad() {
