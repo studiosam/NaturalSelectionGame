@@ -15,25 +15,27 @@
     <header>
         <nav class="navbar navbar-expand-md" data-bs-theme="dark">
             <div class="container-fluid"><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navcol-1">
+                <div class="collapse navbar-collapse" id="navcol-1"><img class="logosmall me-4" src="assets/img/zylaria.webp">
                     <ul class="navbar-nav">
                         <li class="nav-item"><a class="nav-link" href="create.html">Create</a></li>
                         <li class="nav-item"><a class="nav-link active" href="mating.html">Mating</a></li>
                     </ul>
                 </div>
-                <section>
-                    <div class="d-flex justify-content-end mt-3 me-3 align-items-center">
-                        <div>
-                            <p class="text-white">Logged in as :&nbsp;<span id="currentLoggedUser" class="currentUser">NOT LOGGED IN</span></p>
+                <section class="w-100 text-center">
+                    <div>
+                        <div class="d-flex justify-content-end mt-3 me-3 align-items-center">
+                            <div>
+                                <p class="text-white">Logged in as :&nbsp;<span id="currentLoggedUser" class="currentUser">NOT LOGGED IN</span></p>
+                            </div>
+                            <div>
+                                <p id="logoutLink">Logout</p>
+                            </div>
                         </div>
-                        <div>
-                            <p id="logoutLink">Logout</p>
+                        <div id="numOfZylariansContainer" class="text-end me-4">
+                            <p>Number of Zylarians :&nbsp;<span id="numOfZylarians">0</span></p>
                         </div>
+                        <div class="text-end me-4 mt-0"><button class="btn btn-primary" id="viewZylarians" type="button" data-bs-target="#zylarianModal" data-bs-toggle="modal">My Zylarians</button></div>
                     </div>
-                    <div id="numOfZylariansContainer" class="text-end me-4">
-                        <p>Number of Zylarians :&nbsp;<span id="numOfZylarians">0</span></p>
-                    </div>
-                    <div class="text-end me-4 mt-0"><button class="btn btn-primary" id="viewZylarians" type="button" data-bs-target="#zylarianModal" data-bs-toggle="modal">My Zylarians</button></div>
                 </section>
             </div>
         </nav>
@@ -186,6 +188,9 @@
             </div>
         </div>
     </div>
+    <footer class="footer text-center">
+        <div><img class="logoVSmall mb-3" src="assets/img/zylaria.webp"></div>
+    </footer>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-init.js"></script>

@@ -135,6 +135,7 @@ h2 {
 
 .userZylariansCol {
   min-width: 304px;
+  z-index: 6;
   max-width: 376.672px;
 }
 
@@ -161,6 +162,7 @@ h2 {
 .selected {
   background-color: #ab86b8 !important;
   border-color: #ffe500;
+  animation: animate 2s linear infinite;
 }
 
 .delete {
@@ -331,5 +333,27 @@ svg {
   justify-content: center;
   border-radius: 5px;
   align-items: center;
+}
+
+.logosmall {
+  height: 150px;
+}
+
+.active {
+  color: #ffb800 !important;
+}
+
+@keyframes animate {
+  50% {
+    filter: hue-rotate(350deg);
+  }
+}
+
+.footer {
+  /*background: #070420;*/
+}
+
+.logoVSmall {
+  height: 50px;
 }
 
