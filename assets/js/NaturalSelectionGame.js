@@ -550,7 +550,6 @@ function createZylarianByMating(zylarian1, zylarian2) {
     let newDietType = trueFalseMating(zylarian1.dietType, zylarian2.dietType);
     let newGenotypes = mendellianCombination(zylarian1, zylarian2);
     let newSkinColor = skinMatching(newGenotypes, zylarianSkinColors, "color");
-    let newSkinPattern = "Solid"; // More complicated Boi
     let newSpecialFeatures = inheritSpecialFeatures(
       zylarian1.specialFeatures,
       zylarian2.specialFeatures
@@ -567,6 +566,7 @@ function createZylarianByMating(zylarian1, zylarian2) {
       newSpecialFeatures,
       newDietType
     );
+    offspring.skinPattern = skinPatternDetermination(offspring);
   }
   if (Object.keys(offspring).length > 0) {
     console.log(offspring);
@@ -584,6 +584,18 @@ Utility Functions
 function getZylarianByName(name) {
   console.log("Getting zylarian by name");
   return population.find((zylarian) => zylarian.name === name);
+}
+
+// Returns all unique capital letters from a string
+function findUniqueCapitalLetters(str) {
+  const uniqueCapitals = new Set();
+
+  for (const char of str) {
+    if (char >= "A" && char <= "Z") {
+      uniqueCapitals.add(char);
+    }
+  }
+  return Array.from(uniqueCapitals).join("");
 }
 
 // Returns a random name
@@ -1149,6 +1161,29 @@ function skinMatching(genotypes, skinData, type) {
       "feathered",
       "furry",
     ];
+  }
+
+  function skinPatternDetermination(zylarian) {
+    let dominantAlleles =
+      zylarian.alleles.redAlleles.join("") +
+      zylarian.alleles.blueAlleles.join("") +
+      zylarian.alleles.greenAlleles.join("") +
+      zylarian.alleles.brownAlleles.join("");
+    dominantAlleles = findUniqueCapitalLetters(dominantAlleles);
+
+    if (dominantAlleles.length > 1) {
+      if (dominantAlleles == "BG" || dominantAlleles == "GB") {
+        return zylarianSkinPatterns[3];
+      }
+      let randomNumber = Math.random();
+      if (randomNumber < 0.3) {
+        return zylarianSkinPatterns[1];
+      } else if (randomNumber < 0.7) {
+        return zylarianSkinPatterns[2];
+      } else {
+        return zylarianSkinPatterns[0];
+      }
+    }
   }
 
   for (const skinItem of skinData) {
