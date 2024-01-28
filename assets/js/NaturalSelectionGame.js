@@ -547,7 +547,10 @@ function createZylarianByMating(zylarian1, zylarian2) {
       zylarian2.feathered
     );
     let newFurry = trueFalseMating(zylarian1.furry, zylarian2.furry);
-    let newDietType = trueFalseMating(zylarian1.dietType, zylarian2.dietType);
+    let newDietType = traitOneOrTraitTwoMating(
+      zylarian1.dietType,
+      zylarian2.dietType
+    );
     let newGenotypes = mendellianCombination(zylarian1, zylarian2);
     let newSkinColor = skinMatching(newGenotypes, zylarianSkinColors, "color");
     let newSkinPattern = "Solid"; // More complicated Boi
@@ -1061,6 +1064,19 @@ function trueFalseMating(trait1, trait2) {
     return trait1;
   } else {
     return getRandomBoolean(0.5);
+  }
+}
+
+function traitOneOrTraitTwoMating(trait1, trait2) {
+  console.log("Generating skin texture");
+  if (trait1 == trait2) {
+    return trait1;
+  } else {
+    if (getRandomBoolean(0.5)) {
+      return trait1;
+    } else {
+      return trait2;
+    }
   }
 }
 
