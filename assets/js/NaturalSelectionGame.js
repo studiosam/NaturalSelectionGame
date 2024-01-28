@@ -397,14 +397,22 @@ class Zylarian {
     // Store alleles
 
     this.alleles = {
-      redAlleles: splitGenotype(this.colorGenotypes.redGenotype),
-      greenAlleles: splitGenotype(this.colorGenotypes.greenGenotype),
-      blueAlleles: splitGenotype(this.colorGenotypes.blueGenotype),
-      brownAlleles: splitGenotype(this.colorGenotypes.brownGenotype),
-      skinMoistureAlleles: splitGenotype(
+      redAlleles: this.extractAndStoreAlleles(this.colorGenotypes.redGenotype),
+      greenAlleles: this.extractAndStoreAlleles(
+        this.colorGenotypes.greenGenotype
+      ),
+      blueAlleles: this.extractAndStoreAlleles(
+        this.colorGenotypes.blueGenotype
+      ),
+      brownAlleles: this.extractAndStoreAlleles(
+        this.colorGenotypes.brownGenotype
+      ),
+      skinMoistureAlleles: this.extractAndStoreAlleles(
         this.skinTextureGenotypes.skinMoistureGenotype
       ),
-      scaleAlleles: splitGenotype(this.skinTextureGenotypes.scaleGenotype),
+      scaleAlleles: this.extractAndStoreAlleles(
+        this.skinTextureGenotypes.scaleGenotype
+      ),
     };
     //console.log(this);
   }
