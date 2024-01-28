@@ -89,7 +89,7 @@ const zylarianMenu = (
                 </tr>
                 <tr>
                     <td class="statItem text-center">Skin Texture Genotypes</td>
-                    <td class="statValue text-center">Scales: ${zylariandata.skinTextureGenotypes.scaleGenotype}, Skin Moisture: ${zylariandata.skinTextureGenotypes.skinMoistureGenotype}, Feathered: ${zylariandata.skinTextureGenotypes.feathered}, Furry: ${zylariandata.skinTextureGenotypes.furry}</td>
+                    <td class="statValue text-center">Scales: ${zylariandata.skinTextureGenotypes.scaleGenotype}, Skin Moisture: ${zylariandata.skinTextureGenotypes.skinMoistureGenotype}, Featherd: ${zylariandata.skinTextureGenotypes.feathered}, Furry: ${zylariandata.skinTextureGenotypes.furry}</td>
                 </tr>
             </tbody>
         </table>
