@@ -10,63 +10,6 @@ const ALPHA_W = 1;
 
 console.log("Please dear jesus. Here we go.");
 
-class Zylarian {
-  constructor(
-    name,
-    height,
-    weight,
-    activity,
-    skinColor,
-    skinTexture,
-    limbType,
-    specialFeatures,
-    dietType
-  ) {
-    console.log("Generating zylarian");
-    this.name = name || generateRandomName();
-    this.height = height;
-    this.weight = weight;
-    this.activity = activity;
-    this.skinColor = skinColor;
-    this.skinTexture = skinTexture;
-    this.limbType = limbType;
-    this.specialFeatures = [specialFeatures];
-    this.dietType = dietType;
-    console.log("THIS", this);
-
-    // Generate genotypes for the initial Zylarian
-    console.log("Generating genotypes for the initial Zylarian.");
-    this.colorGenotypes = assignGenotypesForColor(skinColor);
-    this.skinTextureGenotypes = assignGenotypesForSkinTexture(skinTexture);
-    this.extractAndStoreAlleles();
-    //console.log(this);
-  }
-
-  extractAndStoreAlleles() {
-    console.log("Extracting alleles for the initial zylarian");
-    // Function to split a genotype into alleles
-    const splitGenotype = (genotype) => {
-      return genotype.split("");
-    };
-
-    // Store alleles
-
-    this.alleles = {
-      redAlleles: splitGenotype(this.colorGenotypes.redGenotype),
-      greenAlleles: splitGenotype(this.colorGenotypes.greenGenotype),
-      blueAlleles: splitGenotype(this.colorGenotypes.blueGenotype),
-      brownAlleles: splitGenotype(this.colorGenotypes.brownGenotype),
-      skinMoistureAlleles: splitGenotype(
-        this.skinTextureGenotypes.skinMoistureGenotype
-      ),
-      scaleAlleles: splitGenotype(this.skinTextureGenotypes.scaleGenotype),
-    };
-    //console.log(this);
-  }
-  /* Example usage:
-        const zylarian = new Zylarian("Zylo", 150, 500, "Green", "Scaly", "Quadripedal", "Night Vision", "Carnivore");*/
-}
-
 // Create initial zylarian from user form and return the zylarian
 async function createInitialZylarian() {
   console.log("Getting form values");
