@@ -1060,7 +1060,11 @@ function trueFalseMating(trait1, trait2) {
   if (trait1 == trait2) {
     return trait1;
   } else {
-    return getRandomBoolean(0.5);
+    if (getRandomBoolean(0.5)) {
+      return trait1;
+    } else {
+      return trait2;
+    }
   }
 }
 
