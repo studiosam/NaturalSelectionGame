@@ -1,20 +1,3 @@
-// Zylarian Game Logic
-
-// Get data from local storage
-
-/*
-Utility Functions
-*/
-
-// Returns zylarian object from a name
-// Returns a random name
-
-/*
-Mating Logic
-*/
-
-// Sets the attributes of the current mate and returns a mating pair of objects as an array
-
 // Populates all option menus
 function initializeZylarianMenu(selectIds) {
   console.log("Initializing menu");

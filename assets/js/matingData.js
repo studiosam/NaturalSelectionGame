@@ -46,6 +46,9 @@ mateForm.addEventListener("submit", async (event) => {
       $("#alertBox").fadeOut();
       document.querySelector("#childAlertContainer").innerHTML = "";
     }, 3000);
+    const listContainer = (document.getElementById(
+      "zylariansControlledByPlayerListContainer"
+    ).innerHTML = "");
     document.querySelector("#mateForm").reset();
   }
 });
@@ -61,14 +64,9 @@ async function zylarianSelected() {
   const closemodal = document.querySelector("#zylarianModalClose");
   closemodal.click();
   updateZylarianList([yourZylarianData]);
-  if (typeof parsedZyGenotypes !== "undefined") {
-    let parsedZyGenotypes = JSON.parse(yourZylarianData.genotypes);
-    yourZylarianData.genotypes = parsedZyGenotypes;
-    localStorage.setItem("zylarian1", JSON.stringify(yourZylarianData));
-    yourNameChoice.value = yourZylarianData.name;
-  } else {
-    yourNameChoice.value = yourZylarianData.name;
-  }
+
+  localStorage.setItem("zylarian1", JSON.stringify(yourZylarianData));
+  yourNameChoice.value = yourZylarianData.name;
 }
 
 async function fillMateData() {
@@ -77,15 +75,9 @@ async function fillMateData() {
     Object.entries(item).forEach(([key, value]) => {
       if (value === currentMate) {
         mate = item;
-        if (typeof mate.genotypes === "string") {
-          parsedMateGenotypes = JSON.parse(mate.genotypes);
-          mate.genotypes = parsedMateGenotypes;
-          localStorage.setItem("zylarian2", JSON.stringify(mate));
-          console.log(mate);
-        } else {
-          localStorage.setItem("zylarian2", JSON.stringify(mate));
-          console.log(mate);
-        }
+
+        localStorage.setItem("zylarian2", JSON.stringify(mate));
+        console.log(mate);
       }
     });
   });
@@ -101,7 +93,7 @@ async function fillMateData() {
 
   //selections
   mateLimbType.value = mate.limbType || "";
-  mateSpecialFeatures.value = JSON.parse(mate.specialFeatures) || "";
+  mateSpecialFeatures.value = mate.specialFeatures || "";
   mateDietType.value = mate.dietType || "";
 
   // if bois//
@@ -210,8 +202,8 @@ function updateZylarianList(population) {
   // Creates a list item for each zylarian in the array
   population.forEach((zylarian, index) => {
     try {
-      colorGenotypes = JSON.parse(zylarian.genotypes).color;
-      textureGenotypes = JSON.parse(zylarian.genotypes).texture;
+      colorGenotypes = zylarian.genotypes.color;
+      textureGenotypes = zylarian.genotypes.texture;
     } catch (e) {
       console.log("already Parsed");
     }
@@ -231,9 +223,9 @@ function updateZylarianList(population) {
                 Height: ${zylarian.height} cm, Weight: ${
       zylarian.weight
     } g</li><li>
-                Limb Type: ${zylarian.limbType}, Special Feature: ${JSON.parse(
+                Limb Type: ${zylarian.limbType}, Special Feature: ${
       zylarian.specialFeatures
-    )}, Diet: ${zylarian.dietType}</li><li>
+    }, Diet: ${zylarian.dietType}</li><li>
                 Color Genotypes: ${skinColorGenotypeString}</li><li>
                 Skin Texture Genotypes: ${skinTextureGenotypeString}
                 `;

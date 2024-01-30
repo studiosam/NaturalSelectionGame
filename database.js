@@ -1,16 +1,18 @@
-const mysql = require("mysql2/promise");
-
+const mysql = require("mysql2");
+const dotenv = require("dotenv").config();
 // Create a connection pool
-const pool = mysql.createPool({
-  host: "localhost",
-  port: 3306,
-  user: "univvkeu_zylarianadmin",
-  password: "H12awkss!",
-  database: "univvkeu_zylarians",
-  waitForConnections: true,
-  connectionLimit: 45, // Adjust based on your requirements
-  queueLimit: 0,
-});
+const pool = mysql
+  .createPool({
+    host: "localhost",
+    port: 3306,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_USER_PASSWORD,
+    database: process.env.DATABASE,
+    waitForConnections: true,
+    connectionLimit: 15, // Adjust based on your requirements
+    queueLimit: 0,
+  })
+  .promise();
 // Database functions //
 
 // Gets All Zylarians from Selected User (player arg) //
@@ -28,7 +30,7 @@ async function getUserZylarians(player) {
 
 async function getAllZylarians() {
   const allZylarians = await getAllRowsFromTable("zylarians");
-
+  console.log(allZylarians);
   return allZylarians;
 }
 
@@ -54,7 +56,6 @@ async function deleteUserZylarian(player, zylarian) {
     const [result] = await connection.execute(sql);
 
     console.log(`Deleted ${result.affectedRows} row(s) from ${tableName}`);
-    connection.release();
     return "RIP";
   } catch (err) {
     console.error(err);
@@ -134,7 +135,6 @@ async function generateInsertQuery(data, table) {
     console.log(result); // results contains rows returned by server
     console.log(fields); // fields contains extra meta data about results, if available
   } catch (err) {
-    connection.release();
     console.log(err);
   } finally {
     // Release the connection back to the pool
@@ -150,7 +150,17 @@ async function generateSelectQuery(tableName, columnName, columnValue) {
   try {
     const [rows, fields] = await connection.execute(sqlQuery);
 
-    return rows;
+    const parsedRows = rows.map((row) => {
+      if (row.genotypes) {
+        row.genotypes = JSON.parse(row.genotypes);
+      }
+      if (row.specialFeatures) {
+        row.specialFeatures = JSON.parse(row.specialFeatures);
+      }
+      return row;
+    });
+
+    return parsedRows;
   } catch (err) {
     console.log(err);
   } finally {
@@ -162,8 +172,18 @@ async function getAllRowsFromTable(tableName) {
   const connection = await pool.getConnection();
   try {
     const sql = `SELECT * FROM ${mysql.escapeId(tableName)}`;
-    const [rows, fields] = await connection.execute(sql);
-    return rows;
+    const [rows, fields] = await connection.execute({ sql: sql });
+    const parsedRows = rows.map((row) => {
+      if (row.genotypes) {
+        row.genotypes = JSON.parse(row.genotypes);
+      }
+      if (row.specialFeatures) {
+        row.specialFeatures = JSON.parse(row.specialFeatures);
+      }
+      return row;
+    });
+
+    return parsedRows;
   } catch (err) {
     console.error(err);
   } finally {

@@ -33,9 +33,7 @@ const zylarianMenu = (
   zylarian,
   cardIndex
 ) => `<div class="col userZylariansCol">
-<div class="card zylarianCard ${zylariandata.skinTexture} ${
-  zylariandata.skinPattern
-}" pointer-events="auto"><img class="card-img-top w-100 d-block" />
+<div class="card zylarianCard ${zylariandata.skinTexture} ${zylariandata.skinPattern}" pointer-events="auto"><img class="card-img-top w-100 d-block" />
 
     <div class="card-body"><div class="levelContainer">
     <div class="text-end">
@@ -45,9 +43,7 @@ const zylarianMenu = (
         <p class="level">1</p>
     </div>
 </div>
-        <h4 class="card-title zylarianName ${zylariandata.skinColor}">${
-  zylariandata.name
-}</h4>
+        <h4 class="card-title zylarianName ${zylariandata.skinColor}">${zylariandata.name}</h4>
         <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
@@ -58,73 +54,43 @@ const zylarianMenu = (
             <tbody>
                 <tr>
                     <td class="statItem text-center">Color</td>
-                    <td class="statValue text-center">${
-                      zylariandata.skinColor
-                    }</td>
+                    <td class="statValue text-center">${zylariandata.skinColor}</td>
                 </tr>
                 <tr>
                     <td class="statItem text-center">Texture</td>
-                    <td class="statValue text-center"><div class = "${
-                      zylariandata.skinTexture
-                    }"><span>${zylariandata.skinTexture}</span></div></td>
+                    <td class="statValue text-center"><div class = "${zylariandata.skinTexture}"><span>${zylariandata.skinTexture}</span></div></td>
                 </tr>
                 <tr>
                     <td class="statItem text-center">Pattern</td>
-                    <td class="statValue text-center"><div class ="${
-                      zylariandata.skinPattern
-                    }"><span>${zylariandata.skinPattern}</span></td>
+                    <td class="statValue text-center"><div class ="${zylariandata.skinPattern}"><span>${zylariandata.skinPattern}</span></td>
                 </tr>
                 <tr>
                     <td class="statItem text-center">Height</td>
-                    <td class="statValue text-center">${
-                      zylariandata.height
-                    }</td>
+                    <td class="statValue text-center">${zylariandata.height}</td>
                 </tr>
                 <tr>
                     <td class="statItem text-center">Weight</td>
-                    <td class="statValue text-center">${
-                      zylariandata.weight
-                    }</td>
+                    <td class="statValue text-center">${zylariandata.weight}</td>
                 </tr>
                 <tr>
                     <td class="statItem text-center">Limb Type</td>
-                    <td class="statValue text-center">${
-                      zylariandata.limbType
-                    }</td>
+                    <td class="statValue text-center">${zylariandata.limbType}</td>
                 </tr>
                 <tr>
                     <td class="statItem text-center">Special Features</td>
-                    <td class="statValue text-center">${JSON.parse(
-                      zylariandata.specialFeatures
-                    )}</td>
+                    <td class="statValue text-center">${zylariandata.specialFeatures}</td>
                 </tr>
                 <tr>
                     <td class="statItem text-center">Diet</td>
-                    <td class="statValue text-center">${
-                      zylariandata.dietType
-                    }</td>
+                    <td class="statValue text-center">${zylariandata.dietType}</td>
                 </tr>
                 <tr>
                     <td class="statItem text-center">Color Genotypes</td>
-                    <td class="statValue text-center"><span class = "red">Red: ${
-                      JSON.parse(zylariandata.genotypes).color.redGenotype
-                    }</span>, <span class = "green">Green: ${
-  JSON.parse(zylariandata.genotypes).color.greenGenotype
-}</span>, <span class = "blue">Blue: ${
-  JSON.parse(zylariandata.genotypes).color.blueGenotype
-}</span>, <span class = "brown">Brown: ${
-  JSON.parse(zylariandata.genotypes).color.brownGenotype
-}</span></td>
+                    <td class="statValue text-center"><span class = "red">Red: ${zylariandata.genotypes.color.redGenotype}</span>, <span class = "green">Green: ${zylariandata.genotypes.color.greenGenotype}</span>, <span class = "blue">Blue: ${zylariandata.genotypes.color.blueGenotype}</span>, <span class = "brown">Brown: ${zylariandata.genotypes.color.brownGenotype}</span></td>
                 </tr>
                 <tr>
                     <td class="statItem text-center">Skin Texture Genotypes</td>
-                    <td class="statValue text-center">Scales: ${
-                      JSON.parse(zylariandata.genotypes).texture.scaleGenotype
-                    }, Skin Moisture: ${
-  JSON.parse(zylariandata.genotypes).texture.skinMoistureGenotype
-}, Feathers: ${
-  JSON.parse(zylariandata.genotypes).texture.featherGenotype
-}, Fur: ${JSON.parse(zylariandata.genotypes).texture.furGenotype}</td>
+                    <td class="statValue text-center">Scales: ${zylariandata.genotypes.texture.scaleGenotype}, Skin Moisture: ${zylariandata.genotypes.texture.skinMoistureGenotype}, Feathers: ${zylariandata.genotypes.texture.featherGenotype}, Fur: ${zylariandata.genotypes.texture.furGenotype}</td>
                 </tr>
             </tbody>
         </table>
