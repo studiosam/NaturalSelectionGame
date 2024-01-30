@@ -23,7 +23,31 @@ const alert = document.querySelector("#toast-1");
 const mateForm = document.querySelector("#mateForm");
 mateForm.addEventListener("submit", async (event) => {
   event.preventDefault();
-  getZylariansAndMateThem();
+  let newChildStatus = await mateStatus();
+  if (newChildStatus.status === "Failed") {
+    console.log("failed");
+    // Output to Page //
+    document.querySelector(
+      "#childAlertContainer"
+    ).innerHTML = `<div class="text-center alertBG"><p">Mating Unsuccessful :(</p><br /><p>Please Try Again</p>`;
+    $("#childAlertBox").fadeIn();
+    setTimeout(() => {
+      $("#alertBox").fadeOut();
+      document.querySelector("#childAlertContainer").innerHTML = "";
+    }, 3000);
+  } else {
+    // Output to Page //
+
+    document.querySelector("#childAlertContainer").innerHTML = zylarianNewChild(
+      newChildStatus.child
+    );
+    $("#childAlertBox").fadeIn();
+    setTimeout(() => {
+      $("#alertBox").fadeOut();
+      document.querySelector("#childAlertContainer").innerHTML = "";
+    }, 3000);
+    document.querySelector("#mateForm").reset();
+  }
 });
 chooseZylarian.addEventListener("click", zylarianSelected);
 getPopulationOnLoad();
@@ -55,13 +79,12 @@ async function fillMateData() {
   matesName.value = mate.name || "";
   matesHeight.value = mate.height || "";
   matesWeight.value = mate.weight || "";
-  mateRedGenotype.value = mate.colorGenotypes.redGenotype || "";
-  mateGreenGenotype.value = mate.colorGenotypes.greenGenotype || "";
-  mateBlueGenotype.value = mate.colorGenotypes.blueGenotype || "";
-  mateBrownGenotype.value = mate.colorGenotypes.brownGenotype || "";
-  mateScaleGenotype.value = mate.skinTextureGenotypes.scaleGenotype || "";
-  mateSkinMoistureGenotype.value =
-    mate.skinTextureGenotypes.skinMoistureGenotype;
+  mateRedGenotype.value = mate.genotypes.color.redGenotype || "";
+  mateGreenGenotype.value = mate.genotypes.color.greenGenotype || "";
+  mateBlueGenotype.value = mate.genotypes.color.blueGenotype || "";
+  mateBrownGenotype.value = mate.genotypes.color.brownGenotype || "";
+  mateScaleGenotype.value = mate.genotypes.texture.scaleGenotype || "";
+  mateSkinMoistureGenotype.value = mate.genotypes.texture.skinMoistureGenotype;
 
   //selections
   mateLimbType.value = mate.limbType || "";
@@ -74,10 +97,10 @@ async function fillMateData() {
   } else if (mate.activity === "Nocturnal") {
     nocturnal.checked = true;
   }
-  mate.skinTextureGenotypes.feathered
+  mate.genotypes.texture.feathered
     ? (mateFeathered.checked = true)
     : (mateFeathered.checked = false);
-  mate.skinTextureGenotypes.furry
+  mate.genotypes.texture.furry
     ? (mateFurry.checked = true)
     : (mateFurry.checked = false);
 }
@@ -151,11 +174,11 @@ const zylarianNewChild = (
                 </tr>
                 <tr>
                     <td class="statItem text-center">Color Genotypes</td>
-                    <td class="statValue text-center">Red: ${zylariandata.colorGenotypes.redGenotype}, Green: ${zylariandata.colorGenotypes.greenGenotype}, Blue: ${zylariandata.colorGenotypes.blueGenotype}, Brown: ${zylariandata.colorGenotypes.brownGenotype}</td>
+                    <td class="statValue text-center">Red: ${zylariandata.genotypes.color.redGenotype}, Green: ${zylariandata.genotypes.color.greenGenotype}, Blue: ${zylariandata.genotypes.color.blueGenotype}, Brown: ${zylariandata.genotypes.color.brownGenotype}</td>
                 </tr>
                 <tr>
                     <td class="statItem text-center">Skin Texture Genotypes</td>
-                    <td class="statValue text-center">Scales: ${zylariandata.skinTextureGenotypes.scaleGenotype}, Skin Moisture: ${zylariandata.skinTextureGenotypes.skinMoistureGenotype}, Featherd: ${zylariandata.skinTextureGenotypes.feathered}, Furry: ${zylariandata.skinTextureGenotypes.furry}</td>
+                    <td class="statValue text-center">Scales: ${zylariandata.genotypes.texture.scaleGenotype}, Skin Moisture: ${zylariandata.genotypes.texture.skinMoistureGenotype}, Feathers: ${zylariandata.genotypes.texture.featherGenotype}, Fur: ${zylariandata.genotypes.texture.furGenotype}</td>
                 </tr>
             </tbody>
         </table>

@@ -33,7 +33,8 @@ const zylarianMenu = (
   zylarian,
   cardIndex
 ) => `<div class="col userZylariansCol">
-<div class="card zylarianCard" pointer-events="auto"><img class="card-img-top w-100 d-block" />
+<div class="card zylarianCard ${zylariandata.skinTexture} ${zylariandata.skinPattern}" pointer-events="auto"><img class="card-img-top w-100 d-block" />
+
     <div class="card-body"><div class="levelContainer">
     <div class="text-end">
         <p class="cardP">Level</p>
@@ -42,7 +43,7 @@ const zylarianMenu = (
         <p class="level">1</p>
     </div>
 </div>
-        <h4 class="card-title zylarianName" style="background-color:${zylariandata.skinColor}">${zylariandata.name}</h4>
+        <h4 class="card-title zylarianName ${zylariandata.skinColor}">${zylariandata.name}</h4>
         <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
@@ -57,11 +58,11 @@ const zylarianMenu = (
                 </tr>
                 <tr>
                     <td class="statItem text-center">Texture</td>
-                    <td class="statValue text-center">${zylariandata.skinTexture}</td>
+                    <td class="statValue text-center"><div class = "${zylariandata.skinTexture}"><span>${zylariandata.skinTexture}</span></div></td>
                 </tr>
                 <tr>
                     <td class="statItem text-center">Pattern</td>
-                    <td class="statValue text-center">${zylariandata.skinPattern}</td>
+                    <td class="statValue text-center"><div class ="${zylariandata.skinPattern}"><span>${zylariandata.skinPattern}</span></td>
                 </tr>
                 <tr>
                     <td class="statItem text-center">Height</td>
@@ -76,7 +77,7 @@ const zylarianMenu = (
                     <td class="statValue text-center">${zylariandata.limbType}</td>
                 </tr>
                 <tr>
-                    <td class="statItem text-center">Special Feature</td>
+                    <td class="statItem text-center">Special Features</td>
                     <td class="statValue text-center">${zylariandata.specialFeatures[0]}</td>
                 </tr>
                 <tr>
@@ -85,17 +86,17 @@ const zylarianMenu = (
                 </tr>
                 <tr>
                     <td class="statItem text-center">Color Genotypes</td>
-                    <td class="statValue text-center">Red: ${zylariandata.colorGenotypes.redGenotype}, Green: ${zylariandata.colorGenotypes.greenGenotype}, Blue: ${zylariandata.colorGenotypes.blueGenotype}, Brown: ${zylariandata.colorGenotypes.brownGenotype}</td>
+                    <td class="statValue text-center"><span class = "red">Red: ${zylariandata.genotypes.color.redGenotype}</span>, <span class = "green">Green: ${zylariandata.genotypes.color.greenGenotype}</span>, <span class = "blue">Blue: ${zylariandata.genotypes.color.blueGenotype}</span>, <span class = "brown">Brown: ${zylariandata.genotypes.color.brownGenotype}</span></td>
                 </tr>
                 <tr>
                     <td class="statItem text-center">Skin Texture Genotypes</td>
-                    <td class="statValue text-center">Scales: ${zylariandata.skinTextureGenotypes.scaleGenotype}, Skin Moisture: ${zylariandata.skinTextureGenotypes.skinMoistureGenotype}, Featherd: ${zylariandata.skinTextureGenotypes.feathered}, Furry: ${zylariandata.skinTextureGenotypes.furry}</td>
+                    <td class="statValue text-center">Scales: ${zylariandata.genotypes.texture.scaleGenotype}, Skin Moisture: ${zylariandata.genotypes.texture.skinMoistureGenotype}, Feathers: ${zylariandata.genotypes.texture.featherGenotype}, Fur: ${zylariandata.genotypes.texture.furGenotype}</td>
                 </tr>
             </tbody>
         </table>
         <span class='zyID' style="display:none">${zyID}</span>
     </div><div class="cardIndex hidden">${cardIndex}</div><div class="text-center text-white mb-2">${zylarian}</div><div class="progress">
-    <div class="progress-bar progress-bar-striped progress-bar-animated" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;">20 EXP</div>
+    <div class="progress-bar progress-bar-striped progress-bar-animated" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">0 EXP</div>
 </div></div></div></div>`;
 
 // Gets Users Data from the database and creates their Zylarian Population on page Load //
@@ -141,7 +142,6 @@ async function onLoad() {
         zylarian.age = `<span class="currentUser">${secondsDifference}</span> seconds old`;
       }
       cardIndex++;
-
       userZylariansContainer.innerHTML += zylarianMenu(
         zylarian.zylarianData,
         zylarian.id,
@@ -173,7 +173,7 @@ async function onLoad() {
           !card.classList.contains("selected")
         );
 
-        const currentZyID = card.querySelector("span").innerHTML;
+        const currentZyID = card.querySelector(".zyID").innerHTML;
         localStorage.setItem("currentSelected", currentZyID);
         localStorage.setItem(
           "currentSelectedIndex",
@@ -234,6 +234,7 @@ async function handleDelete() {
     `${serverAddress}deleteZylarian?userId=${currentUserId}&Id=${zyForDeletion}`
   );
   const userData = await response.json();
+  console.log(currentUserId, zyForDeletion);
   if (userData.body === "RIP") {
     let createAlert = document.querySelector(".toast-alert");
     createAlert.innerHTML = `Zylarian <span class="currentUser">${zyName}</span> has been deleted!`;

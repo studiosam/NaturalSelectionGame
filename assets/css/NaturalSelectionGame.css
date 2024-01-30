@@ -1,7 +1,83 @@
+:root {
+  --scaly: url('https://cdn.dribbble.com/users/71143/screenshots/1693017/untitled.jpg');
+  --leathery: url('https://st2.depositphotos.com/3864435/8867/i/950/depositphotos_88676374-stock-photo-leather-pattern-raster.jpg');
+  --furry: url('https://t3.ftcdn.net/jpg/00/74/58/96/360_F_74589629_23vQF5civr0cyEvtsh7yyz3S68AbavYT.jpg');
+  --feathered: url('https://gbs423.com/nsg/assets/img/feathered.webp');
+  --slimy: url('https://c8.alamy.com/comp/2C6DWT8/uniform-3d-abstract-background-of-simple-patterns-of-purple-plum-color-with-lighting-and-shadows-for-various-applications-needing-colorful-areas-illustration-and-blue-2C6DWT8.jpg');
+  --smooth: url('https://img.freepik.com/free-photo/brown-leather-texture-background_1373-433.jpg');
+  --solid: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5877e543-014c-4b8b-b6c2-37397c0c0c90/d30v1tg-2ccecfbc-4c29-49ac-a487-f08365416fa2.jpg/v1/fill/w_900,h_900,q_75,strp/seamless_human_skin_texture_by_hhh316_d30v1tg-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9OTAwIiwicGF0aCI6IlwvZlwvNTg3N2U1NDMtMDE0Yy00YjhiLWI2YzItMzczOTdjMGMwYzkwXC9kMzB2MXRnLTJjY2VjZmJjLTRjMjktNDlhYy1hNDg3LWYwODM2NTQxNmZhMi5qcGciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.bOtefGzZY0ZCBsjO39SMNT7cxXhrl2fcF6fe8fCoxoY');
+  --iridescent: url('https://cdn5.vectorstock.com/i/1000x1000/19/44/iridescent-animal-skin-seamless-pattern-for-design-vector-28081944.jpg');
+  --striped: url('https://as1.ftcdn.net/v2/jpg/03/08/33/84/1000_F_308338432_JNiTsZRvD3ffYC8Q481KBeKwva6ftnf3.jpg');
+  --spotted: url('https://png.pngtree.com/png-vector/20220521/ourlarge/pngtree-vector-illustration-of-multicolored-spotted-fur-skin-with-panoramic-texture-vector-png-image_46467984.jpg');
+}
+
+.zylarianCard {
+  border: 1px solid white;
+  cursor: pointer;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply;
+  
+}
+
+.blended-background {
+  width: 300px;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: lighten;
+}
+/* .zylarianCard.Scaly {
+  background-image: var(--scaly);
+  background-blend-mode: lighten
+}
+.zylarianCard.Leathery {
+  background-image: var(--leathery);
+   background-blend-mode: color
+}
+.zylarianCard.Furry {
+  background-image: var(--furry);
+   background-blend-mode: lighten
+}
+.zylarianCard.Feathered {
+  background-image: var(--feathered);
+   background-blend-mode: lighten
+}
+.zylarianCard.Slimy {
+  background-image: var(--slimy);
+   background-blend-mode: lighten
+}
+.zylarianCard.Smooth {
+  background-image: var(--smooth);
+   background-blend-mode: lighten
+}
+.zylarianCard.Solid {
+  background-image: var(--solid);
+   background-blend-mode: lighten
+}
+.zylarianCard.Iridescent {
+  background-image: var(--iridescent);
+   background-blend-mode: lighten
+}
+.zylarianCard.Striped {
+  background-image: var(--striped);
+   background-blend-mode: lighten
+}
+.zylarianCard.Spotted {
+  background-image: var(--spotted);
+   background-blend-mode: lighten
+} */
+
+
+
 *, ::after, ::before {
   box-sizing: border-box;
 }
 
+.table {
+  font-size: .99rem;
+}
 #zylariansControlledByPlayerPage {
   color: #fffaf0;
 }
@@ -126,17 +202,16 @@ h2 {
   color: #85bc71;
 }
 
-#viewZylarians {
-}
 
 #zylarianModal {
   color: #0949ad;
 }
 
 .userZylariansCol {
-  min-width: 304px;
+  min-width: 306px;
   z-index: 6;
   max-width: 376.672px;
+
 }
 
 .zylarianName {
@@ -154,11 +229,7 @@ h2 {
   background-color: rgb(31,30,51);
 }
 
-.zylarianCard {
-  background-color: rgb(61,60,57);
-  border: 1px solid white;
-  cursor: pointer;
-}
+
 
 .selected {
   background-color: #ab86b8 !important;
@@ -190,8 +261,6 @@ h2 {
   border-color: #ff0000;
 }
 
-svg {
-}
 
 #selectedForDelete {
   color: #ffb800;
@@ -346,13 +415,9 @@ svg {
 }
 
 @keyframes animate {
-  50% {
+  100% {
     filter: hue-rotate(350deg);
   }
-}
-
-.footer {
-  /*background: #070420;*/
 }
 
 .logoVSmall {
@@ -397,6 +462,7 @@ svg {
   color: #3d3577;
 }
 
+
 .progress {
   border: 1px solid white;
   background-color: #222934;
@@ -425,4 +491,156 @@ input:valid, select:valid {
   color: #121b29;
   font-weight: bold;
 }
+/* Colors */
 
+.White {
+  background-color: whitesmoke;
+  color: rgb(12, 12, 12);
+  border: 1px solid black
+}
+.Beige {
+  background-color: rgb(202, 202, 174);
+  color: rgb(12, 12, 12);
+  border: 1px solid black
+}
+.Gray {
+  background-color: rgb(41, 41, 41);
+  color: rgb(221, 221, 221);
+  border: 1px solid black
+}
+.Blue {
+  background-color: rgb(22, 94, 250);
+  color: whitesmoke;
+  border: 1px solid black
+}
+.Green {
+  background-color: rgb(9, 121, 33);
+  color: whitesmoke;
+  border: 1px solid black
+}
+.Red {
+  background-color: rgb(114, 26, 26);
+  color: whitesmoke;
+  border: 1px solid black
+}
+.Pink {
+  background-color: rgb(175, 39, 119);
+  color: whitesmoke;
+  border: 1px solid black
+}
+.Yellow {
+  background-color: rgb(196, 179, 34);
+  color: rgb(41, 41, 41);
+  border: 1px solid black
+}
+.Brown {
+  background-color: rgb(71, 49, 27);
+  color: whitesmoke;
+  border: 1px solid black
+}
+.Black {
+  background-color: rgb(12, 12, 12);
+  color: whitesmoke;
+  border: 1px solid black
+}
+
+
+
+
+/* Skin Textures */
+.Scaly {
+background-image: var(--scaly);
+background-size: cover;
+height: auto;
+border-radius: 25px;
+border: 2px solid green;
+color: #ffffff;
+/* text-shadow: 1px 2px #0b0b0d; */
+}
+
+.Leathery {
+  background-image: var(--leathery);
+  background-size: cover;
+  height: auto;
+  border-radius: 25px;
+  border: 2px solid rgb(66, 38, 6);
+  color: #ffffff;
+  /* text-shadow: 1px 2px #0b0b0d; */
+}
+.Furry {
+  background-image: var(--furry);
+  background-size: cover;
+  height: auto;
+  border-radius: 25px;
+  border: 2px solid rgb(36, 34, 33);
+  color: #ffffff;
+  /* text-shadow: 1px 2px #0b0b0d; */
+}
+.Feathered {
+  background-image: var(--feathered);
+  background-size: cover;
+  height: auto;
+  border-radius: 25px;
+  border: 2px solid rgb(0, 0, 0);
+  color: #ffffff;
+  /* text-shadow: 1px 2px #0b0b0d; */
+}
+.Slimy {
+  background-image: var(--slimy);
+  background-size: cover;
+  height: auto;
+  border-radius: 25px;
+  border: 2px solid rgb(0, 0, 0);
+  color: #ffffff;
+  
+  /* text-shadow: 1px 2px #0b0b0d; */
+}
+.Smooth {
+  background-image: var(--smooth);
+  background-size: cover;
+  height: auto;
+  border-radius: 25px;
+  border: 2px solid rgb(0, 0, 0);
+  color: #ffffff;
+  /* text-shadow: 1px 2px #0b0b0d; */
+}
+
+/* Skin Patterns */
+.Solid {
+  background-image: var(--solid);
+  background-size: cover;
+  background-blend-mode: multiply;
+  height: auto;
+  border-radius: 25px;
+  border: 2px solid rgb(0, 0, 0);
+  color: #ffffff;
+  /* text-shadow: 1px 2px #0b0b0d; */
+}
+.Iridescent {
+  background-image: var(--iridescent);
+  background-size: cover;
+  height: auto;
+  border-radius: 25px;
+  animation: animate 2s linear infinite;
+  border: 2px solid rgb(0, 0, 0);
+  color: #ffffff;
+  /* text-shadow: 1px 2px #0b0b0d; */
+}
+.Striped {
+  background-image: var(--striped);
+  background-size: cover;
+  height: auto;
+  border-radius: 25px;
+  border: 2px solid rgb(0, 0, 0);
+  color: #ffffff;
+  /* text-shadow: 1px 2px #0b0b0d; */
+}
+.Spotted {
+  background-image: var(--spotted);
+  background-size: cover;
+  height: auto;
+  border-radius: 25px;
+  border: 2px solid rgb(0, 0, 0);
+  color: #ffffff;
+  /* text-shadow: 1px 2px #0b0b0d; */
+}

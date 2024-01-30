@@ -1,123 +1,5 @@
 // Zylarian Game Logic
 
-/*
-Creating new zylarians
-*/
-/* 
-    Data Model and constructor for each zylarian 
-    */
-
-console.log("Please dear jesus. Here we go.");
-
-class Zylarian {
-  constructor(
-    name,
-    height,
-    weight,
-    activity,
-    skinColor,
-    skinTexture,
-    limbType,
-    specialFeatures,
-    dietType
-  ) {
-    console.log("Generating zylarian");
-    this.name = name || generateRandomName();
-    this.height = height;
-    this.weight = weight;
-    this.activity = activity;
-    this.skinColor = skinColor;
-    this.skinTexture = skinTexture;
-    this.limbType = limbType;
-    this.specialFeatures = [specialFeatures];
-    this.dietType = dietType;
-    console.log("THIS", this);
-
-    // Generate genotypes for the initial Zylarian
-    console.log("Generating genotypes for the initial Zylarian.");
-    this.colorGenotypes = assignGenotypesForColor(skinColor);
-    this.skinTextureGenotypes = assignGenotypesForSkinTexture(skinTexture);
-    this.extractAndStoreAlleles();
-    //console.log(this);
-  }
-
-  extractAndStoreAlleles() {
-    console.log("Extracting alleles for the initial zylarian");
-    // Function to split a genotype into alleles
-    const splitGenotype = (genotype) => {
-      return genotype.split("");
-    };
-
-    // Store alleles
-
-    this.alleles = {
-      redAlleles: splitGenotype(this.colorGenotypes.redGenotype),
-      greenAlleles: splitGenotype(this.colorGenotypes.greenGenotype),
-      blueAlleles: splitGenotype(this.colorGenotypes.blueGenotype),
-      brownAlleles: splitGenotype(this.colorGenotypes.brownGenotype),
-      skinMoistureAlleles: splitGenotype(
-        this.skinTextureGenotypes.skinMoistureGenotype
-      ),
-      scaleAlleles: splitGenotype(this.skinTextureGenotypes.scaleGenotype),
-    };
-    //console.log(this);
-  }
-  /* Example usage:
-        const zylarian = new Zylarian("Zylo", 150, 500, "Green", "Scaly", "Quadripedal", "Night Vision", "Carnivore");*/
-}
-
-// Create initial zylarian from user form and return the zylarian
-async function createInitialZylarian() {
-  console.log("Getting form values");
-  // Set limits of initial zylarian size
-  const MIN_HEIGHT = 50;
-  const MAX_HEIGHT = 300;
-  const MIN_WEIGHT = 75;
-  const MAX_WEIGHT = 10000;
-  const form = document.getElementById("zylarianForm");
-
-  // Extract values with correct types
-  const height = parseInt(form.height.value, 10);
-  const weight = parseInt(form.weight.value, 10);
-
-  // Check if values are within the allowed range
-  if (
-    !areAllValuesNonEmpty(INITIAL_ZYLARIAN) ||
-    height < MIN_HEIGHT ||
-    height > MAX_HEIGHT ||
-    weight < MIN_WEIGHT ||
-    weight > MAX_WEIGHT
-  ) {
-    alert("Please select a valid value for each choice.");
-    return;
-  } else {
-    // Create the initial Zylarian with correct argument order
-    initialZylarian = new Zylarian(
-      form.name.value,
-      height, // Correct position for height
-      weight, // Correct position for weight
-      form.activity.value,
-      form.skinColor.value,
-      form.skinTexture.value,
-      form.limbType.value,
-      form.specialFeatures.value,
-      form.dietType.value
-    );
-
-    initialZylarian.skinPattern = "Solid";
-    initialZylarian.ownerId = localStorage.getItem("id");
-    initialZylarian.owner = localStorage.getItem("username");
-
-    if (initialZylarian) {
-      console.log("Zylarian created successfully");
-    } else {
-      console.log("Error creating zylarian");
-    }
-
-    return initialZylarian;
-  }
-}
-
 // Get data from local storage
 async function getZylariansAndMateThem() {
   const checkMateStatus = await mateStatus();
@@ -147,7 +29,7 @@ async function getZylariansAndMateThem() {
   }
 }
 
-async function mateStatus() {
+async function mateStatusOld() {
   try {
     const zylarian1FromStorage = JSON.parse(localStorage.getItem("zylarian1"));
     const zylarian2FromStorage = JSON.parse(localStorage.getItem("zylarian2"));
@@ -163,73 +45,6 @@ async function mateStatus() {
     return newZylarian;
   } catch (error) {
     return "Failed";
-  }
-}
-
-// Create a zylarian using mating logic -- EMPTY
-function createZylarianByMating(zylarian1, zylarian2) {
-  let mateActivityCheck = activityMating(
-    zylarian1.activity,
-    zylarian2.activity
-  );
-  let mateSizeCheck = reproductiveSuccessBySize(
-    zylarian1.height,
-    zylarian2.height,
-    zylarian1.weight,
-    zylarian2.weight,
-    ALPHA_H,
-    ALPHA_W
-  );
-
-  console.log("Mating conditions check");
-  let offspring = {};
-  if (mateActivityCheck && mateSizeCheck) {
-    console.log("Generating new zylarian traits!");
-
-    let newActivity = trueFalseMating(zylarian1.activity, zylarian2.activity);
-    let newHeight = heightWeightMating(zylarian1.height, zylarian2.height);
-    let newWeight = heightWeightMating(zylarian1.weight, zylarian2.weight);
-    let newTextureGenoTypes = mendellianCombination(zylarian1, zylarian2);
-    let newSkinTexture = skinMatching(
-      newTextureGenoTypes,
-      zylarianSkinTextures,
-      "texture"
-    );
-    let newLimbType = limbTypeMating(zylarian1.limbType, zylarian2.limbType);
-    let newFeathered = trueFalseMating(
-      zylarian1.feathered,
-      zylarian2.feathered
-    );
-    let newFurry = trueFalseMating(zylarian1.furry, zylarian2.furry);
-    let newDietType = traitOneOrTraitTwoMating(
-      zylarian1.dietType,
-      zylarian2.dietType
-    );
-    let newGenotypes = mendellianCombination(zylarian1, zylarian2);
-    let newSkinColor = skinMatching(newGenotypes, zylarianSkinColors, "color");
-    let newSkinPattern = "Solid"; // More complicated Boi
-    let newSpecialFeatures = inheritSpecialFeatures(
-      zylarian1.specialFeatures,
-      zylarian2.specialFeatures
-    );
-
-    offspring = new Zylarian(
-      generateRandomName(),
-      newHeight,
-      newWeight,
-      newActivity,
-      newSkinColor,
-      newSkinTexture,
-      newLimbType,
-      newSpecialFeatures,
-      newDietType
-    );
-  }
-  if (Object.keys(offspring).length > 0) {
-    console.log(offspring);
-    return offspring;
-  } else {
-    console.log("No offspring");
   }
 }
 
@@ -563,71 +378,6 @@ function areAllValuesNonEmpty(obj) {
   return Object.values(obj).every((value) => value !== "");
 }
 
-// Function to assign genotypes for a selected skin color
-function assignGenotypesForColor(selectedColorId) {
-  console.log("Assigning color genotypes");
-  console.log(selectedColorId);
-  const selectedColor = zylarianSkinColors.find(
-    (color) => color.id === selectedColorId
-  );
-
-  if (selectedColor) {
-    const redGenotype = getRandomGenotype(selectedColor.redGenotype);
-    const greenGenotype = getRandomGenotype(selectedColor.greenGenotype);
-    const blueGenotype = getRandomGenotype(selectedColor.blueGenotype);
-    const brownGenotype = getRandomGenotype(selectedColor.brownGenotype);
-
-    return {
-      redGenotype,
-      greenGenotype,
-      blueGenotype,
-      brownGenotype,
-    };
-  } else {
-    console.error("Selected color not found:", selectedColorId);
-    return null;
-  }
-}
-
-// Function to assign genotypes for a selected skin texture
-function assignGenotypesForSkinTexture(selectedTextureId) {
-  console.log("Assigning texture genotypes");
-  console.log(selectedTextureId);
-  const selectedTexture = zylarianSkinTextures.find(
-    (texture) => texture.id === selectedTextureId
-  );
-
-  if (selectedTexture) {
-    const skinMoistureGenotype = getRandomGenotype(
-      selectedTexture.skinMoistureGenotype
-    );
-    const scaleGenotype = getRandomGenotype(selectedTexture.scaleGenotype);
-
-    return {
-      skinMoistureGenotype,
-      scaleGenotype,
-      feathered: selectedTexture.feathered,
-      furry: selectedTexture.furry,
-    };
-  } else {
-    console.error("Selected texture not found:", selectedTextureId);
-    return null;
-  }
-}
-
-// Pick a genotype from an array of possibilities
-function getRandomGenotype(genotypeOptions) {
-  console.log("Getting random genotype from array");
-  if (Array.isArray(genotypeOptions)) {
-    // If it's an array, pick a random element from the array
-    const randomIndex = Math.floor(Math.random() * genotypeOptions.length);
-    return genotypeOptions[randomIndex];
-  } else {
-    // If it's not an array, return the genotype as is
-    return genotypeOptions;
-  }
-}
-
 // Returns true or false based on a given probability
 function getRandomBoolean(probability) {
   console.log("Getting random boolean");
@@ -741,71 +491,6 @@ function setCurrentMatingPair() {
         `;
 }
 
-// Height and weight mating algorithm returns a random number between the max and min height of the zylarians
-function heightWeightMating(measurement1, measurement2) {
-  console.log("Generating height and weight");
-  let r = Math.random();
-  let max = Math.max(measurement1, measurement2) + measurement1 * 0.1;
-  let min = Math.min(measurement1, measurement2) - measurement2 * 0.1;
-  return Math.floor(r * (max - min + 1)) + min; // The maximum is inclusive and the minimum is inclusive
-}
-
-// Feather and fur mating algorithm returns an array of two booleans for whether the new zylarian is feathered or furry
-function trueFalseMating(trait1, trait2) {
-  console.log("Generating skin texture");
-  if (trait1 == trait2) {
-    return trait1;
-  } else {
-    return getRandomBoolean(0.5);
-  }
-}
-
-function traitOneOrTraitTwoMating(trait1, trait2) {
-  console.log("Generating skin texture");
-  if (trait1 == trait2) {
-    return trait1;
-  } else {
-    if (getRandomBoolean(0.5)) {
-      return trait1;
-    } else {
-      return trait2;
-    }
-  }
-}
-
-// Limb type mating algorithm returns an array of limb types. Meant to introduce centaur like body types as a mutation when types differ
-function limbTypeMating(type1, type2) {
-  console.log("Generating limb type");
-  if (type1 == type2) {
-    return type1;
-  }
-
-  let randomNumber = Math.ceil(Math.random() * 100);
-
-  if (randomNumber > 98) {
-    return limbType[2].id;
-  } else if (randomNumber > 47) {
-    return type1;
-  } else {
-    return type2;
-  }
-}
-
-// Returns whether or not mating is successful as true or false. Meant to simulate whether or not the organisms were able to come in contact with each other due to activity cycles
-function activityMating(activity1, activity2) {
-  console.log("Checking activity period");
-  let r = Math.random();
-  if (activity1 == activity2) {
-    console.log("Awake at the same time");
-    console.log(r > 0.2);
-    return r > 0.2;
-  } else {
-    console.log("Not awake at the same time");
-    console.log(r > 0.9);
-    return r > 0.9;
-  }
-}
-
 function skinColorMating(genotypes) {
   console.log("Generating color");
   for (const skinColor of zylarianSkinColors) {
@@ -833,133 +518,6 @@ function skinColorMating(genotypes) {
     }
   }
   return null; // Return null if no matching skin color is found
-}
-
-function skinMatching(genotypes, skinData, type) {
-  console.log("Matching genotypes to phenotypes");
-
-  let propertiesToMatch = [];
-
-  if (type === "color") {
-    propertiesToMatch = [
-      "redGenotype",
-      "greenGenotype",
-      "blueGenotype",
-      "brownGenotype",
-    ];
-  } else if (type === "texture") {
-    propertiesToMatch = [
-      "skinMoistureGenotype",
-      "scaleGenotype",
-      "feathered",
-      "furry",
-    ];
-  }
-
-  for (const skinItem of skinData) {
-    for (const key of propertiesToMatch) {
-      console.log("skinitem", skinItem[key]);
-      console.log("genotypes", genotypes[key]);
-      if (Array.isArray(skinItem[key])) {
-        if (!skinItem[key].includes(genotypes[key])) {
-          // console.log("genotypes", genotypes[key]);
-          matched = false;
-          break;
-        }
-      } else if (skinItem[key] !== genotypes[key]) {
-        matched = false;
-        break;
-      } else {
-        matched = true;
-      }
-      if (matched) {
-        return skinItem.id;
-      }
-    }
-  }
-}
-
-function mendellianCombination(zylarian1, zylarian2) {
-  console.log("Doing Punnett Squares");
-  const offspringGenotypes = {};
-  const regEx = new RegExp("(.+?)(?=Alleles)");
-  // Loop through each allele pair in the alleles object
-  for (const alleleKey in zylarian1.alleles) {
-    const zylarian1Alleles = zylarian1.alleles[alleleKey];
-    const zylarian2Alleles = zylarian2.alleles[alleleKey];
-
-    // Generate genotype for each allele pair
-    offspringGenotypes[`${alleleKey.match(regEx)[0]}Genotype`] =
-      generateOffspringGenotype(
-        zylarian1Alleles[0],
-        zylarian1Alleles[1],
-        zylarian2Alleles[0],
-        zylarian2Alleles[1]
-      );
-  }
-
-  return offspringGenotypes;
-}
-
-// Punnett square function
-function generateOffspringGenotype(
-  zylarian1Allele1,
-  zylarian1Allele2,
-  zylarian2Allele1,
-  zylarian2Allele2
-) {
-  console.log("Generating genotype");
-  // Randomly select one allele from each zylarian
-  const offspringAllele1 =
-    Math.random() < 0.5 ? zylarian1Allele1 : zylarian1Allele2;
-  const offspringAllele2 =
-    Math.random() < 0.5 ? zylarian2Allele1 : zylarian2Allele2;
-
-  let newGenotypeArray = [offspringAllele1, offspringAllele2].sort();
-  return newGenotypeArray.join("");
-}
-
-// Returns a bool for reproductive success probability based on height and weight.
-function reproductiveSuccessBySize(height1, height2, weight1, weight2) {
-  console.log("Checking size compatibility");
-
-  let avgHeight = (height1 + height2) / 2;
-  let avgWeight = (weight1 + weight2) / 2;
-
-  let heightDifference = Math.abs(height1 - height2) / avgHeight;
-  let weightDifference = Math.abs(weight1 - weight2) / avgWeight;
-
-  return (
-    Math.exp(-(ALPHA_H * heightDifference + ALPHA_W * weightDifference)) > 0.5
-  );
-}
-
-function inheritSpecialFeatures(parent1Features, parent2Features) {
-  console.log("Generating special features");
-  const offspringFeatures = [];
-  const inheritanceProbability = {
-    parent1: 0.75,
-    parent2: 0.25,
-  };
-
-  // Check for each feature of parent1
-  parent1Features.forEach((feature) => {
-    if (Math.random() < inheritanceProbability.parent1) {
-      offspringFeatures.push(feature);
-    }
-  });
-
-  // Check for each feature of parent2 not already included
-  parent2Features.forEach((feature) => {
-    if (
-      !offspringFeatures.includes(feature) &&
-      Math.random() < inheritanceProbability.parent2
-    ) {
-      offspringFeatures.push(feature);
-    }
-  });
-
-  return offspringFeatures[0];
 }
 
 /*
@@ -994,14 +552,11 @@ function updateZylarianList(population) {
 
   // Creates a list item for each zylarian in the array
   population.forEach((zylarian, index) => {
-    const colorGenotypes = zylarian.colorGenotypes;
-    const textureGenotypes = zylarian.skinTextureGenotypes;
-
-    let feathered = textureGenotypes.feathered ? "true" : "false";
-    let furry = textureGenotypes.furry ? "true" : "false";
+    const colorGenotypes = zylarian.genotypes.color;
+    const textureGenotypes = zylarian.genotypes.texture;
 
     const skinColorGenotypeString = `<span class="red">Red: ${colorGenotypes.redGenotype}</span>, <span class="green">Green: ${colorGenotypes.greenGenotype}</span>, <span class="blue">Blue: ${colorGenotypes.blueGenotype}</span>, <span class="brown">Brown: ${colorGenotypes.brownGenotype}</span>`;
-    const skinTextureGenotypeString = `Scales: ${textureGenotypes.scaleGenotype}, Skin Moisture: ${textureGenotypes.skinMoistureGenotype}, Feathered: <span class="${feathered}">${textureGenotypes.feathered}</span>, Furry: <span class="${furry}">${textureGenotypes.furry}</span>`;
+    const skinTextureGenotypeString = `Scales: ${textureGenotypes.scaleGenotype}, Skin Moisture: ${textureGenotypes.skinMoistureGenotype}, Feathered: ${textureGenotypes.featherGenotype}, Furry: ${textureGenotypes.furGenotype}`;
 
     const listItem = document.createElement("li");
     listItem.innerHTML = `

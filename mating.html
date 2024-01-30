@@ -162,7 +162,7 @@
                         <legend>Names of Zylarians</legend><label class="form-label" for="nameChoice">Your Zylarian's Name:</label><input class="form-control" type="text" id="nameChoice" name="nameChoice" required=""><label class="form-label" for="mateName">Mate Zylarian's Name:</label><input class="form-control" type="text" id="mateName" name="mateName" required="">
                     </fieldset>
                     <fieldset>
-                        <legend>Mate's Physical Traits</legend><label class="form-label" for="mateHeight">Height (cm):</label><input class="form-control" type="number" id="mateHeight" name="mateHeight" placeholder="Mate Height" required=""><label class="form-label" for="mateWeight">Weight (g):</label><input class="form-control" type="number" id="mateWeight" name="mateWeight" placeholder="Mate Weight" required="">
+                        <legend>Mate's Physical Traits</legend><label class="form-label" for="mateHeight">Height (cm):</label><input class="form-control" step = "any" type="number" id="mateHeight" name="mateHeight" placeholder="Mate Height" required=""><label class="form-label" for="mateWeight">Weight (g):</label><input class="form-control" step="any" type="number" id="mateWeight" name="mateWeight" placeholder="Mate Weight" required="">
                     </fieldset>
                     <fieldset>
                         <legend>Mate's Pigment Genotypes:</legend><label class="form-label" for="mateRedGenotype">Red Genotype:</label><input class="form-control" type="text" id="mateRedGenotype" name="mateRedGenotype" required=""><label class="form-label" for="mateGreenGenotype">Green Genotype:</label><input class="form-control" type="text" id="mateGreenGenotype" name="mateGreenGenotype" required=""><label class="form-label" for="mateBlueGenotype">Blue Genotype:</label><input class="form-control" type="text" id="mateBlueGenotype" name="mateBlueGenotype" required=""><label class="form-label" for="mateBrownGenotype">Brown Genotype:</label><input class="form-control" type="text" id="mateBrownGenotype" name="mateBrownGenotype" required="">
@@ -196,9 +196,11 @@
     <script src="assets/js/bs-init.js"></script>
     <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
     <script src="assets/js/serverVariables.js"></script>
+    <script src="assets/js/createZylarian.js"></script>
     <script src="assets/js/matingData.js"></script>
     <script src="assets/js/NaturalSelectionGame.js"></script>
     <script src="assets/js/getUserData.js"></script>
+    <script src="assets/js/matingLogic.js"></script>
     <script src="assets/js/socket.js"></script>
 </body>
 
