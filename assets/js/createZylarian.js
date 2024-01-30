@@ -48,8 +48,8 @@ async function createZylarianFromForm() {
   const MAX_WEIGHT = 10000;
 
   // Extract values with correct types
-  const height = parseInt(form.height.value, 10);
-  const weight = parseInt(form.weight.value, 10);
+  const height = parseInt(form.height.value, 10).toFixed(2);
+  const weight = parseInt(form.weight.value, 10).toFixed(2);
 
   // Create the initial Zylarian with correct argument order
   console.log("Creating Zylarian");
@@ -276,5 +276,7 @@ function skinPatternDetermination(dominantAlleles) {
     } else {
       return zylarianSkinPatterns[0].id;
     }
+  } else {
+    return zylarianSkinPatterns[0].id;
   }
 }

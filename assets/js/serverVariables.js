@@ -256,6 +256,7 @@ const mateVariablesWithOptions = [
 /* 
 Returns a random name
 */
+
 function generateRandomName() {
   console.log("Generating random name");
   const names = [
