@@ -254,3 +254,8 @@ function generateOffspringGenotype(genotype1, genotype2) {
   //   console.log(newGenotypeArray.join());
   return newGenotypeArray.join("");
 }
+
+function getRandomBoolean(probability) {
+  console.log("Getting random boolean");
+  return Math.random() < probability;
+}

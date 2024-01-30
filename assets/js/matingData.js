@@ -38,9 +38,9 @@ mateForm.addEventListener("submit", async (event) => {
   } else {
     // Output to Page //
 
-    // document.querySelector("#childAlertContainer").innerHTML = zylarianNewChild(
-    //   newChildStatus.child
-    // );
+    document.querySelector("#childAlertContainer").innerHTML = zylarianNewChild(
+      newChildStatus.child
+    );
     $("#childAlertBox").fadeIn();
     setTimeout(() => {
       $("#alertBox").fadeOut();
@@ -61,10 +61,14 @@ async function zylarianSelected() {
   const closemodal = document.querySelector("#zylarianModalClose");
   closemodal.click();
   updateZylarianList([yourZylarianData]);
-  let parsedZyGenotypes = JSON.parse(yourZylarianData.genotypes);
-  yourZylarianData.genotypes = parsedZyGenotypes;
-  localStorage.setItem("zylarian1", JSON.stringify(yourZylarianData));
-  yourNameChoice.value = yourZylarianData.name;
+  if (typeof parsedZyGenotypes !== "undefined") {
+    let parsedZyGenotypes = JSON.parse(yourZylarianData.genotypes);
+    yourZylarianData.genotypes = parsedZyGenotypes;
+    localStorage.setItem("zylarian1", JSON.stringify(yourZylarianData));
+    yourNameChoice.value = yourZylarianData.name;
+  } else {
+    yourNameChoice.value = yourZylarianData.name;
+  }
 }
 
 async function fillMateData() {
@@ -73,10 +77,15 @@ async function fillMateData() {
     Object.entries(item).forEach(([key, value]) => {
       if (value === currentMate) {
         mate = item;
-        let parsedMateGenotypes = JSON.parse(mate.genotypes);
-        mate.genotypes = parsedMateGenotypes;
-        localStorage.setItem("zylarian2", JSON.stringify(mate));
-        console.log(mate);
+        if (typeof mate.genotypes === "string") {
+          parsedMateGenotypes = JSON.parse(mate.genotypes);
+          mate.genotypes = parsedMateGenotypes;
+          localStorage.setItem("zylarian2", JSON.stringify(mate));
+          console.log(mate);
+        } else {
+          localStorage.setItem("zylarian2", JSON.stringify(mate));
+          console.log(mate);
+        }
       }
     });
   });
@@ -188,3 +197,46 @@ const zylarianNewChild = (
         </table>
         
     </div></div></div></div>`;
+
+function updateZylarianList(population) {
+  console.log("Updating zylarian list");
+
+  const listContainer = document.getElementById(
+    "zylariansControlledByPlayerListContainer"
+  );
+  listContainer.innerHTML = ""; // Clear existing list
+  console.log(population);
+
+  // Creates a list item for each zylarian in the array
+  population.forEach((zylarian, index) => {
+    try {
+      colorGenotypes = JSON.parse(zylarian.genotypes).color;
+      textureGenotypes = JSON.parse(zylarian.genotypes).texture;
+    } catch (e) {
+      console.log("already Parsed");
+    }
+    const skinColorGenotypeString = `<span class="red">Red: ${colorGenotypes.redGenotype}</span>, <span class="green">Green: ${colorGenotypes.greenGenotype}</span>, <span class="blue">Blue: ${colorGenotypes.blueGenotype}</span>, <span class="brown">Brown: ${colorGenotypes.brownGenotype}</span>`;
+    const skinTextureGenotypeString = `Scales: ${textureGenotypes.scaleGenotype}, Skin Moisture: ${textureGenotypes.skinMoistureGenotype}, Feathered: ${textureGenotypes.featherGenotype}, Furry: ${textureGenotypes.furGenotype}`;
+
+    const listItem = document.createElement("li");
+    listItem.innerHTML = `
+                <li><strong>Zylarian ${
+                  index + 1
+                }:</strong><span class="currentUser"> ${
+      zylarian.name
+    }</span></li>
+                <li>Color: ${zylarian.skinColor}, Texture: ${
+      zylarian.skinTexture
+    }, Pattern: ${zylarian.skinPattern}</li><li>
+                Height: ${zylarian.height} cm, Weight: ${
+      zylarian.weight
+    } g</li><li>
+                Limb Type: ${zylarian.limbType}, Special Feature: ${JSON.parse(
+      zylarian.specialFeatures
+    )}, Diet: ${zylarian.dietType}</li><li>
+                Color Genotypes: ${skinColorGenotypeString}</li><li>
+                Skin Texture Genotypes: ${skinTextureGenotypeString}
+                `;
+    listContainer.appendChild(listItem);
+  });
+}
