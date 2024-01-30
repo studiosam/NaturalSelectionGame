@@ -184,6 +184,7 @@ class mateZylarian {
       zylarianSkinTextures,
       "texture"
     );
+    this.skinPattern = skinPatternProcessor(this.genotypes.color);
   }
 }
 
@@ -228,6 +229,52 @@ function skinMatching(newZylarianGenotypes, skinObjectsArray, type) {
       if (matched) {
         return skinObject.id;
       }
+    }
+  }
+}
+
+// Processes genotypes to skin pattern
+function skinPatternProcessor(skinColorGenotypes) {
+  let colorString = joinColorAlleles(skinColorGenotypes);
+  let uniqueDominantAlleles = findUniqueCapitalLetters(colorString);
+  return skinPatternDetermination(uniqueDominantAlleles);
+}
+
+// Returns a string of all color genotypes
+function joinColorAlleles(colorGenotypes) {
+  return (
+    colorGenotypes.redGenotype +
+    colorGenotypes.greenGenotype +
+    colorGenotypes.blueGenotype +
+    colorGenotypes.brownGenotype
+  );
+}
+
+// Returns a string of unique capital letters from a string
+function findUniqueCapitalLetters(str) {
+  const uniqueCapitals = new Set();
+
+  for (const char of str) {
+    if (char >= "A" && char <= "Z") {
+      uniqueCapitals.add(char);
+    }
+  }
+  return Array.from(uniqueCapitals).join("");
+}
+
+// Returns a skin pattern based on a string of unique capital letters
+function skinPatternDetermination(dominantAlleles) {
+  if (dominantAlleles.length > 1) {
+    if (dominantAlleles == "GB" || dominantAlleles == "BG") {
+      return zylarianSkinPatterns[3].id;
+    }
+    let randomNum = Math.random();
+    if (randomNum > 0.7) {
+      return zylarianSkinPatterns[1].id;
+    } else if (randomNum > 0.3) {
+      return zylarianSkinPatterns[2].id;
+    } else {
+      return zylarianSkinPatterns[0].id;
     }
   }
 }
