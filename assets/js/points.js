@@ -1,7 +1,7 @@
 // Show Zylarian Creation Alert //
 const pointsForm = document.querySelector("#pointsForm");
 async function sendPoints(pointsData) {
-  fetch(`http://localhost:3000/generateSignature`, {
+  fetch(`${serverAddress}generateSignature`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -25,7 +25,7 @@ async function sendPoints(pointsData) {
     });
 }
 
-function sendToServer(requestData) {
+async function sendToServer(requestData) {
   // Make a POST request to another endpoint on the server with the requestData
   fetch(`${serverAddress}processPointsData`, {
     method: "POST",

@@ -106,12 +106,9 @@ async function fillMateData() {
   } else if (mate.activity === "Nocturnal") {
     nocturnal.checked = true;
   }
-  mate.genotypes.texture.feathered
-    ? (mateFeathered.checked = true)
-    : (mateFeathered.checked = false);
-  mate.genotypes.texture.furry
-    ? (mateFurry.checked = true)
-    : (mateFurry.checked = false);
+  mateFeathered.value = mate.genotypes.texture.featherGenotype;
+
+  mateFurry.value = mate.genotypes.texture.furGenotype;
 }
 
 // Retrieve Entire Zylarian Population on load //
