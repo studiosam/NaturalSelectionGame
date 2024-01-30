@@ -3,15 +3,13 @@ var app = express();
 var server = require("http").Server(app);
 var cors = require("cors");
 const bcrypt = require("bcryptjs");
-
+var cron = require("node-cron");
 require("dotenv").config();
 
 const {
   createZylarian,
   createUser,
   getUsers,
-  getZylarians,
-  getMyZylarians,
   checkUsers,
   getUserZylarians,
   deleteUserZylarian,
@@ -36,7 +34,6 @@ server.listen(process.env.PORT || 3000, () => {
 // Check For Existing User Endpoint //
 
 app.post("/", async function (req, res) {
-  console.log(req.body);
   const checkForUser = await checkUsers(req.body.username);
   console.log("Check for User = " + checkForUser);
   if (checkForUser.exists === true) {
@@ -63,6 +60,7 @@ app.post("/", async function (req, res) {
 
 app.post("/create", async function (req, res) {
   const checkForUser = await checkUsers(req.body.username);
+
   console.log("Check for User = " + checkForUser);
   if (checkForUser.exists === true) {
     console.log("User Already Exists");
@@ -114,7 +112,7 @@ app.get("/deleteZylarian", async function (req, res) {
 
 app.post("/createZylarian", async function (req, res) {
   const zylarianData = await req.body;
-  console.log(zylarianData);
+  //console.log(zylarianData);
 
   await createZylarian(zylarianData.ownerId, zylarianData);
   const currentUserZylarians = await getUserZylarians(zylarianData.ownerId);
@@ -165,3 +163,8 @@ async function hashPassword(username, plaintextPassword) {
 async function verifyPassword(plaintextPassword, storedHash) {
   return await bcrypt.compare(plaintextPassword, storedHash);
 }
+
+// selectQuery();
+// cron.schedule("*/5 * * * * *", () => {
+//   ;
+// });

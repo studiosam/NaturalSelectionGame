@@ -38,9 +38,9 @@ mateForm.addEventListener("submit", async (event) => {
   } else {
     // Output to Page //
 
-    document.querySelector("#childAlertContainer").innerHTML = zylarianNewChild(
-      newChildStatus.child
-    );
+    // document.querySelector("#childAlertContainer").innerHTML = zylarianNewChild(
+    //   newChildStatus.child
+    // );
     $("#childAlertBox").fadeIn();
     setTimeout(() => {
       $("#alertBox").fadeOut();
@@ -56,11 +56,13 @@ mateSelect.addEventListener("change", fillMateData);
 // Retrieves Selected Zylarian Data and outputs to page //
 async function zylarianSelected() {
   const zylarianSelection = localStorage.getItem("currentSelectedIndex");
-  const yourZylarianData = currentUserStats[zylarianSelection].zylarianData;
+  const yourZylarianData = currentUserStats[zylarianSelection];
   alert.querySelector("span").innerHTML = yourZylarianData.name;
   const closemodal = document.querySelector("#zylarianModalClose");
   closemodal.click();
   updateZylarianList([yourZylarianData]);
+  let parsedZyGenotypes = JSON.parse(yourZylarianData.genotypes);
+  yourZylarianData.genotypes = parsedZyGenotypes;
   localStorage.setItem("zylarian1", JSON.stringify(yourZylarianData));
   yourNameChoice.value = yourZylarianData.name;
 }
@@ -71,6 +73,8 @@ async function fillMateData() {
     Object.entries(item).forEach(([key, value]) => {
       if (value === currentMate) {
         mate = item;
+        let parsedMateGenotypes = JSON.parse(mate.genotypes);
+        mate.genotypes = parsedMateGenotypes;
         localStorage.setItem("zylarian2", JSON.stringify(mate));
         console.log(mate);
       }
@@ -88,7 +92,7 @@ async function fillMateData() {
 
   //selections
   mateLimbType.value = mate.limbType || "";
-  mateSpecialFeatures.value = mate.specialFeatures || "";
+  mateSpecialFeatures.value = JSON.parse(mate.specialFeatures) || "";
   mateDietType.value = mate.dietType || "";
 
   // if bois//

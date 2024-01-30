@@ -162,6 +162,7 @@ function traitOneOrTraitTwoMating(trait1, trait2) {
 // Limb type mating algorithm returns an array of limb types. Meant to introduce centaur like body types as a mutation when types differ
 function limbTypeMating(type1, type2) {
   console.log("Generating limb type");
+
   if (type1 == type2) {
     return type1;
   }
@@ -178,13 +179,24 @@ function limbTypeMating(type1, type2) {
 }
 
 // Returns an array of special features that are inherited from each parent, but more likely from parent1
-function inheritSpecialFeatures(parent1Features, parent2Features) {
+function inheritSpecialFeatures(parent1FeaturesObj, parent2FeaturesObj) {
   console.log("Generating special features");
   const offspringFeatures = [];
+  const parent1Features = [];
+  const parent2Features = [];
   const inheritanceProbability = {
     parent1: 0.75,
     parent2: 0.25,
   };
+  let parse1 = JSON.parse(parent1FeaturesObj);
+  let parse2 = JSON.parse(parent2FeaturesObj);
+
+  Object.keys(parse1).forEach((feature) => {
+    parent1Features.push(parse1[feature]);
+  });
+  Object.keys(parse2).forEach((feature) => {
+    parent2Features.push(parse2[feature]);
+  });
 
   // Check for each feature of parent1
   parent1Features.forEach((feature) => {
