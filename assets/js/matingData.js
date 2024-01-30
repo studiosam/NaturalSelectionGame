@@ -50,6 +50,10 @@ mateForm.addEventListener("submit", async (event) => {
       "zylariansControlledByPlayerListContainer"
     ).innerHTML = "");
     document.querySelector("#mateForm").reset();
+    const zylarian1 = JSON.parse(localStorage.getItem("zylarian1"));
+    const zylarian2 = JSON.parse(localStorage.getItem("zylarian2"));
+    addXpFromMating(zylarian1, zylarian2);
+    localStorage.removeItem("zylarian2");
   }
 });
 chooseZylarian.addEventListener("click", zylarianSelected);

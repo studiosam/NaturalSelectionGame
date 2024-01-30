@@ -168,6 +168,32 @@ async function generateSelectQuery(tableName, columnName, columnValue) {
     connection.release();
   }
 }
+
+async function generateUpdateQuery(
+  tableName,
+  columnName,
+  columnValue,
+  conditionColumn,
+  conditionValue
+) {
+  const connection = await pool.getConnection();
+  const sqlQuery = `UPDATE ${mysql.escapeId(tableName)} SET ${mysql.escapeId(
+    columnName
+  )} = ${mysql.escape(columnValue)} WHERE ${mysql.escapeId(
+    conditionColumn
+  )} = ${mysql.escape(conditionValue)}`;
+
+  try {
+    const [rows, fields] = await connection.execute(sqlQuery);
+    return rows;
+  } catch (err) {
+    console.log(err);
+  } finally {
+    // Release the connection back to the pool
+    connection.release();
+  }
+}
+
 async function getAllRowsFromTable(tableName) {
   const connection = await pool.getConnection();
   try {
@@ -227,4 +253,5 @@ module.exports = {
   getUserZylarians,
   deleteUserZylarian,
   getAllZylarians,
+  generateUpdateQuery,
 };

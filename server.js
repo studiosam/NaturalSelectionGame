@@ -4,7 +4,9 @@ var server = require("http").Server(app);
 var cors = require("cors");
 const bcrypt = require("bcryptjs");
 var cron = require("node-cron");
+const crypto = require("crypto");
 require("dotenv").config();
+const secretKey = process.env.SECRETKEY;
 
 const {
   createZylarian,
@@ -14,6 +16,7 @@ const {
   getUserZylarians,
   deleteUserZylarian,
   getAllZylarians,
+  generateUpdateQuery,
 } = require("./database.js");
 
 global.io = require("socket.io")(server, {
@@ -120,6 +123,47 @@ app.post("/createZylarian", async function (req, res) {
   res.send({ body: currentUserZylarians.length });
 });
 
+app.post("/generateSignature", function (req, res) {
+  const { dataToSign } = req.body;
+
+  const hmac = crypto.createHmac("sha256", secretKey);
+  hmac.update(JSON.stringify(dataToSign));
+  const signature = hmac.digest("hex");
+
+  res.json({ signature });
+});
+app.post("/processPointsData", async function (req, res) {
+  const { pointsData, signature } = req.body;
+
+  // Verify the signature
+  const hmac = crypto.createHmac("sha256", secretKey);
+  hmac.update(JSON.stringify(pointsData));
+
+  const calculatedSignature = hmac.digest("hex");
+
+  if (calculatedSignature !== signature) {
+    return res.status(403).json({ error: "Invalid signature" });
+  }
+
+  // Signature is valid, proceed with further processing (e.g., updating the database)
+
+  for (let i = 0; i < pointsData.zylarianIds.length; i++) {
+    const zylarianId = pointsData.zylarianIds[i];
+    const earnedPoints = pointsData.earnedPoints[i];
+    console.log(zylarianId);
+    console.log(earnedPoints);
+    await generateUpdateQuery(
+      "zylarians",
+      "currentXp",
+      earnedPoints,
+      "id",
+      zylarianId
+    );
+  }
+
+  return res.status(200).json({ success: true });
+});
+
 // Websocket Server Connection Handlers //
 io.on("connection", async (socket) => {
   const sockets = await io.fetchSockets();
@@ -164,7 +208,7 @@ async function verifyPassword(plaintextPassword, storedHash) {
   return await bcrypt.compare(plaintextPassword, storedHash);
 }
 
-// selectQuery();
+// CRON JOBS //
 // cron.schedule("*/5 * * * * *", () => {
 //   ;
 // });

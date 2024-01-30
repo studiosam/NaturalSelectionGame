@@ -12,7 +12,7 @@ async function mateStatus() {
     );
     console.log(zylarian1FromStorage);
     console.log(zylarian2FromStorage);
-    localStorage.removeItem("zylarian2");
+
     newZylarian.ownerId = localStorage.getItem("id");
     newZylarian.owner = localStorage.getItem("username");
     sendZylarianData(newZylarian);

@@ -96,7 +96,9 @@ const zylarianMenu = (
         </table>
         <span class='zyID' style="display:none">${zyID}</span>
     </div><div class="cardIndex hidden">${cardIndex}</div><div class="text-center text-white mb-2">${zylarian}</div><div class="progress">
-    <div class="progress-bar progress-bar-striped progress-bar-animated" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">0 EXP</div>
+    <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="${zylariandata.currentXp}" aria-valuemin="0" aria-valuemax="100" style="width: ${zylariandata.currentXp}%;"></div>
+    <div class="progress-bar-title">${zylariandata.currentXp} XP</div>
+  </div>
 </div></div></div></div>`;
 
 // Gets Users Data from the database and creates their Zylarian Population on page Load //
