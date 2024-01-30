@@ -98,7 +98,7 @@ const zylarianSkinTextures = [
   {
     id: "Scaly",
     skinMoistureGenotype: "ww",
-    scaleGenotype: ["SS", "Ss"],
+    scaleGenotype: "SS",
     furGenotype: "ff",
     featherGenotype: "bb",
   },
@@ -128,7 +128,7 @@ const zylarianSkinTextures = [
     skinMoistureGenotype: ["WW", "Ww", "ww"],
     scaleGenotype: ["SS", "Ss"],
     furGenotype: "ff",
-    featherGenotype: ["BB", "Bb"],
+    featherGenotype: "BB",
   },
   {
     id: "Slimy",
