@@ -76,6 +76,7 @@
 
 .table {
   font-size: 0.99rem;
+  border: 1px solid #000000;
 }
 #zylariansControlledByPlayerPage {
   color: #fffaf0;
@@ -638,8 +639,8 @@ select:valid {
   /* text-shadow: 1px 2px #0b0b0d; */
 }
 .Striped {
-  background-image: var(--striped);
-  background-size: cover;
+  background-position: center center;
+  background-size: 275% auto;
   height: auto;
   border-radius: 25px;
   border: 2px solid rgb(0, 0, 0);
@@ -647,11 +648,23 @@ select:valid {
   /* text-shadow: 1px 2px #0b0b0d; */
 }
 .Spotted {
-  background-image: var(--spotted);
-  background-size: cover;
+  background-position: center center;
+  background-size: 595% auto;
   height: auto;
   border-radius: 25px;
   border: 2px solid rgb(0, 0, 0);
   color: #ffffff;
   /* text-shadow: 1px 2px #0b0b0d; */
+}
+
+.patternTextBgStriped {
+  background-position: center center;
+  background-size: 220% auto;
+  color: #000000;
+  font-weight: bold;
+}
+
+.patternTextBgSpotted {
+  background-position: center center;
+  background-size: 100% auto;
 }

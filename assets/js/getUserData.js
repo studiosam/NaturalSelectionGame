@@ -27,13 +27,24 @@ viewZylariansBtn.addEventListener("click", onLoad);
 finalDeleteBtn.addEventListener("click", handleDelete);
 
 // HTML for Creating Users Zylarian Population //
-const zylarianMenu = (
-  zylariandata,
-  zyID,
-  zylarian,
-  cardIndex
-) => `<div class="col userZylariansCol">
-<div class="card zylarianCard ${zylariandata.skinTexture} ${zylariandata.skinPattern}" pointer-events="auto"><img class="card-img-top w-100 d-block" />
+const zylarianMenu = (zylariandata, zyID, zylarian, cardIndex) => {
+  let backgroundStyle = zylariandata.skinPattern;
+  patternTextClass = "";
+  if (zylariandata.skinPattern === "Spotted") {
+    const backgroundSVG = generateSpotPattern("brown", "tan");
+    backgroundStyle = `background-image: url('data:image/svg+xml,${encodeURIComponent(
+      backgroundSVG
+    )}')`;
+    patternTextClass = "patternTextBgSpotted";
+  } else if (zylariandata.skinPattern === "Striped") {
+    const backgroundSVG = generateStripePattern("white", "black");
+    backgroundStyle = `background-image: url('data:image/svg+xml,${encodeURIComponent(
+      backgroundSVG
+    )}')`;
+    patternTextClass = "patternTextBgStriped";
+  }
+  return `<div class="col userZylariansCol">
+<div class="card zylarianCard ${zylariandata.skinPattern}" style="${backgroundStyle}" pointer-events="auto"><img class="card-img-top w-100 d-block" />
 
     <div class="card-body"><div class="levelContainer">
     <div class="text-end">
@@ -62,7 +73,7 @@ const zylarianMenu = (
                 </tr>
                 <tr>
                     <td class="statItem text-center">Pattern</td>
-                    <td class="statValue text-center"><div class ="${zylariandata.skinPattern}"><span>${zylariandata.skinPattern}</span></td>
+                    <td class="statValue text-center"><div class ="${zylariandata.skinPattern} ${patternTextClass}"style="${backgroundStyle}" ><span>${zylariandata.skinPattern}</span></td>
                 </tr>
                 <tr>
                     <td class="statItem text-center">Height</td>
@@ -100,6 +111,7 @@ const zylarianMenu = (
     <div class="progress-bar-title">${zylariandata.currentXp} XP</div>
   </div>
 </div></div></div></div>`;
+};
 
 // Gets Users Data from the database and creates their Zylarian Population on page Load //
 async function onLoad() {
@@ -140,6 +152,7 @@ async function onLoad() {
         zylarian.age = `<span class="currentUser">${secondsDifference}</span> seconds old`;
       }
       cardIndex++;
+
       userZylariansContainer.innerHTML += zylarianMenu(
         zylarian,
         zylarian.id,
