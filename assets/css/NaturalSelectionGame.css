@@ -1,14 +1,14 @@
 :root {
-  --scaly: url('https://cdn.dribbble.com/users/71143/screenshots/1693017/untitled.jpg');
-  --leathery: url('https://st2.depositphotos.com/3864435/8867/i/950/depositphotos_88676374-stock-photo-leather-pattern-raster.jpg');
-  --furry: url('https://t3.ftcdn.net/jpg/00/74/58/96/360_F_74589629_23vQF5civr0cyEvtsh7yyz3S68AbavYT.jpg');
-  --feathered: url('https://gbs423.com/nsg/assets/img/feathered.webp');
-  --slimy: url('https://c8.alamy.com/comp/2C6DWT8/uniform-3d-abstract-background-of-simple-patterns-of-purple-plum-color-with-lighting-and-shadows-for-various-applications-needing-colorful-areas-illustration-and-blue-2C6DWT8.jpg');
-  --smooth: url('https://img.freepik.com/free-photo/brown-leather-texture-background_1373-433.jpg');
-  --solid: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5877e543-014c-4b8b-b6c2-37397c0c0c90/d30v1tg-2ccecfbc-4c29-49ac-a487-f08365416fa2.jpg/v1/fill/w_900,h_900,q_75,strp/seamless_human_skin_texture_by_hhh316_d30v1tg-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9OTAwIiwicGF0aCI6IlwvZlwvNTg3N2U1NDMtMDE0Yy00YjhiLWI2YzItMzczOTdjMGMwYzkwXC9kMzB2MXRnLTJjY2VjZmJjLTRjMjktNDlhYy1hNDg3LWYwODM2NTQxNmZhMi5qcGciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.bOtefGzZY0ZCBsjO39SMNT7cxXhrl2fcF6fe8fCoxoY');
-  --iridescent: url('https://cdn5.vectorstock.com/i/1000x1000/19/44/iridescent-animal-skin-seamless-pattern-for-design-vector-28081944.jpg');
-  --striped: url('https://as1.ftcdn.net/v2/jpg/03/08/33/84/1000_F_308338432_JNiTsZRvD3ffYC8Q481KBeKwva6ftnf3.jpg');
-  --spotted: url('https://png.pngtree.com/png-vector/20220521/ourlarge/pngtree-vector-illustration-of-multicolored-spotted-fur-skin-with-panoramic-texture-vector-png-image_46467984.jpg');
+  --scaly: url("https://cdn.dribbble.com/users/71143/screenshots/1693017/untitled.jpg");
+  --leathery: url("https://st2.depositphotos.com/3864435/8867/i/950/depositphotos_88676374-stock-photo-leather-pattern-raster.jpg");
+  --furry: url("https://t3.ftcdn.net/jpg/00/74/58/96/360_F_74589629_23vQF5civr0cyEvtsh7yyz3S68AbavYT.jpg");
+  --feathered: url("https://gbs423.com/nsg/assets/img/feathered.webp");
+  --slimy: url("https://c8.alamy.com/comp/2C6DWT8/uniform-3d-abstract-background-of-simple-patterns-of-purple-plum-color-with-lighting-and-shadows-for-various-applications-needing-colorful-areas-illustration-and-blue-2C6DWT8.jpg");
+  --smooth: url("https://img.freepik.com/free-photo/brown-leather-texture-background_1373-433.jpg");
+  --solid: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5877e543-014c-4b8b-b6c2-37397c0c0c90/d30v1tg-2ccecfbc-4c29-49ac-a487-f08365416fa2.jpg/v1/fill/w_900,h_900,q_75,strp/seamless_human_skin_texture_by_hhh316_d30v1tg-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9OTAwIiwicGF0aCI6IlwvZlwvNTg3N2U1NDMtMDE0Yy00YjhiLWI2YzItMzczOTdjMGMwYzkwXC9kMzB2MXRnLTJjY2VjZmJjLTRjMjktNDlhYy1hNDg3LWYwODM2NTQxNmZhMi5qcGciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.bOtefGzZY0ZCBsjO39SMNT7cxXhrl2fcF6fe8fCoxoY");
+  --iridescent: url("https://cdn5.vectorstock.com/i/1000x1000/19/44/iridescent-animal-skin-seamless-pattern-for-design-vector-28081944.jpg");
+  --striped: url("https://as1.ftcdn.net/v2/jpg/03/08/33/84/1000_F_308338432_JNiTsZRvD3ffYC8Q481KBeKwva6ftnf3.jpg");
+  --spotted: url("https://png.pngtree.com/png-vector/20220521/ourlarge/pngtree-vector-illustration-of-multicolored-spotted-fur-skin-with-panoramic-texture-vector-png-image_46467984.jpg");
 }
 
 .zylarianCard {
@@ -17,7 +17,6 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-blend-mode: multiply;
-  
 }
 
 .blended-background {
@@ -69,14 +68,14 @@
    background-blend-mode: lighten
 } */
 
-
-
-*, ::after, ::before {
+*,
+::after,
+::before {
   box-sizing: border-box;
 }
 
 .table {
-  font-size: .99rem;
+  font-size: 0.99rem;
 }
 #zylariansControlledByPlayerPage {
   color: #fffaf0;
@@ -88,7 +87,7 @@
 
 body {
   font-family: "Poppins";
-  background: linear-gradient(#070420 17%, rgb(7,41,55) 100%);
+  background: linear-gradient(#070420 17%, rgb(7, 41, 55) 100%);
   color: #ffffff;
 }
 
@@ -118,19 +117,23 @@ button {
   font-weight: bold !important;
 }
 
-label[for="mateRedGenotype"], .red {
+label[for="mateRedGenotype"],
+.red {
   color: red;
 }
 
-label[for="mateGreenGenotype"], .green {
+label[for="mateGreenGenotype"],
+.green {
   color: green;
 }
 
-label[for="mateBlueGenotype"], .blue {
+label[for="mateBlueGenotype"],
+.blue {
   color: blue;
 }
 
-label[for="mateBrownGenotype"], .brown {
+label[for="mateBrownGenotype"],
+.brown {
   color: brown;
 }
 
@@ -144,14 +147,16 @@ h3 {
   text-align: center;
 }
 
-#zylarianForm, #mateFormContainer {
+#zylarianForm,
+#mateFormContainer {
   max-width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-#initialZylarianCreationFormPage, #playersZylarians {
+#initialZylarianCreationFormPage,
+#playersZylarians {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -202,7 +207,6 @@ h2 {
   color: #85bc71;
 }
 
-
 #zylarianModal {
   color: #0949ad;
 }
@@ -211,7 +215,6 @@ h2 {
   min-width: 306px;
   z-index: 6;
   max-width: 376.672px;
-
 }
 
 .zylarianName {
@@ -224,12 +227,12 @@ h2 {
   z-index: 12;
 }
 
-.modal-body, .modal-header, .modal-footer {
+.modal-body,
+.modal-header,
+.modal-footer {
   color: white;
-  background-color: rgb(31,30,51);
+  background-color: rgb(31, 30, 51);
 }
-
-
 
 .selected {
   background-color: #ab86b8 !important;
@@ -261,7 +264,6 @@ h2 {
   border-color: #ff0000;
 }
 
-
 #selectedForDelete {
   color: #ffb800;
 }
@@ -292,7 +294,7 @@ h2 {
 }
 
 .alert-body {
-  background-color: rgba(0,0,0,0.84);
+  background-color: rgba(0, 0, 0, 0.84);
   height: 114px;
   display: flex;
   justify-content: center;
@@ -301,7 +303,7 @@ h2 {
 }
 
 .alert-header {
-  background-color: rgba(50,8,5,0.76);
+  background-color: rgba(50, 8, 5, 0.76);
   font-size: 19px;
 }
 
@@ -335,7 +337,8 @@ h2 {
   transition: 500ms;
 }
 
-#setMatingPair, #createZylarian {
+#setMatingPair,
+#createZylarian {
   margin-bottom: 75px;
 }
 
@@ -360,7 +363,7 @@ h2 {
   border-radius: 11px;
   box-shadow: 0px 0px 0px 2px white;
   display: none;
-  background: rgba(27,33,34,0.87);
+  background: rgba(27, 33, 34, 0.87);
 }
 
 #childAlertBox {
@@ -396,7 +399,7 @@ h2 {
 
 .alertBG {
   display: flex;
-  background: rgba(64,31,31,0.87);
+  background: rgba(64, 31, 31, 0.87);
   box-shadow: 0px 0px 0px 2px white;
   width: 100%;
   height: 100%;
@@ -462,14 +465,24 @@ h2 {
   color: #3d3577;
 }
 
-
 .progress {
   border: 1px solid white;
-  background-color: #222934;
+  background-color: #000000;
+  position: relative;
 }
 
 .progress-bar {
   background-color: #ae241b;
+}
+.progress-bar-title {
+  position: absolute;
+  text-align: center;
+  line-height: 14px; /* line-height should be equal to bar height */
+  overflow: hidden;
+  color: #fff;
+  right: 0;
+  left: 0;
+  top: 0;
 }
 
 input:invalid {
@@ -480,7 +493,8 @@ input:required {
   background-color: #fffaf0;
 }
 
-input:valid, select:valid {
+input:valid,
+select:valid {
   background-color: #121829;
   color: #fffaf0;
   transition: 1s;
@@ -496,66 +510,63 @@ input:valid, select:valid {
 .White {
   background-color: whitesmoke;
   color: rgb(12, 12, 12);
-  border: 1px solid black
+  border: 1px solid black;
 }
 .Beige {
   background-color: rgb(202, 202, 174);
   color: rgb(12, 12, 12);
-  border: 1px solid black
+  border: 1px solid black;
 }
 .Gray {
   background-color: rgb(41, 41, 41);
   color: rgb(221, 221, 221);
-  border: 1px solid black
+  border: 1px solid black;
 }
 .Blue {
   background-color: rgb(22, 94, 250);
   color: whitesmoke;
-  border: 1px solid black
+  border: 1px solid black;
 }
 .Green {
   background-color: rgb(9, 121, 33);
   color: whitesmoke;
-  border: 1px solid black
+  border: 1px solid black;
 }
 .Red {
   background-color: rgb(114, 26, 26);
   color: whitesmoke;
-  border: 1px solid black
+  border: 1px solid black;
 }
 .Pink {
   background-color: rgb(175, 39, 119);
   color: whitesmoke;
-  border: 1px solid black
+  border: 1px solid black;
 }
 .Yellow {
   background-color: rgb(196, 179, 34);
   color: rgb(41, 41, 41);
-  border: 1px solid black
+  border: 1px solid black;
 }
 .Brown {
   background-color: rgb(71, 49, 27);
   color: whitesmoke;
-  border: 1px solid black
+  border: 1px solid black;
 }
 .Black {
   background-color: rgb(12, 12, 12);
   color: whitesmoke;
-  border: 1px solid black
+  border: 1px solid black;
 }
-
-
-
 
 /* Skin Textures */
 .Scaly {
-background-image: var(--scaly);
-background-size: cover;
-height: auto;
-border-radius: 25px;
-border: 2px solid green;
-color: #ffffff;
-/* text-shadow: 1px 2px #0b0b0d; */
+  background-image: var(--scaly);
+  background-size: cover;
+  height: auto;
+  border-radius: 25px;
+  border: 2px solid green;
+  color: #ffffff;
+  /* text-shadow: 1px 2px #0b0b0d; */
 }
 
 .Leathery {
@@ -592,7 +603,7 @@ color: #ffffff;
   border-radius: 25px;
   border: 2px solid rgb(0, 0, 0);
   color: #ffffff;
-  
+
   /* text-shadow: 1px 2px #0b0b0d; */
 }
 .Smooth {

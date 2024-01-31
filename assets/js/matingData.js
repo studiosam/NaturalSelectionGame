@@ -46,7 +46,14 @@ mateForm.addEventListener("submit", async (event) => {
       $("#alertBox").fadeOut();
       document.querySelector("#childAlertContainer").innerHTML = "";
     }, 3000);
+    const listContainer = (document.getElementById(
+      "zylariansControlledByPlayerListContainer"
+    ).innerHTML = "");
     document.querySelector("#mateForm").reset();
+    const zylarian1 = JSON.parse(localStorage.getItem("zylarian1"));
+    const zylarian2 = JSON.parse(localStorage.getItem("zylarian2"));
+    addXpFromMating(zylarian1, zylarian2);
+    localStorage.removeItem("zylarian2");
   }
 });
 chooseZylarian.addEventListener("click", zylarianSelected);
@@ -56,11 +63,12 @@ mateSelect.addEventListener("change", fillMateData);
 // Retrieves Selected Zylarian Data and outputs to page //
 async function zylarianSelected() {
   const zylarianSelection = localStorage.getItem("currentSelectedIndex");
-  const yourZylarianData = currentUserStats[zylarianSelection].zylarianData;
+  const yourZylarianData = currentUserStats[zylarianSelection];
   alert.querySelector("span").innerHTML = yourZylarianData.name;
   const closemodal = document.querySelector("#zylarianModalClose");
   closemodal.click();
   updateZylarianList([yourZylarianData]);
+
   localStorage.setItem("zylarian1", JSON.stringify(yourZylarianData));
   yourNameChoice.value = yourZylarianData.name;
 }
@@ -71,6 +79,7 @@ async function fillMateData() {
     Object.entries(item).forEach(([key, value]) => {
       if (value === currentMate) {
         mate = item;
+
         localStorage.setItem("zylarian2", JSON.stringify(mate));
         console.log(mate);
       }
@@ -97,12 +106,9 @@ async function fillMateData() {
   } else if (mate.activity === "Nocturnal") {
     nocturnal.checked = true;
   }
-  mate.genotypes.texture.feathered
-    ? (mateFeathered.checked = true)
-    : (mateFeathered.checked = false);
-  mate.genotypes.texture.furry
-    ? (mateFurry.checked = true)
-    : (mateFurry.checked = false);
+  mateFeathered.value = mate.genotypes.texture.featherGenotype;
+
+  mateFurry.value = mate.genotypes.texture.furGenotype;
 }
 
 // Retrieve Entire Zylarian Population on load //
@@ -184,3 +190,46 @@ const zylarianNewChild = (
         </table>
         
     </div></div></div></div>`;
+
+function updateZylarianList(population) {
+  console.log("Updating zylarian list");
+
+  const listContainer = document.getElementById(
+    "zylariansControlledByPlayerListContainer"
+  );
+  listContainer.innerHTML = ""; // Clear existing list
+  console.log(population);
+
+  // Creates a list item for each zylarian in the array
+  population.forEach((zylarian, index) => {
+    try {
+      colorGenotypes = zylarian.genotypes.color;
+      textureGenotypes = zylarian.genotypes.texture;
+    } catch (e) {
+      console.log("already Parsed");
+    }
+    const skinColorGenotypeString = `<span class="red">Red: ${colorGenotypes.redGenotype}</span>, <span class="green">Green: ${colorGenotypes.greenGenotype}</span>, <span class="blue">Blue: ${colorGenotypes.blueGenotype}</span>, <span class="brown">Brown: ${colorGenotypes.brownGenotype}</span>`;
+    const skinTextureGenotypeString = `Scales: ${textureGenotypes.scaleGenotype}, Skin Moisture: ${textureGenotypes.skinMoistureGenotype}, Feathered: ${textureGenotypes.featherGenotype}, Furry: ${textureGenotypes.furGenotype}`;
+
+    const listItem = document.createElement("li");
+    listItem.innerHTML = `
+                <li><strong>Zylarian ${
+                  index + 1
+                }:</strong><span class="currentUser"> ${
+      zylarian.name
+    }</span></li>
+                <li>Color: ${zylarian.skinColor}, Texture: ${
+      zylarian.skinTexture
+    }, Pattern: ${zylarian.skinPattern}</li><li>
+                Height: ${zylarian.height} cm, Weight: ${
+      zylarian.weight
+    } g</li><li>
+                Limb Type: ${zylarian.limbType}, Special Feature: ${
+      zylarian.specialFeatures
+    }, Diet: ${zylarian.dietType}</li><li>
+                Color Genotypes: ${skinColorGenotypeString}</li><li>
+                Skin Texture Genotypes: ${skinTextureGenotypeString}
+                `;
+    listContainer.appendChild(listItem);
+  });
+}

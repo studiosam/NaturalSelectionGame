@@ -78,7 +78,7 @@ const zylarianMenu = (
                 </tr>
                 <tr>
                     <td class="statItem text-center">Special Features</td>
-                    <td class="statValue text-center">${zylariandata.specialFeatures[0]}</td>
+                    <td class="statValue text-center">${zylariandata.specialFeatures}</td>
                 </tr>
                 <tr>
                     <td class="statItem text-center">Diet</td>
@@ -96,7 +96,9 @@ const zylarianMenu = (
         </table>
         <span class='zyID' style="display:none">${zyID}</span>
     </div><div class="cardIndex hidden">${cardIndex}</div><div class="text-center text-white mb-2">${zylarian}</div><div class="progress">
-    <div class="progress-bar progress-bar-striped progress-bar-animated" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">0 EXP</div>
+    <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="${zylariandata.currentXp}" aria-valuemin="0" aria-valuemax="100" style="width: ${zylariandata.currentXp}%;"></div>
+    <div class="progress-bar-title">${zylariandata.currentXp} XP</div>
+  </div>
 </div></div></div></div>`;
 
 // Gets Users Data from the database and creates their Zylarian Population on page Load //
@@ -119,12 +121,8 @@ async function onLoad() {
     }
     currentUserStats.forEach((zylarian) => {
       zylarian.cardIndex = cardIndex;
-      const dateBorn = zylarian.zylarianData.bornOn;
-      const milliseconds =
-        dateBorn.seconds * 1000 + Math.floor(dateBorn.nanoseconds / 1e6);
-      const providedDate = new Date(milliseconds);
+      const providedDate = new Date(zylarian.bornOn);
       const currentDate = new Date();
-      const date = new Date(milliseconds);
       const timeDifference = currentDate - providedDate;
       const secondsDifference = Math.floor(timeDifference / 1000);
       const minutesDifference = Math.floor(secondsDifference / 60);
@@ -143,7 +141,7 @@ async function onLoad() {
       }
       cardIndex++;
       userZylariansContainer.innerHTML += zylarianMenu(
-        zylarian.zylarianData,
+        zylarian,
         zylarian.id,
         zylarian.age,
         zylarian.cardIndex
@@ -222,6 +220,7 @@ async function getUserData(currentUser) {
     `${serverAddress}userData?userId=${currentUserId}`
   );
   userData = await response.json();
+
   return userData.body;
 }
 

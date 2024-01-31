@@ -3,19 +3,20 @@ var app = express();
 var server = require("http").Server(app);
 var cors = require("cors");
 const bcrypt = require("bcryptjs");
-
+var cron = require("node-cron");
+const crypto = require("crypto");
 require("dotenv").config();
+const secretKey = process.env.SECRETKEY;
 
 const {
   createZylarian,
   createUser,
   getUsers,
-  getZylarians,
-  getMyZylarians,
   checkUsers,
   getUserZylarians,
   deleteUserZylarian,
   getAllZylarians,
+  generateUpdateQuery,
 } = require("./database.js");
 
 global.io = require("socket.io")(server, {
@@ -36,7 +37,6 @@ server.listen(process.env.PORT || 3000, () => {
 // Check For Existing User Endpoint //
 
 app.post("/", async function (req, res) {
-  console.log(req.body);
   const checkForUser = await checkUsers(req.body.username);
   console.log("Check for User = " + checkForUser);
   if (checkForUser.exists === true) {
@@ -63,6 +63,7 @@ app.post("/", async function (req, res) {
 
 app.post("/create", async function (req, res) {
   const checkForUser = await checkUsers(req.body.username);
+
   console.log("Check for User = " + checkForUser);
   if (checkForUser.exists === true) {
     console.log("User Already Exists");
@@ -114,12 +115,53 @@ app.get("/deleteZylarian", async function (req, res) {
 
 app.post("/createZylarian", async function (req, res) {
   const zylarianData = await req.body;
-  console.log(zylarianData);
+  //console.log(zylarianData);
 
   await createZylarian(zylarianData.ownerId, zylarianData);
   const currentUserZylarians = await getUserZylarians(zylarianData.ownerId);
 
   res.send({ body: currentUserZylarians.length });
+});
+
+app.post("/generateSignature", function (req, res) {
+  const { dataToSign } = req.body;
+
+  const hmac = crypto.createHmac("sha256", secretKey);
+  hmac.update(JSON.stringify(dataToSign));
+  const signature = hmac.digest("hex");
+
+  res.json({ signature });
+});
+app.post("/processPointsData", async function (req, res) {
+  const { pointsData, signature } = req.body;
+
+  // Verify the signature
+  const hmac = crypto.createHmac("sha256", secretKey);
+  hmac.update(JSON.stringify(pointsData));
+
+  const calculatedSignature = hmac.digest("hex");
+
+  if (calculatedSignature !== signature) {
+    return res.status(403).json({ error: "Invalid signature" });
+  }
+
+  // Signature is valid, proceed with further processing (e.g., updating the database)
+
+  for (let i = 0; i < pointsData.zylarianIds.length; i++) {
+    const zylarianId = pointsData.zylarianIds[i];
+    const earnedPoints = pointsData.earnedPoints[i];
+    console.log(zylarianId);
+    console.log(earnedPoints);
+    await generateUpdateQuery(
+      "zylarians",
+      "currentXp",
+      earnedPoints,
+      "id",
+      zylarianId
+    );
+  }
+
+  return res.status(200).json({ success: true });
 });
 
 // Websocket Server Connection Handlers //
@@ -165,3 +207,8 @@ async function hashPassword(username, plaintextPassword) {
 async function verifyPassword(plaintextPassword, storedHash) {
   return await bcrypt.compare(plaintextPassword, storedHash);
 }
+
+// CRON JOBS //
+// cron.schedule("*/5 * * * * *", () => {
+//   ;
+// });

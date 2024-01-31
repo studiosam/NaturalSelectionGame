@@ -48,8 +48,8 @@ async function createZylarianFromForm() {
   const MAX_WEIGHT = 10000;
 
   // Extract values with correct types
-  const height = parseInt(form.height.value, 10).toFixed(2);
-  const weight = parseInt(form.weight.value, 10).toFixed(2);
+  const height = parseInt(form.height.value, 10);
+  const weight = parseInt(form.weight.value, 10);
 
   // Create the initial Zylarian with correct argument order
   console.log("Creating Zylarian");
@@ -211,12 +211,9 @@ function skinMatching(newZylarianGenotypes, skinObjectsArray, type) {
     ];
   }
   for (const skinObject of skinObjectsArray) {
-    console.log("newZylarianGenotypes", newZylarianGenotypes);
-
     for (const key of propertiesToMatch) {
       if (Array.isArray(skinObject[key])) {
         if (!skinObject[key].includes(newZylarianGenotypes[key])) {
-          console.log(skinObject[key], newZylarianGenotypes[key]);
           matched = false;
           break;
         }

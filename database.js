@@ -1,110 +1,80 @@
-// Import the functions you need from the SDKs you need
-const { initializeApp } = require("firebase/app");
-const {
-  initializeFirestore,
-  CACHE_SIZE_UNLIMITED,
-  getFirestore,
-  setDoc,
-  doc,
-  getDoc,
-  addDoc,
-  collection,
-  getDocs,
-  onSnapshot,
-  deleteDoc,
-} = require("firebase/firestore");
-
-const firebaseApp = initializeApp({
-  apiKey: "AIzaSyBWnEdVuXkK0yq6hS7mXMFriJjpCtz8bTQ",
-  authDomain: "zylarians.firebaseapp.com",
-  projectId: "zylarians",
-  storageBucket: "zylarians.appspot.com",
-  messagingSenderId: "750453172060",
-  appId: "1:750453172060:web:6f778b66d00ec9a93c0399",
-  measurementId: "G-N00C9PVNLP",
-});
-
-// Define Database Variables //
-const db = getFirestore();
-const usersCollection = collection(db, "users");
-const zylariansCollection = collection(db, "zylarians");
-
+const mysql = require("mysql2");
+const dotenv = require("dotenv").config();
+// Create a connection pool
+const pool = mysql
+  .createPool({
+    host: "localhost",
+    port: 3306,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_USER_PASSWORD,
+    database: process.env.DATABASE,
+    waitForConnections: true,
+    connectionLimit: 15, // Adjust based on your requirements
+    queueLimit: 0,
+  })
+  .promise();
 // Database functions //
 
 // Gets All Zylarians from Selected User (player arg) //
 async function getUserZylarians(player) {
-  const userZylarians = [];
-  const userRef = collection(db, `users/${player}/zylarians`);
-  const zys = await getDocs(userRef);
-  zys.docs.forEach((zylarian, index) => {
-    userZylarians.push({ ...zylarian.data(), id: zylarian.id });
-    userZylarians[index].zylarianData.id = zylarian.id;
-  });
+  const userZylarians = await generateSelectQuery(
+    "zylarians",
+    "ownerId",
+    player
+  );
+  console.log("userZylarians");
   return userZylarians;
 }
 
 // Get ALL Zylarians //
 
 async function getAllZylarians() {
-  try {
-    const allUsers = await getUsers();
-
-    // Use map to create an array of promises for user ids
-    const userPromises = allUsers.map(async (user) => user.id);
-
-    // Wait for all userPromises to complete and get user ids
-    const userIds = await Promise.all(userPromises);
-
-    // Use map to create an array of promises for zylarians
-    const zylarianPromises = userIds.map(async (userId) => {
-      let zylarians = await getUserZylarians(userId);
-      return zylarians;
-    });
-
-    // Wait for all zylarianPromises to complete and get zylarians
-    const allZylarians = await Promise.all(zylarianPromises);
-    console.log(allZylarians[0][0]);
-    // Flatten the nested array and get an array of zylarianData objects
-    const flattenedZylarians = allZylarians
-      .flat()
-      .map((zylarian) => zylarian.zylarianData);
-    console.log(flattenedZylarians[0]);
-    return flattenedZylarians;
-  } catch (error) {
-    console.error("Error in getAllZylarians:", error);
-  }
+  const allZylarians = await getAllRowsFromTable("zylarians");
+  console.log(allZylarians);
+  return allZylarians;
 }
 
 // Creates a Zylarian (zylarianData arg) for Selected User (player arg) //
 
 async function createZylarian(player, zylarianData) {
-  const userRef = collection(db, `users/${player}/zylarians`);
-  zylarianData.bornOn = new Date();
-  await addDoc(userRef, { zylarianData });
+  zylarianData.ownerId = player;
+  zylarianData.id = generateZylarianId();
+
+  generateInsertQuery(zylarianData, "zylarians");
 }
 
 // RIPs selected Zylarian (zylarian arg) from Selected User (player arg) //
 async function deleteUserZylarian(player, zylarian) {
-  const userRef = doc(db, `users/${player}/zylarians/${zylarian}`);
-  const status = await deleteDoc(userRef);
-  return status;
+  const connection = await pool.getConnection();
+  const tableName = "zylarians";
+  const columnName = "id";
+  const columnValue = zylarian;
+  try {
+    const sql = `DELETE FROM ${mysql.escapeId(
+      tableName
+    )} WHERE ${mysql.escapeId(columnName)} = ${mysql.escape(columnValue)}`;
+    const [result] = await connection.execute(sql);
+
+    console.log(`Deleted ${result.affectedRows} row(s) from ${tableName}`);
+    return "RIP";
+  } catch (err) {
+    console.error(err);
+  } finally {
+    // Release the connection back to the pool
+    connection.release();
+  }
 }
 
 // List all Users in ZyVille (<--- Stupid Name)//
 async function getUsers() {
-  let users = [];
-  const collection = await getDocs(usersCollection);
-  collection.docs.forEach((user) => {
-    users.push({ ...user.data(), id: user.id });
-  });
-
+  let users = getAllRowsFromTable("users");
   return users;
 }
 
 // Checks if a user exists on login or signup and if so handles accordingly //
 async function checkUsers(user) {
   const currentUsers = [];
-  const allUsers = await getUsers();
+  const allUsers = await getAllRowsFromTable("users");
   allUsers.forEach((username, index) => {
     currentUsers.push({
       username: username.username,
@@ -125,27 +95,16 @@ async function checkUsers(user) {
   }
 }
 
-// Debug Function - Retrieves all Zylarians for specific user (owner arg)//
-async function getMyZylarians(owner) {
-  let myZylarians = [];
-  const collection = await getDocs(zylariansCollection);
-  collection.docs.forEach((zylarian) => {
-    if (zylarian.data().owner === owner) {
-      myZylarians.push({ id: zylarian.data().name });
-    }
-  });
-  console.log(myZylarians);
-}
-
 // Create New User //
 async function createUser(username, password) {
   userData = {
     username: username,
     password: password,
+    id: generateUserId(),
   };
-  const newUserRef = await addDoc(usersCollection, userData);
-  if (newUserRef.id) {
-    console.log(`New User ${username} created with ID : ${newUserRef.id}`);
+  generateInsertQuery(userData, "users");
+  if (userData.id) {
+    console.log(`New User ${username} created with ID : ${userData.id}`);
     return "success";
   } else {
     console.log(`ERROR CREATING USER`);
@@ -153,6 +112,136 @@ async function createUser(username, password) {
   }
 }
 
+async function generateInsertQuery(data, table) {
+  const connection = await pool.getConnection();
+  const columns = Object.keys(data).join(",");
+  const values = Object.values(data)
+    .map((value) => {
+      if (typeof value === "string") {
+        return mysql.escape(value);
+      } else if (value instanceof Date) {
+        return mysql.escape(value.toISOString().slice(0, 19).replace("T", " "));
+      } else if (typeof value === "object") {
+        return mysql.escape(JSON.stringify(value));
+      } else {
+        return value;
+      }
+    })
+    .join(",");
+
+  const sql = `INSERT INTO ${table} (${columns}) VALUES (${values})`;
+  try {
+    const [result, fields] = await connection.execute(sql);
+    console.log(result); // results contains rows returned by server
+    console.log(fields); // fields contains extra meta data about results, if available
+  } catch (err) {
+    console.log(err);
+  } finally {
+    // Release the connection back to the pool
+    connection.release();
+  }
+}
+
+async function generateSelectQuery(tableName, columnName, columnValue) {
+  const connection = await pool.getConnection();
+  const sqlQuery = `SELECT * FROM ${mysql.escapeId(
+    tableName
+  )} WHERE ${mysql.escapeId(columnName)} = ${mysql.escape(columnValue)}`;
+  try {
+    const [rows, fields] = await connection.execute(sqlQuery);
+
+    const parsedRows = rows.map((row) => {
+      if (row.genotypes) {
+        row.genotypes = JSON.parse(row.genotypes);
+      }
+      if (row.specialFeatures) {
+        row.specialFeatures = JSON.parse(row.specialFeatures);
+      }
+      return row;
+    });
+
+    return parsedRows;
+  } catch (err) {
+    console.log(err);
+  } finally {
+    // Release the connection back to the pool
+    connection.release();
+  }
+}
+
+async function generateUpdateQuery(
+  tableName,
+  columnName,
+  columnValue,
+  conditionColumn,
+  conditionValue
+) {
+  const connection = await pool.getConnection();
+  const sqlQuery = `UPDATE ${mysql.escapeId(tableName)} SET ${mysql.escapeId(
+    columnName
+  )} = ${mysql.escape(columnValue)} WHERE ${mysql.escapeId(
+    conditionColumn
+  )} = ${mysql.escape(conditionValue)}`;
+
+  try {
+    const [rows, fields] = await connection.execute(sqlQuery);
+    return rows;
+  } catch (err) {
+    console.log(err);
+  } finally {
+    // Release the connection back to the pool
+    connection.release();
+  }
+}
+
+async function getAllRowsFromTable(tableName) {
+  const connection = await pool.getConnection();
+  try {
+    const sql = `SELECT * FROM ${mysql.escapeId(tableName)}`;
+    const [rows, fields] = await connection.execute({ sql: sql });
+    const parsedRows = rows.map((row) => {
+      if (row.genotypes) {
+        row.genotypes = JSON.parse(row.genotypes);
+      }
+      if (row.specialFeatures) {
+        row.specialFeatures = JSON.parse(row.specialFeatures);
+      }
+      return row;
+    });
+
+    return parsedRows;
+  } catch (err) {
+    console.error(err);
+  } finally {
+    // Release the connection back to the pool
+    connection.release();
+  }
+}
+function generateUserId(prefix = "user", length = 8) {
+  const characters =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let userId = prefix;
+
+  for (let i = 0; i < length - prefix.length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    userId += characters.charAt(randomIndex);
+  }
+
+  return userId;
+}
+
+function generateZylarianId(prefix = "zy", length = 8) {
+  const characters =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let userId = prefix;
+
+  for (let i = 0; i < length - prefix.length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    userId += characters.charAt(randomIndex);
+  }
+
+  return userId;
+}
 // To do - Update User Function MAYBE? //
 async function updateUsers() {}
 
@@ -160,9 +249,9 @@ module.exports = {
   createZylarian,
   createUser,
   getUsers,
-  getMyZylarians,
   checkUsers,
   getUserZylarians,
   deleteUserZylarian,
   getAllZylarians,
+  generateUpdateQuery,
 };
