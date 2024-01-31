@@ -142,7 +142,7 @@ function heightWeightMating(measurement1, measurement2) {
   let r = Math.random();
   let max = Math.max(measurement1, measurement2) + measurement1 * 0.1;
   let min = Math.min(measurement1, measurement2) - measurement2 * 0.1;
-  return Math.floor(r * (max - min + 1)) + min; // The maximum is inclusive and the minimum is inclusive
+  return (Math.floor(r * (max - min + 1)) + min).toFixed(2); // The maximum is inclusive and the minimum is inclusive
 }
 
 // Pick one of two traits
