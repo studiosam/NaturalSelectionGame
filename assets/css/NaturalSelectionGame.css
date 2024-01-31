@@ -1,8 +1,8 @@
 :root {
-  --scaly: url("https://cdn.dribbble.com/users/71143/screenshots/1693017/untitled.jpg");
+  --scaly: url("/assets/img/scaly.webp");
   --leathery: url("https://st2.depositphotos.com/3864435/8867/i/950/depositphotos_88676374-stock-photo-leather-pattern-raster.jpg");
-  --furry: url("https://t3.ftcdn.net/jpg/00/74/58/96/360_F_74589629_23vQF5civr0cyEvtsh7yyz3S68AbavYT.jpg");
-  --feathered: url("https://gbs423.com/nsg/assets/img/feathered.webp");
+  --furry: url("/assets/img/fur.webp");
+  --feathered: url("/assets/img/feathers.webp");
   --slimy: url("https://c8.alamy.com/comp/2C6DWT8/uniform-3d-abstract-background-of-simple-patterns-of-purple-plum-color-with-lighting-and-shadows-for-various-applications-needing-colorful-areas-illustration-and-blue-2C6DWT8.jpg");
   --smooth: url("https://img.freepik.com/free-photo/brown-leather-texture-background_1373-433.jpg");
   --solid: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5877e543-014c-4b8b-b6c2-37397c0c0c90/d30v1tg-2ccecfbc-4c29-49ac-a487-f08365416fa2.jpg/v1/fill/w_900,h_900,q_75,strp/seamless_human_skin_texture_by_hhh316_d30v1tg-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9OTAwIiwicGF0aCI6IlwvZlwvNTg3N2U1NDMtMDE0Yy00YjhiLWI2YzItMzczOTdjMGMwYzkwXC9kMzB2MXRnLTJjY2VjZmJjLTRjMjktNDlhYy1hNDg3LWYwODM2NTQxNmZhMi5qcGciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.bOtefGzZY0ZCBsjO39SMNT7cxXhrl2fcF6fe8fCoxoY");
@@ -14,9 +14,9 @@
 .zylarianCard {
   border: 1px solid white;
   cursor: pointer;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-blend-mode: multiply;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-blend-mode: hard-light;
 }
 
 .blended-background {
@@ -27,46 +27,6 @@
   background-repeat: no-repeat;
   background-blend-mode: lighten;
 }
-/* .zylarianCard.Scaly {
-  background-image: var(--scaly);
-  background-blend-mode: lighten
-}
-.zylarianCard.Leathery {
-  background-image: var(--leathery);
-   background-blend-mode: color
-}
-.zylarianCard.Furry {
-  background-image: var(--furry);
-   background-blend-mode: lighten
-}
-.zylarianCard.Feathered {
-  background-image: var(--feathered);
-   background-blend-mode: lighten
-}
-.zylarianCard.Slimy {
-  background-image: var(--slimy);
-   background-blend-mode: lighten
-}
-.zylarianCard.Smooth {
-  background-image: var(--smooth);
-   background-blend-mode: lighten
-}
-.zylarianCard.Solid {
-  background-image: var(--solid);
-   background-blend-mode: lighten
-}
-.zylarianCard.Iridescent {
-  background-image: var(--iridescent);
-   background-blend-mode: lighten
-}
-.zylarianCard.Striped {
-  background-image: var(--striped);
-   background-blend-mode: lighten
-}
-.zylarianCard.Spotted {
-  background-image: var(--spotted);
-   background-blend-mode: lighten
-} */
 
 *,
 ::after,
@@ -561,8 +521,9 @@ select:valid {
 
 /* Skin Textures */
 .Scaly {
-  background-image: var(--scaly);
+  background: var(--scaly), rgb(61, 61, 61);
   background-size: cover;
+  background-blend-mode: multiply;
   height: auto;
   border-radius: 25px;
   border: 2px solid green;
@@ -580,8 +541,9 @@ select:valid {
   /* text-shadow: 1px 2px #0b0b0d; */
 }
 .Furry {
-  background-image: var(--furry);
+  background: var(--furry), rgb(128, 128, 128);
   background-size: cover;
+  background-blend-mode: multiply;
   height: auto;
   border-radius: 25px;
   border: 2px solid rgb(36, 34, 33);
@@ -589,7 +551,8 @@ select:valid {
   /* text-shadow: 1px 2px #0b0b0d; */
 }
 .Feathered {
-  background-image: var(--feathered);
+  background: var(--feathered), gray;
+  background-blend-mode: multiply;
   background-size: cover;
   height: auto;
   border-radius: 25px;
@@ -619,7 +582,6 @@ select:valid {
 
 /* Skin Patterns */
 .Solid {
-  background-image: var(--solid);
   background-size: cover;
   background-blend-mode: multiply;
   height: auto;
@@ -639,17 +601,18 @@ select:valid {
   /* text-shadow: 1px 2px #0b0b0d; */
 }
 .Striped {
-  background-position: center center;
-  background-size: 275% auto;
+  background-position: center;
   height: auto;
+  background-blend-mode: multiply;
   border-radius: 25px;
   border: 2px solid rgb(0, 0, 0);
   color: #ffffff;
   /* text-shadow: 1px 2px #0b0b0d; */
 }
 .Spotted {
-  background-position: center center;
-  background-size: 595% auto;
+  background-position: center center !important;
+  background-blend-mode: multiply;
+  background-repeat: repeat-y;
   height: auto;
   border-radius: 25px;
   border: 2px solid rgb(0, 0, 0);
@@ -659,12 +622,12 @@ select:valid {
 
 .patternTextBgStriped {
   background-position: center center;
-  background-size: 220% auto;
-  color: #000000;
+  background-size: 220% auto !important;
+  color: #ebebeb;
   font-weight: bold;
 }
 
 .patternTextBgSpotted {
   background-position: center center;
-  background-size: 100% auto;
+  background-size: 100% auto !important;
 }

@@ -28,23 +28,38 @@ finalDeleteBtn.addEventListener("click", handleDelete);
 
 // HTML for Creating Users Zylarian Population //
 const zylarianMenu = (zylariandata, zyID, zylarian, cardIndex) => {
-  let backgroundStyle = zylariandata.skinPattern;
-  patternTextClass = "";
   if (zylariandata.skinPattern === "Spotted") {
-    const backgroundSVG = generateSpotPattern("brown", "tan");
-    backgroundStyle = `background-image: url('data:image/svg+xml,${encodeURIComponent(
+    const backgroundSVG = generateSpotPattern(
+      `${zylariandata.skinColor}`,
+      "black"
+    );
+    backgroundColor = `${zylariandata.skinColor}`;
+    backgroundStyle = `background: url('data:image/svg+xml,${encodeURIComponent(
       backgroundSVG
     )}')`;
+    textureStyle = `var(--${zylariandata.skinTexture.toLowerCase()})`;
     patternTextClass = "patternTextBgSpotted";
   } else if (zylariandata.skinPattern === "Striped") {
-    const backgroundSVG = generateStripePattern("white", "black");
-    backgroundStyle = `background-image: url('data:image/svg+xml,${encodeURIComponent(
+    const backgroundSVG = generateStripePattern(
+      `${zylariandata.skinColor}`,
+      "black"
+    );
+    backgroundColor = `${zylariandata.skinColor}`;
+    backgroundStyle = `background: url('data:image/svg+xml,${encodeURIComponent(
       backgroundSVG
     )}')`;
+    textureStyle = `var(--${zylariandata.skinTexture.toLowerCase()})`;
     patternTextClass = "patternTextBgStriped";
+  } else {
+    backgroundColor = `${zylariandata.skinColor}`;
+    backgroundStyle = `background:var(--${zylariandata.skinPattern.toLowerCase()})`;
+    patternTextClass = "";
+    if (zylariandata.skinTexture) {
+      textureStyle = `var(--${zylariandata.skinTexture.toLowerCase()})`;
+    }
   }
   return `<div class="col userZylariansCol">
-<div class="card zylarianCard ${zylariandata.skinPattern}" style="${backgroundStyle}" pointer-events="auto"><img class="card-img-top w-100 d-block" />
+<div class="card zylarianCard ${zylariandata.skinPattern}" style="${backgroundStyle},${textureStyle},${backgroundColor}" pointer-events="auto"><img class="card-img-top w-100 d-block" />
 
     <div class="card-body"><div class="levelContainer">
     <div class="text-end">
@@ -65,7 +80,7 @@ const zylarianMenu = (zylariandata, zyID, zylarian, cardIndex) => {
             <tbody>
                 <tr>
                     <td class="statItem text-center">Color</td>
-                    <td class="statValue text-center">${zylariandata.skinColor}</td>
+                    <td class="statValue text-center"><div style="background:${zylariandata.skinColor};border-radius:25px;border: 2px solid black; color: darkgray"><span>${zylariandata.skinColor}</span></div></td>
                 </tr>
                 <tr>
                     <td class="statItem text-center">Texture</td>
