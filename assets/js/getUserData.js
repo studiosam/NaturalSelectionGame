@@ -57,6 +57,9 @@ const zylarianMenu = (zylariandata, zyID, zylarian, cardIndex) => {
     if (zylariandata.skinTexture) {
       textureStyle = `var(--${zylariandata.skinTexture.toLowerCase()})`;
     }
+    if (zylariandata.skinColor === "Black") {
+      backgroundColor = `#2b2828`;
+    }
   }
   return `<div class="col userZylariansCol">
 <div class="card zylarianCard ${zylariandata.skinPattern}" style="${backgroundStyle},${textureStyle},${backgroundColor}" pointer-events="auto"><img class="card-img-top w-100 d-block" />

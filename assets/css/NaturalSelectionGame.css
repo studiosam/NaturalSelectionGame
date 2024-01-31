@@ -1,14 +1,12 @@
 :root {
   --scaly: url("/assets/img/scaly.webp");
-  --leathery: url("https://st2.depositphotos.com/3864435/8867/i/950/depositphotos_88676374-stock-photo-leather-pattern-raster.jpg");
+  --leathery: url("/assets/img/leathery.webp");
   --furry: url("/assets/img/fur.webp");
   --feathered: url("/assets/img/feathers.webp");
-  --slimy: url("https://c8.alamy.com/comp/2C6DWT8/uniform-3d-abstract-background-of-simple-patterns-of-purple-plum-color-with-lighting-and-shadows-for-various-applications-needing-colorful-areas-illustration-and-blue-2C6DWT8.jpg");
-  --smooth: url("https://img.freepik.com/free-photo/brown-leather-texture-background_1373-433.jpg");
-  --solid: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5877e543-014c-4b8b-b6c2-37397c0c0c90/d30v1tg-2ccecfbc-4c29-49ac-a487-f08365416fa2.jpg/v1/fill/w_900,h_900,q_75,strp/seamless_human_skin_texture_by_hhh316_d30v1tg-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9OTAwIiwicGF0aCI6IlwvZlwvNTg3N2U1NDMtMDE0Yy00YjhiLWI2YzItMzczOTdjMGMwYzkwXC9kMzB2MXRnLTJjY2VjZmJjLTRjMjktNDlhYy1hNDg3LWYwODM2NTQxNmZhMi5qcGciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.bOtefGzZY0ZCBsjO39SMNT7cxXhrl2fcF6fe8fCoxoY");
-  --iridescent: url("https://cdn5.vectorstock.com/i/1000x1000/19/44/iridescent-animal-skin-seamless-pattern-for-design-vector-28081944.jpg");
-  --striped: url("https://as1.ftcdn.net/v2/jpg/03/08/33/84/1000_F_308338432_JNiTsZRvD3ffYC8Q481KBeKwva6ftnf3.jpg");
-  --spotted: url("https://png.pngtree.com/png-vector/20220521/ourlarge/pngtree-vector-illustration-of-multicolored-spotted-fur-skin-with-panoramic-texture-vector-png-image_46467984.jpg");
+  --slimy: url("/assets/img/slimy.webp");
+  --smooth: url("/assets/img/smooth.webp");
+  --solid: url("/assets/img/solid.jpg");
+  --iridescent: url("/assets/img/iridescent.webp");
 }
 
 .zylarianCard {
@@ -521,7 +519,7 @@ select:valid {
 
 /* Skin Textures */
 .Scaly {
-  background: var(--scaly), rgb(61, 61, 61);
+  background: var(--scaly), rgb(46, 104, 38);
   background-size: cover;
   background-blend-mode: multiply;
   height: auto;
@@ -532,7 +530,8 @@ select:valid {
 }
 
 .Leathery {
-  background-image: var(--leathery);
+  background: var(--leathery), rgb(139, 44, 0);
+  background-blend-mode: multiply;
   background-size: cover;
   height: auto;
   border-radius: 25px;
@@ -561,7 +560,8 @@ select:valid {
   /* text-shadow: 1px 2px #0b0b0d; */
 }
 .Slimy {
-  background-image: var(--slimy);
+  background: var(--slimy), rgb(139, 75, 148);
+  background-blend-mode: multiply;
   background-size: cover;
   height: auto;
   border-radius: 25px;
