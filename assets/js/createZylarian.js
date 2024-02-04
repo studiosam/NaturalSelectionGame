@@ -211,6 +211,7 @@ function skinMatching(newZylarianGenotypes, skinObjectsArray, type) {
     ];
   }
   for (const skinObject of skinObjectsArray) {
+    let matched = false;
     for (const key of propertiesToMatch) {
       if (Array.isArray(skinObject[key])) {
         if (!skinObject[key].includes(newZylarianGenotypes[key])) {
@@ -223,9 +224,9 @@ function skinMatching(newZylarianGenotypes, skinObjectsArray, type) {
       } else {
         matched = true;
       }
-      if (matched) {
-        return skinObject.id;
-      }
+    }
+    if (matched) {
+      return skinObject.id;
     }
   }
 }
