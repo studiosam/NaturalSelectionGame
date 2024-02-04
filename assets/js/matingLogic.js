@@ -15,10 +15,10 @@ async function mateStatus() {
 
     newZylarian.ownerId = localStorage.getItem("id");
     newZylarian.owner = localStorage.getItem("username");
-    // if (newZylarian.deadBaby) {
-    //   newZylarian.deadBaby = true;
-    //   newZylarian.isAlive = false;
-    // }
+    if (newZylarian.deadBaby) {
+      newZylarian.deadBaby = true;
+      newZylarian.isAlive = false;
+    }
     sendZylarianData(newZylarian);
     mateForm.reset();
     return { status: true, child: newZylarian };
@@ -89,6 +89,7 @@ function createZylarianByMating(zylarian1, zylarian2) {
     }
   }
   if (Object.keys(offspring).length > 0) {
+    console.log("OFFSPRING");
     return offspring;
   } else {
     console.log("No offspring");
