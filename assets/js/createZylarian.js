@@ -33,7 +33,6 @@ class CreateZylarian {
       color: assignGenotypesForColor(skinColor),
       texture: assignGenotypesForSkinTexture(skinTexture),
     };
-
     //console.log(this);
   }
 }
@@ -52,7 +51,7 @@ async function createZylarianFromForm() {
   const height = parseInt(form.height.value, 10);
   const weight = parseInt(form.weight.value, 10);
 
-  // Create the initial Zylarian
+  // Create the initial Zylarian with correct argument order
   console.log("Creating Zylarian");
   createZylarian = new CreateZylarian(
     form.name.value,
@@ -216,11 +215,11 @@ function skinMatching(newZylarianGenotypes, skinObjectsArray, type) {
       if (Array.isArray(skinObject[key])) {
         if (!skinObject[key].includes(newZylarianGenotypes[key])) {
           matched = false;
-          return skinObjectsArray[0].id;
+          break;
         }
       } else if (skinObject[key] !== newZylarianGenotypes[key]) {
         matched = false;
-        return skinObjectsArray[0].id;
+        break;
       } else {
         matched = true;
       }
