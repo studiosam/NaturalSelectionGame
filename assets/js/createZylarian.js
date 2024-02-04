@@ -216,11 +216,11 @@ function skinMatching(newZylarianGenotypes, skinObjectsArray, type) {
       if (Array.isArray(skinObject[key])) {
         if (!skinObject[key].includes(newZylarianGenotypes[key])) {
           matched = false;
-          return skinObjectsArray[0];
+          return skinObjectsArray[0].id;
         }
       } else if (skinObject[key] !== newZylarianGenotypes[key]) {
         matched = false;
-        return skinObjectsArray[0];
+        return skinObjectsArray[0].id;
       } else {
         matched = true;
       }
