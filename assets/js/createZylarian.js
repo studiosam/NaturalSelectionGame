@@ -184,7 +184,15 @@ class mateZylarian {
       zylarianSkinTextures,
       "texture"
     );
-    this.skinPattern = skinPatternProcessor(this.genotypes.color);
+    if (typeof this.skinPattern == "string") {
+      this.skinPattern = skinPatternProcessor(this.genotypes.color);
+    } else {
+      let res = skinPatternProcessor(this.genotypes.color)[0];
+      let pattern = res[0];
+      let colors = res[1];
+      this.skinPattern = pattern;
+      this.patternColors = colors;
+    }
   }
 }
 
