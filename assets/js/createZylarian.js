@@ -264,21 +264,37 @@ function findUniqueCapitalLetters(str) {
 function skinPatternDetermination(dominantAlleles) {
   if (dominantAlleles.length > 1) {
     if (dominantAlleles == "GB" || dominantAlleles == "BG") {
-      return zylarianSkinPatterns[3].id;
+      return zylarianSkinPatterns[3].id; //iridescent
     }
     let randomNum = Math.random();
     if (randomNum > 0.7) {
-      return zylarianSkinPatterns[1].id;
+      return [
+        zylarianSkinPatterns[1].id,
+        getTwoRandomLettersFromString(dominantAlleles),
+      ]; //spotted?
     } else if (randomNum > 0.3) {
-      return zylarianSkinPatterns[2].id;
+      return [
+        zylarianSkinPatterns[2].id,
+        getTwoRandomLettersFromString(dominantAlleles),
+      ]; //striped?
     } else {
-      return zylarianSkinPatterns[0].id;
+      return zylarianSkinPatterns[0].id; //solid
     }
   } else {
-    return zylarianSkinPatterns[0].id;
+    return zylarianSkinPatterns[0].id; //solid
   }
 }
 
+function getTwoRandomLettersFromString(str) {
+  let first = str[Math.floor(Math.random * 10) * str.length];
+  let second = str[Math.floor(Math.random * 10) * str.length];
+  let string;
+  while (first == second) {
+    second = str[Math.floor(Math.random * 10) * str.length];
+  }
+  string = first + second;
+  return string;
+}
 function generateRandomName() {
   console.log("Generating random name");
   const names = [
