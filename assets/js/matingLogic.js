@@ -85,7 +85,12 @@ function createZylarianByMating(zylarian1, zylarian2) {
     }
   }
   if (Object.keys(offspring).length > 0) {
-    console.log("OFFSPRING");
+    if (hasUndefinedProperty(offspring)) {
+      console.log("Very dead baby");
+      offspring.deadBaby = true;
+    } else {
+      console.log("Alive baby (so far)");
+    }
     return offspring;
   } else {
     console.log("No offspring");
