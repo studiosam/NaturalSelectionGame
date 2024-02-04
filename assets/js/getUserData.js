@@ -150,7 +150,7 @@ async function onLoad() {
         "You Do Not Currently Have Any Zylarians :(";
     }
     currentUserStats.forEach((zylarian) => {
-      if (zylarian.deadBaby === 1 || zylarian.isAlive === 0) {
+      if (zylarian.feathered === 1 || zylarian.isAlive === 0) {
         return;
       }
       zylarian.cardIndex = cardIndex;

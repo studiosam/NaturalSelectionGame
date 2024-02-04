@@ -89,12 +89,6 @@ function createZylarianByMating(zylarian1, zylarian2) {
     }
   }
   if (Object.keys(offspring).length > 0) {
-    if (Object.values(offspring).indexOf("RIP")) {
-      console.log("Very dead baby");
-      offspring.deadBaby = true;
-    } else {
-      console.log("Alive baby (so far)");
-    }
     return offspring;
   } else {
     console.log("No offspring");
