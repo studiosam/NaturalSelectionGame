@@ -139,7 +139,7 @@ async function onLoad() {
     currentUserStats = await getUserData(currentUser);
     console.log(currentUserStats);
     numOfZylariansContainer.style.display = "block";
-    numOfZylarians.innerHTML = currentUserStats.length;
+    numOfZylarians.innerHTML = "fixing";
     document.querySelector(
       ".modal-title"
     ).innerHTML = `<span class ="currentUser">${currentUser}'s</span> Zylarians`;
@@ -150,6 +150,9 @@ async function onLoad() {
         "You Do Not Currently Have Any Zylarians :(";
     }
     currentUserStats.forEach((zylarian) => {
+      if (zylarian.deadBaby === 1 || zylarian.isAlive === 0) {
+        return;
+      }
       zylarian.cardIndex = cardIndex;
       const providedDate = new Date(zylarian.bornOn);
       const currentDate = new Date();
