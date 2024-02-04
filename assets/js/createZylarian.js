@@ -211,6 +211,7 @@ function skinMatching(newZylarianGenotypes, skinObjectsArray, type) {
     ];
   }
   for (const skinObject of skinObjectsArray) {
+    let matched = false;
     for (const key of propertiesToMatch) {
       if (Array.isArray(skinObject[key])) {
         if (!skinObject[key].includes(newZylarianGenotypes[key])) {
