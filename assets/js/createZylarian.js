@@ -71,7 +71,6 @@ async function createZylarianFromForm() {
   createZylarian.owner = localStorage.getItem("username");
 
   if (createZylarian) {
-    // add second condition to check for undefined traits
     console.log("Zylarian created successfully");
   } else {
     console.log("Error creating zylarian");
@@ -217,11 +216,11 @@ function skinMatching(newZylarianGenotypes, skinObjectsArray, type) {
       if (Array.isArray(skinObject[key])) {
         if (!skinObject[key].includes(newZylarianGenotypes[key])) {
           matched = false;
-          break;
+          return "RIP";
         }
       } else if (skinObject[key] !== newZylarianGenotypes[key]) {
         matched = false;
-        break;
+        return "RIP";
       } else {
         matched = true;
       }
