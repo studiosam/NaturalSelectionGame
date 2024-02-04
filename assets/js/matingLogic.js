@@ -15,10 +15,10 @@ async function mateStatus() {
 
     newZylarian.ownerId = localStorage.getItem("id");
     newZylarian.owner = localStorage.getItem("username");
-    if (newZylarian.deadBaby) {
-      newZylarian.deadBaby = true;
-      newZylarian.isAlive = false;
-    }
+    // if (newZylarian.deadBaby) {
+    //   newZylarian.deadBaby = true;
+    //   newZylarian.isAlive = false;
+    // }
     sendZylarianData(newZylarian);
     mateForm.reset();
     return { status: true, child: newZylarian };
