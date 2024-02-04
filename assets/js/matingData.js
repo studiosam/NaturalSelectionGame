@@ -123,7 +123,7 @@ async function getEntirePopulation() {
   const response = await fetch(`${serverAddress}allZylarians`);
   populationData = await response.json();
   const filteredZylarians = populationData.body.filter(
-    (obj) => obj.ownerId !== currentUserId
+    (obj) => obj.ownerId !== currentUserId && obj.isAlive !== 0
   );
   return filteredZylarians;
 }
@@ -132,9 +132,9 @@ async function createMateMenu(mate) {
   mateSelect.innerHTML += `<option value = "${mate.id}">${mate.name}</option>`;
 }
 
-const zylarianNewChild = (
-  zylariandata
-) => `<div class="col userZylariansCol"><div><p class="text-center offspringSuccess">Success!<br/>New Offspring:</p></div>
+const zylarianNewChild = (zylariandata) => {
+  console.log(zylariandata);
+  return `<div class="col userZylariansCol"><div><p class="text-center offspringSuccess">Success!<br/>New Offspring:</p></div>
 <div class="card zylarianCard" pointer-events="auto"><img class="card-img-top w-100 d-block" />
     <div class="card-body">
         <h4 class="card-title zylarianName" style="background-color:${zylariandata.skinColor}">${zylariandata.name}</h4>
@@ -190,6 +190,7 @@ const zylarianNewChild = (
         </table>
         
     </div></div></div></div>`;
+};
 
 function updateZylarianList(population) {
   console.log("Updating zylarian list");
