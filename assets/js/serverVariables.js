@@ -24,7 +24,6 @@ const zylarianSkinColors = [
     greenGenotype: "gg",
     blueGenotype: "bb",
     brownGenotype: "pp",
-    selectable: false,
   },
   {
     id: "Beige",
@@ -46,7 +45,6 @@ const zylarianSkinColors = [
     greenGenotype: "gg",
     blueGenotype: ["BB", "Bb"],
     brownGenotype: "pp",
-    selectable: false,
   },
   {
     id: "Green",
@@ -54,7 +52,6 @@ const zylarianSkinColors = [
     greenGenotype: ["GG", "Gg"],
     blueGenotype: "bb",
     brownGenotype: "pp",
-    selectable: false,
   },
   {
     id: "Red",
@@ -62,7 +59,6 @@ const zylarianSkinColors = [
     greenGenotype: "gg",
     blueGenotype: "bb",
     brownGenotype: "pp",
-    selectable: false,
   },
   {
     id: "Pink",
@@ -70,7 +66,6 @@ const zylarianSkinColors = [
     greenGenotype: "gg",
     blueGenotype: "bb",
     brownGenotype: "pp",
-    selectable: false,
   },
   {
     id: "Yellow",
@@ -81,9 +76,9 @@ const zylarianSkinColors = [
   },
   {
     id: "Brown",
-    redGenotype: ["RR", "Rr", "rr"],
-    greenGenotype: ["GG", "Gg", "gg"],
-    blueGenotype: ["BB", "Bb", "bb"],
+    redGenotype: ["RR", "Rr"],
+    greenGenotype: ["GG", "Gg"],
+    blueGenotype: ["BB", "Bb"],
     brownGenotype: ["PP", "Pp"],
   },
   {
@@ -98,23 +93,23 @@ const zylarianSkinTextures = [
   {
     id: "Smooth",
     skinMoistureGenotype: ["WW", "Ww", "ww"],
-    scaleGenotype: "ss",
-    furGenotype: "ff",
-    featherGenotype: "bb",
+    scaleGenotype: ["Ss", "ss"],
+    furGenotype: ["Ff", "ff"],
+    featherGenotype: ["Bb", "bb"],
   },
   {
     id: "Scaly",
-    skinMoistureGenotype: "ww",
-    scaleGenotype: "SS",
+    skinMoistureGenotype: ["Ww", "ww"],
+    scaleGenotype: ["SS", "Ss"],
     furGenotype: "ff",
-    featherGenotype: "bb",
+    featherGenotype: ["Bb", "bb"],
   },
   {
     id: "Furry",
     skinMoistureGenotype: ["Ww", "ww"],
     scaleGenotype: "ss",
     furGenotype: ["FF", "Ff"],
-    featherGenotype: "bb",
+    featherGenotype: ["Bb", "bb"],
   },
   {
     id: "Leathery",
@@ -126,14 +121,14 @@ const zylarianSkinTextures = [
   {
     id: "Feathered",
     skinMoistureGenotype: ["WW", "Ww", "ww"],
-    scaleGenotype: ["SS", "Ss"],
-    furGenotype: "ff",
-    featherGenotype: "BB",
+    scaleGenotype: ["SS", "Ss", "ss"],
+    furGenotype: ["ff"],
+    featherGenotype: ["BB", "Bb"],
   },
   {
     id: "Slimy",
     skinMoistureGenotype: "WW",
-    scaleGenotype: "ss",
+    scaleGenotype: ["Ss", "ss"],
     furGenotype: ["Ff", "ff"],
     featherGenotype: "bb",
   },

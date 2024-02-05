@@ -174,53 +174,71 @@ class mateZylarian {
     this.dietType = dietType;
 
     // Process genotypes
-    this.skinColor = skinMatching(
-      this.genotypes.color,
-      zylarianSkinColors,
-      "color"
-    );
+    this.skinColor = skinMatching(this.genotypes.color, zylarianSkinColors);
     this.skinTexture = skinMatching(
       this.genotypes.texture,
-      zylarianSkinTextures,
-      "texture"
+      zylarianSkinTextures
     );
-    if (typeof this.skinPattern == "string") {
-      this.skinPattern = skinPatternProcessor(this.genotypes.color);
-    } else {
-      let res = skinPatternProcessor(this.genotypes.color)[0];
-      let pattern = res[0];
-      let colors = res[1];
-      this.skinPattern = pattern;
-      this.patternColors = colors;
-    }
+    this.skinPattern = skinPatternProcessor(this.genotypes.color);
+    this.patternColors = patternColorSelector(
+      this.genotypes.color,
+      this.skinColor
+    );
   }
 }
 
 // **ASSIGNING SKIN TRAIT TO CREATED ZYLARIANS FROM GENOTYPE** //
-function skinMatching(newZylarianGenotypes, skinObjectsArray, type) {
+function skinMatching(newZylarianGenotypes, skinObjectsArray) {
   console.log("Matching newZylarianGenotypes to phenotypes");
   console.log(newZylarianGenotypes);
   console.log(skinObjectsArray);
-  let propertiesToMatch = [];
 
-  if (type === "color") {
-    propertiesToMatch = [
-      "redGenotype",
-      "greenGenotype",
-      "blueGenotype",
-      "brownGenotype",
-    ];
-  } else if (type === "texture") {
-    propertiesToMatch = [
-      "skinMoistureGenotype",
-      "scaleGenotype",
-      "furGenotype",
-      "featherGenotype",
-    ];
+  // for (const [gene, genotype] of newZylarianGenotypes) {
+  //   for (const phenotype of skinObjectsArray) {
+
+  //   }
+  // }
+
+  for (const item of skinObjectsArray) {
+    let isMatched = true;
+    for (const prop in newZylarianGenotypes) {
+      if (newZylarianGenotypes.hasOwnProperty(prop)) {
+        console.log("item: " + item.id);
+        console.log("prop: " + prop);
+        const genotype1 = newZylarianGenotypes[prop];
+        const genotype2 = item[prop];
+        console.log(
+          `genotype to match: ${genotype1} options to match: ${genotype2}`
+        );
+        if (Array.isArray(genotype2)) {
+          if (!genotype2.includes(genotype1)) {
+            isMatched = false;
+            break;
+          }
+        } else {
+          if (genotype1 !== genotype2) {
+            isMatched = false;
+            break;
+          }
+        }
+      }
+    }
+    if (isMatched) {
+      return item.id;
+    }
   }
+  console.log("skinMatching = No match found");
+  return null;
+}
+/*
   for (const skinObject of skinObjectsArray) {
+    console.log(
+      "skinObject: " + skinObject + "\nskinObjectsArray: " + skinObjectsArray
+    );
     let matched = false;
     for (const key of propertiesToMatch) {
+      console.log("key: " + key + "\npropertiesToMatch: " + propertiesToMatch);
+      console.log("skinObject[key]: " + skinObject[key]);
       if (Array.isArray(skinObject[key])) {
         if (!skinObject[key].includes(newZylarianGenotypes[key])) {
           matched = false;
@@ -236,14 +254,58 @@ function skinMatching(newZylarianGenotypes, skinObjectsArray, type) {
     if (matched) {
       return skinObject.id;
     }
-  }
-}
+  }*/
 
 // Processes genotypes to skin pattern
 function skinPatternProcessor(skinColorGenotypes) {
   let colorString = joinColorAlleles(skinColorGenotypes);
+  console.log("colorString: " + colorString);
   let uniqueDominantAlleles = findUniqueCapitalLetters(colorString);
+  console.log("uniqueDominantAlleles: " + uniqueDominantAlleles);
   return skinPatternDetermination(uniqueDominantAlleles);
+}
+
+function patternColorSelector(skinColorGenotypes, solidSkinColor) {
+  let colorString = joinColorAlleles(skinColorGenotypes);
+  let uniqueDominantAlleles = findUniqueCapitalLetters(colorString);
+  let colorArr = uniqueDominantAlleles.split("");
+  let solidColor;
+  let res;
+  console.log(`solidSkinColor: ${solidSkinColor} colorArr: ${colorArr}`);
+  switch (solidSkinColor) {
+    case "Brown":
+      solidColor = "P";
+      break;
+    case "Red":
+      solidColor = "R";
+      break;
+    case "Blue":
+      solidColor = "B";
+      break;
+    case "Green":
+      solidColor = "G";
+      break;
+  }
+  if (colorArr.length > 1 && colorArr.includes(solidColor)) {
+    console.log(`colorarr greaterthan 1 ${colorArr.length}`);
+    colorArr.splice(colorArr.indexOf(solidColor), 1);
+    colorString = colorArr.join("");
+    console.log(`colorString: ${colorString}, solidColor: ${solidColor}`);
+    res = getRandomLettersFromString(colorString, 1);
+  } else {
+    res = getRandomLettersFromString(colorArr.join(""), 1);
+  }
+  console.log("res: " + res);
+  switch (res) {
+    case "R":
+      return "Red";
+    case "G":
+      return "Green";
+    case "B":
+      return "Blue";
+    case "P":
+      return "Brown";
+  }
 }
 
 // Returns a string of all color genotypes
@@ -270,21 +332,16 @@ function findUniqueCapitalLetters(str) {
 
 // Returns a skin pattern based on a string of unique capital letters
 function skinPatternDetermination(dominantAlleles) {
+  console.log("dominantAlleles: " + dominantAlleles);
   if (dominantAlleles.length > 1) {
     if (dominantAlleles == "GB" || dominantAlleles == "BG") {
       return zylarianSkinPatterns[3].id; //iridescent
     }
     let randomNum = Math.random();
     if (randomNum > 0.7) {
-      return [
-        zylarianSkinPatterns[1].id,
-        getTwoRandomLettersFromString(dominantAlleles),
-      ]; //spotted?
+      return zylarianSkinPatterns[1].id; //spotted?
     } else if (randomNum > 0.3) {
-      return [
-        zylarianSkinPatterns[2].id,
-        getTwoRandomLettersFromString(dominantAlleles),
-      ]; //striped?
+      return zylarianSkinPatterns[2].id; //striped?
     } else {
       return zylarianSkinPatterns[0].id; //solid
     }
@@ -293,16 +350,18 @@ function skinPatternDetermination(dominantAlleles) {
   }
 }
 
-function getTwoRandomLettersFromString(str) {
-  let first = str[Math.floor(Math.random * 10) * str.length];
-  let second = str[Math.floor(Math.random * 10) * str.length];
-  let string;
-  while (first == second) {
-    second = str[Math.floor(Math.random * 10) * str.length];
+function getRandomLettersFromString(capitalLetters, numOfLetters) {
+  let arr = capitalLetters.split("");
+  let res = "";
+  while (res.length < numOfLetters) {
+    rand = Math.floor(Math.random() * arr.length);
+    res += arr[rand];
+    console.log("res: " + res);
+    arr.splice(rand, 1);
   }
-  string = first + second;
-  return string;
+  return res;
 }
+
 function generateRandomName() {
   console.log("Generating random name");
   const names = [

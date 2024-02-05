@@ -31,7 +31,7 @@ const zylarianMenu = (zylariandata, zyID, zylarian, cardIndex) => {
   if (zylariandata.skinPattern === "Spotted") {
     const backgroundSVG = generateSpotPattern(
       `${zylariandata.skinColor}`,
-      "black"
+      zylariandata.patternColors.toLowerCase()
     );
     backgroundColor = `${zylariandata.skinColor}`;
     backgroundStyle = `background: url('data:image/svg+xml,${encodeURIComponent(
@@ -42,7 +42,7 @@ const zylarianMenu = (zylariandata, zyID, zylarian, cardIndex) => {
   } else if (zylariandata.skinPattern === "Striped") {
     const backgroundSVG = generateStripePattern(
       `${zylariandata.skinColor}`,
-      "black"
+      zylariandata.patternColors.toLowerCase()
     );
     backgroundColor = `${zylariandata.skinColor}`;
     backgroundStyle = `background: url('data:image/svg+xml,${encodeURIComponent(
@@ -139,7 +139,7 @@ async function onLoad() {
     currentUserStats = await getUserData(currentUser);
     console.log(currentUserStats);
     numOfZylariansContainer.style.display = "block";
-    numOfZylarians.innerHTML = "fixing";
+    numOfZylarians.innerHTML = currentUserStats.length;
     document.querySelector(
       ".modal-title"
     ).innerHTML = `<span class ="currentUser">${currentUser}'s</span> Zylarians`;

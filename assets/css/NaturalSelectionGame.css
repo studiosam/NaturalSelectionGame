@@ -592,12 +592,13 @@ select:valid {
 }
 .Iridescent {
   background-image: var(--iridescent);
+  background-blend-mode: multiply;
   background-size: cover;
   height: auto;
   border-radius: 25px;
-  animation: animate 2s linear infinite;
   border: 2px solid rgb(0, 0, 0);
   color: #ffffff;
+  animation: animate 2s linear infinite;
   /* text-shadow: 1px 2px #0b0b0d; */
 }
 .Striped {
