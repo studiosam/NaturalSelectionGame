@@ -14,123 +14,75 @@ const ALPHA_H = 1;
 const ALPHA_W = 1;
 
 /* 
-Arrays of trait objects
+Arrays of Phenotype Objects
 */
 
 const zylarianSkinColors = [
   {
     id: "White",
-    redGenotype: "rr",
-    greenGenotype: "gg",
-    blueGenotype: "bb",
-    brownGenotype: "pp",
   },
   {
     id: "Beige",
-    redGenotype: "rr",
-    greenGenotype: "gg",
-    blueGenotype: "bb",
-    brownGenotype: "Pp",
   },
   {
     id: "Gray",
-    redGenotype: "Rr",
-    greenGenotype: "Gg",
-    blueGenotype: "Bb",
-    brownGenotype: "pp",
   },
   {
     id: "Blue",
-    redGenotype: "rr",
-    greenGenotype: "gg",
-    blueGenotype: ["BB", "Bb"],
-    brownGenotype: "pp",
+    selectable: false,
   },
   {
     id: "Green",
-    redGenotype: "rr",
-    greenGenotype: ["GG", "Gg"],
-    blueGenotype: "bb",
-    brownGenotype: "pp",
+    selectable: false,
   },
   {
     id: "Red",
-    redGenotype: "RR",
-    greenGenotype: "gg",
-    blueGenotype: "bb",
-    brownGenotype: "pp",
+    selectable: false,
   },
   {
     id: "Pink",
-    redGenotype: "Rr",
-    greenGenotype: "gg",
-    blueGenotype: "bb",
-    brownGenotype: "pp",
+    selectable: false,
   },
   {
     id: "Yellow",
-    redGenotype: ["RR", "Rr"],
-    greenGenotype: ["GG", "Gg"],
-    blueGenotype: "bb",
-    brownGenotype: "pp",
+    selectable: false,
   },
   {
     id: "Brown",
-    redGenotype: ["RR", "Rr"],
-    greenGenotype: ["GG", "Gg"],
-    blueGenotype: ["BB", "Bb"],
-    brownGenotype: ["PP", "Pp"],
   },
   {
     id: "Black",
-    redGenotype: "RR",
-    greenGenotype: "GG",
-    blueGenotype: "BB",
-    brownGenotype: "PP",
   },
 ];
 const zylarianSkinTextures = [
   {
     id: "Smooth",
-    skinMoistureGenotype: ["WW", "Ww", "ww"],
-    scaleGenotype: ["Ss", "ss"],
-    furGenotype: ["Ff", "ff"],
-    featherGenotype: ["Bb", "bb"],
   },
   {
     id: "Scaly",
-    skinMoistureGenotype: ["Ww", "ww"],
-    scaleGenotype: ["SS", "Ss"],
-    furGenotype: "ff",
-    featherGenotype: ["Bb", "bb"],
   },
   {
-    id: "Furry",
-    skinMoistureGenotype: ["Ww", "ww"],
-    scaleGenotype: "ss",
-    furGenotype: ["FF", "Ff"],
-    featherGenotype: ["Bb", "bb"],
+    id: "Fuzzy",
   },
   {
     id: "Leathery",
-    skinMoistureGenotype: "ww",
-    scaleGenotype: ["SS", "Ss", "ss"],
-    furGenotype: "ff",
-    featherGenotype: "bb",
+    selectable: false,
   },
   {
     id: "Feathered",
-    skinMoistureGenotype: ["WW", "Ww", "ww"],
-    scaleGenotype: ["SS", "Ss", "ss"],
-    furGenotype: ["ff"],
-    featherGenotype: ["BB", "Bb"],
+    selectable: false,
   },
   {
     id: "Slimy",
-    skinMoistureGenotype: "WW",
-    scaleGenotype: ["Ss", "ss"],
-    furGenotype: ["Ff", "ff"],
-    featherGenotype: "bb",
+    selectable: false,
+  },
+  {
+    id: "Rough",
+    selectable: false,
+  },
+  {
+    id: "Furry",
+    selectable: false,
   },
 ];
 const zylarianSkinPatterns = [
@@ -149,16 +101,24 @@ const zylarianSkinPatterns = [
     id: "Iridescent",
     selectable: false,
   },
+  {
+    id: "Camouflaged",
+    selectable: false,
+  },
 ];
 const zylarianLimbTypes = [
   {
-    id: "Quadripedal",
+    id: "Four legs",
   },
   {
-    id: "Bipedal Bimanual",
+    id: "Two Hands, Two Legs",
   },
   {
-    id: "Quadripedal Bimanual",
+    id: "Two Hands, Four Legs",
+    selectable: false,
+  },
+  {
+    id: "Four Hands, Two Legs",
     selectable: false,
   },
 ];
@@ -182,9 +142,6 @@ const zylarianSpecialFeatures = [
     id: "Winged",
   },
   {
-    id: "Hooves",
-  },
-  {
     id: "Poisonous",
   },
   {
@@ -201,14 +158,59 @@ const zylarianDietTypes = [
   {
     id: "Omnivore",
   },
+];
+
+/*
+Arrays of Genotype Objects
+*/
+const zylarianGenes = [
   {
-    id: "Insectivore",
+    id: "Red Pigment",
   },
   {
-    id: "Piscivore",
+    id: "Green Pigment",
   },
   {
-    id: "Nectarivore",
+    id: "Blue Pigment",
+  },
+  {
+    id: "Brown Pigment",
+  },
+  {
+    id: "Mucous Secretion",
+  },
+  {
+    id: "Scales",
+  },
+  {
+    id: "Hair",
+  },
+  {
+    id: "Pairs of Limbs",
+  },
+  {
+    id: "Webbed Digits",
+  },
+  {
+    id: "Eyesight",
+  },
+  {
+    id: "Swimming",
+  },
+  {
+    id: "Flying",
+  },
+  {
+    id: "Poison",
+  },
+  {
+    id: "Venom",
+  },
+  {
+    id: "Front Teeth",
+  },
+  {
+    id: "Back Teeth",
   },
 ];
 optionsMapping = {
