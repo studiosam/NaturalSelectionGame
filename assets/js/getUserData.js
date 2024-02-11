@@ -138,8 +138,13 @@ async function onLoad() {
     currentUserText.innerHTML = currentUser;
     currentUserStats = await getUserData(currentUser);
     console.log(currentUserStats);
+
+    const deadUserZylarians = currentUserStats.filter(
+      (obj) => obj.isAlive == 0
+    );
     numOfZylariansContainer.style.display = "block";
-    numOfZylarians.innerHTML = currentUserStats.length;
+    numOfZylarians.innerHTML =
+      currentUserStats.length - deadUserZylarians.length;
     document.querySelector(
       ".modal-title"
     ).innerHTML = `<span class ="currentUser">${currentUser}'s</span> Zylarians`;
