@@ -163,6 +163,8 @@ async function graveyardLoad() {
 // Graveyard Filters //
 
 function filterAll() {
+  graveyardFilterMy.classList.remove("active");
+  graveyardFilterAll.classList.add("active");
   const currentUserId = localStorage.getItem("id");
   const allDeadZylarians = document.querySelectorAll(`.graveCard`);
   // const userDeadZylarians = document.querySelectorAll(`[data-owner=${currentUserId}]`)
@@ -173,6 +175,8 @@ function filterAll() {
   });
 }
 function filterMy() {
+  graveyardFilterMy.classList.add("active");
+  graveyardFilterAll.classList.remove("active");
   const currentUserId = localStorage.getItem("id");
   const allDeadZylarians = document.querySelectorAll(`.graveCard`);
   // const userDeadZylarians = document.querySelectorAll(`[data-owner=${currentUserId}]`)

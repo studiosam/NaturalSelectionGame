@@ -38,3 +38,13 @@
   transition: 500ms;
   cursor: pointer;
 }
+
+.filter {
+  font-size: 2rem;
+  text-align: center;
+  color: rgb(172, 209, 240);
+}
+
+.active {
+  color: aqua;
+}
