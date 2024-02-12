@@ -1,0 +1,39 @@
+.grave {
+  position: absolute;
+}
+
+#graveName {
+  position: absolute;
+  color: rgb(255, 87, 87);
+  text-align: center;
+  width: 100%;
+  font-weight: bold;
+}
+
+.graveCard {
+  max-width: 150px;
+}
+
+#graveyardCont {
+  height: 100vh;
+}
+.deathDate {
+  margin-top: 10px;
+}
+
+.graveyardMenu {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  font-size: 1.5rem;
+}
+
+.graveyardMenu li:hover {
+  color: aqua;
+  transition: 500ms;
+}
+.graveyardMenu li {
+  transition: 500ms;
+  cursor: pointer;
+}

@@ -1,3 +1,6 @@
+const graveyard = document.querySelector("#graveyard");
+const graveyardFilterAll = document.querySelector(".AllZylariansFilter");
+const graveyardFilterMy = document.querySelector(".MyZylariansFilter");
 const currentUserText = document.querySelector("#currentLoggedUser");
 const currentUser = localStorage.getItem("username");
 const numOfZylariansContainer = document.querySelector(
@@ -25,7 +28,8 @@ observer.observe(zylarianModal, config);
 mainLogoutBtn.addEventListener("click", handleLog);
 viewZylariansBtn.addEventListener("click", onLoad);
 finalDeleteBtn.addEventListener("click", handleDelete);
-
+graveyardFilterAll.addEventListener("click", filterAll);
+graveyardFilterMy.addEventListener("click", filterMy);
 // HTML for Creating Users Zylarian Population //
 const zylarianMenu = (zylariandata, zyID, zylarian, cardIndex) => {
   if (zylariandata.skinPattern === "Spotted") {
@@ -130,6 +134,54 @@ const zylarianMenu = (zylariandata, zyID, zylarian, cardIndex) => {
   </div>
 </div></div></div></div>`;
 };
+//Display Dead Zylarians//
+
+const createGraveyard = (dead) => {
+  return `<div data-owner="${dead.ownerId}" class="col graveCard">
+      <div class="card"><div id="graveName"><p>${
+        dead.name
+      }</p></div><img class="card-img w-100 d-block grave" src="assets/img/grave.png" /><img class="card-img w-100 d-block graveyardbg" src="assets/img/graveyardbg.png" /></div>
+      <p class="mt-2 text-center deadOwner ">Owner:<br /><span class="currentUser">${
+        dead.owner
+      }</span></p>
+      <p class="text-center deathDate">${convertDate(
+        dead.bornOn
+      )}<br />-<br />${convertDate(dead.diedOn)}</p>
+  </div>`;
+};
+
+async function graveyardLoad() {
+  const currentUserId = localStorage.getItem("id");
+  const response = await fetch(`${serverAddress}allZylarians`);
+  populationData = await response.json();
+  const deadZylarians = populationData.body.filter((obj) => obj.isAlive == 0);
+  deadZylarians.forEach((deadZylarian) => {
+    graveyard.innerHTML += createGraveyard(deadZylarian, currentUserId);
+  });
+}
+
+// Graveyard Filters //
+
+function filterAll() {
+  const currentUserId = localStorage.getItem("id");
+  const allDeadZylarians = document.querySelectorAll(`.graveCard`);
+  // const userDeadZylarians = document.querySelectorAll(`[data-owner=${currentUserId}]`)
+  allDeadZylarians.forEach((deadZylarian) => {
+    if (deadZylarian.dataset.owner !== currentUserId) {
+      deadZylarian.style.display = "block";
+    }
+  });
+}
+function filterMy() {
+  const currentUserId = localStorage.getItem("id");
+  const allDeadZylarians = document.querySelectorAll(`.graveCard`);
+  // const userDeadZylarians = document.querySelectorAll(`[data-owner=${currentUserId}]`)
+  allDeadZylarians.forEach((deadZylarian) => {
+    if (deadZylarian.dataset.owner !== currentUserId) {
+      deadZylarian.style.display = "none";
+    }
+  });
+}
 
 // Gets Users Data from the database and creates their Zylarian Population on page Load //
 async function onLoad() {
@@ -279,6 +331,14 @@ async function handleDelete() {
     closemodal.click();
   }
 }
+function convertDate(date) {
+  var date = new Date(date);
 
+  var formattedDate =
+    date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+
+  return (readableDate = formattedDate);
+}
 // Autoruns on load function when the page loads.... Imagine that //
 onLoad();
+graveyardLoad();
