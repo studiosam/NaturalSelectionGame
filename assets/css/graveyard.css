@@ -5,6 +5,7 @@
 #graveName {
   position: absolute;
   color: rgb(255, 87, 87);
+  top: 10px;
   text-align: center;
   width: 100%;
   font-weight: bold;
